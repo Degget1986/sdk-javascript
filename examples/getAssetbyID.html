@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <title>Ambrosus Asset Viewer</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="https://amb.to/assets/favicons/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="https://amb.to/assets/favicons/favicon-16x16.png">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+    <script src="./../lib/ambrosus.js"></script>  
+</head>
+<style>
+    .container-pad {
+        margin-top: 50px;
+    }
+    .wrap {
+        word-wrap: break-word;
+    }
+</style>
+    <body>
+        <div class="container container-pad">
+            <h1>
+                Ambrosus Viewer 🔭
+            </h1>
+            <div class="container-pad">
+                <div class="form-group">
+                    <label for="usr">Asset ID:</label>
+                    <input type="text" id="assetId" name="assetId" placeholder="Enter Asset Address" value="0x6904151c80b33a26925bf940b061c7d365dee013f468adc555d6c699dc0e3b79" class="form-control">                    
+                </div>
+                <br>
+                <div>
+                    <button onclick="findAsset()" type="button" >Submit</button>
+                </div>
+                <div class="container-pad bottom-pad">
+                    <h4 name="processing" id="processing"></h4><br>
+                    <div class="wrap">
+                        <pre><p name="assetResponse" id="assetResponse"></p></pre>
+                    </div>
+                    <br>
+                    <h4 name="ambTo" id="ambTo"></h4>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript">
+            var ambrosus = new AmbrosusSDK({
+                apiEndpoint: 'https://gateway-test.ambrosus.com',
+                secret: '0x690a9595073699b832f6742b8458fb25261e17ea89b82c4d378e1215b66d0f5a',
+                address: '0x9687a70513047dc6Ee966D69bD0C07FFb1102098'
+            });
+            function findAsset() {
+                var processing = document.getElementById('processing');
+                processing.innerHTML = 'Processing . . .';
+                var assetResponse = document.getElementById('assetResponse');
+
+                var assetId = document.getElementById('assetId').value;
+                ambrosus.getAssetById(assetId)
+                .then(function(response) {
+                    console.log(response);
+                    assetResponse.innerHTML = JSON.stringify(response, null, "  ");
+                    processing.innerHTML = '';
+                })
+                .catch(function(error) { assetResponse.innerHTML = JSON.stringify(error, null, "  "); });
+            }
+        </script>
+
+    </body>
+</html>
