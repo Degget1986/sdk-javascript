@@ -21,9 +21,9 @@
         <div class="container-pad">
             <div class="form-group">
                 <label for="usr">Account Adress:</label>
-                <input type="text" id="address" name="address" placeholder="Address" value="0x9687a70513047d ... 07FFb1102098" class="form-control">
+                <input type="text" id="address" name="address" placeholder="Address" value="0x9687a7051304 ... bD0C07FFb1102098" class="form-control">
                 <label for="usr">Secret Key:</label>
-                <input type="text" id="secret" name="secret" placeholder="Secret Key" value="0x690a9595073699b832f674 ... 7ea89b82c4d378e1215b66d0f5a" class="form-control">
+                <input type="text" id="secret" name="secret" placeholder="Secret Key" value="0x690a9595073699b832f ... 252612c4d378e1215b66d0f5a" class="form-control">
             </div>
             <br>
             <div>
@@ -47,7 +47,7 @@
             </div>
         </div>
     </div>
-        <script src="./../../lib/ambrosus.js"></script>
+        <script src="./../../lib/ambrosus.min.js"></script>
         <script type="text/javascript">
 
         function uploadFile() {
@@ -86,37 +86,32 @@
         function createAsset(ambrosus, assetDetails) {
 
             const data = [];
+            var assetInfo = document.getElementById('assetInfo');
+            var assetResponse = document.getElementById('assetResponse');
             ambrosus.createAsset(data)
             .then(function(response) {
                 console.log(response);
-                var assetInfo = document.getElementById('assetInfo');
-                var assetResponse = document.getElementById('assetResponse');
                 processing.innerHTML = '';
-
-                if (response.reason) {
-                    assetInfo.style.color = '#b80000';
-                    assetInfo.innerHTML = response.reason;
-                    return;
-                } else {
-                    assetInfo.style.color = '#00cc00';
-                    assetInfo.innerHTML = 'Asset ID Created ' + response.assetId + '<br><br> Creating Events ... <br>';
-                    assetResponse.innerHTML = '<div style="word-wrap: break-word;"><button data-toggle="collapse" data-target="#assetRes">View JSON Response</button><div id="assetRes" class="collapse">' + JSON.stringify(response, null, "   ") + '</div></div>';
-                    initEventCreation(ambrosus, assetDetails, response.assetId);
-                }
-            })
-            .catch(function(response){
-                console.log(response);
+                assetInfo.style.color = '#00cc00';
+                assetInfo.innerHTML = 'Asset ID Created ' + response.data.assetId + '<br><br> Creating Events ... <br>';
+                assetResponse.innerHTML = '<div style="word-wrap: break-word;"><button data-toggle="collapse" data-target="#assetRes">View JSON Response</button><div id="assetRes" class="collapse">' + JSON.stringify(response, null, "   ") + '</div></div>';
+                initEventCreation(ambrosus, assetDetails, response.data.assetId);
+            }).catch(function(error) {
+                processing.innerHTML = '';
+                assetInfo.style.color = '#b80000';
+                assetInfo.innerHTML = error.message;
             });
         }
 
         function initEventCreation(ambrosus, assetDetails, assetId) {
-            console.log('Asset ID this: ' +assetId);
+            console.log('Asset ID: ' +assetId);
             for (let i = 0; i < assetDetails.length; i++) {
                 var eventInfo = document.getElementById('eventInfo');
                 eventInfo.innerHTML = '';
                 createEvent(ambrosus, assetDetails[i], assetId);
             }
 
+            assetInfo.innerHTML = 'Asset ID Created ' + assetId + '.<br><br>';
             var ambTo = document.getElementById('ambTo');
             const ambToLink = '<br> Import Completed <br><br> <a target="_blank" href="https://amb.to/' + assetId + '"> View asset on Amb.to </a>';
             ambTo.innerHTML = ambToLink;
@@ -125,17 +120,13 @@
         function createEvent (ambrosus, assetDetails, assetId) {
             ambrosus.createEvent(assetId, assetDetails)
             .then(function(response) {
-                const eventId = response.eventId;
+                const eventId = response.data.eventId;
                 console.log(response);
-                if (response.reason) {
-                    eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Creation Failed: ' + response.reason + '</li>';
-                } else {
-                    eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Created: ' + eventId + '<div style="padding-left: 10px; word-wrap: break-word;"><button data-toggle="collapse" data-target="#eventRes' + eventId + '">View JSON Response</button><div id="eventRes' + eventId + '" class="collapse">' + JSON.stringify(response, null, "   ") + '</div></div></li>';
-                    assetInfo.innerHTML = 'Asset ID Created ' + assetId + '.<br><br>';
-                }
+                eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Created: ' + eventId + '<div style="padding-left: 10px; word-wrap: break-word;"><button data-toggle="collapse" data-target="#eventRes' + eventId + '">View JSON Response</button><div id="eventRes' + eventId + '" class="collapse">' + JSON.stringify(response.data, null, "   ") + '</div></div></li>';
             })
             .catch(function(error) {
                 console.log(error);
+                eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Creation Failed: ' + error.message + '</li>';
             });
         }
 

@@ -29,9 +29,9 @@ export default class Assets extends Response {
       request.addEventListener(
         'load',
         () => {
-          this.handleResponse(request, response => {
+          this.handleResponse(request).then(response => {
             resolve(response);
-          });
+          }).catch(error => { reject(error) });
         },
         false
       );
@@ -52,7 +52,9 @@ export default class Assets extends Response {
       request.setRequestHeader('Authorization', 'AMB ' + this._settings.secret);
 
       request.onload = () => {
-        resolve(JSON.parse(request.responseText));
+        this.handleResponse(request).then(response => {
+          resolve(response);
+        }).catch(error => { reject(error) });
       };
 
       request.send(JSON.stringify(params));

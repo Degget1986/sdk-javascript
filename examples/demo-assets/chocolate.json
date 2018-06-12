@@ -30,7 +30,7 @@
                 {
                     "type": "ambrosus.asset.identifiers",
                     "identifiers": {
-                        "Serial Number":["0009243902"],
+                        "Serial Number":"0009243902",
                         "GTIN": ["1043345532"],
                         "RFID": ["E2001AC16987B6305024DED8"],
                         "EAN13": ["3451080000324"],
@@ -47,16 +47,14 @@
                 "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
-                "timestamp": 1507118532
+                "timestamp": 1496250888
             },
             "data": [
                 {
                     "type": "ambrosus.asset.harvested",
                     "name":"Raw Cocoa Harvested",
                     "images" : {
-                        "default" : {
-                            "url":"http://www.madacamp.com/images/madagascar/thumb/Sambirano_101.jpg/600px-Sambirano_101.jpg"
-                        }
+                        "default" : "http://www.madacamp.com/images/madagascar/thumb/Sambirano_101.jpg/600px-Sambirano_101.jpg"
                     },
                     "Harvest Information":{
                         "Total volume": "45 kg",
@@ -87,106 +85,45 @@
                 "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
-                "timestamp": 1509814424
+                "timestamp": 1496250888
             },
             "data": [
                 {
                     "type": "ambrosus.asset.manufactured",
-                    "name":"Manufactured in Factory",
-                    "images" : {
-                        "default" : {
-                            "url":"https://www.knoll-mb.de/fileadmin/Home/Aktuelles/Pressemitteilungen/Bilder_EN/knoll-pressemitteilung-ritter-sport-alpenmilchkurve-b01_EN.jpg"
-                        }
+                    "name":"Chocolate Manufactured",
+                    "documents" : {
+                        "default" : "https://image.ibb.co/mUrgvH/HO.jpg"
                     },
-                    "Production Data":{
-                        "Total volume": "45 kg",
-                        "Batch size":"2250 tablets",
-                        "Production Line":"2",
-                        "ambrosus.batch.id":"0x9993...8762",
-                        "Production Date": "03.01.2019"
+                    "Harvest Information":{
+                        "Total volume": "80 grams",
+                        "Harvest Date": "03.01.2019",
+                        "Brand": "Codefa"    
+                    },
+                    "group1":{
+                        "cap type": "spray cap",
+                        "model": "Brumes de Saveurs"    
                     }
-                },
-                {
-                    "type": "ambrosus.event.location",
-                    "location": {
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [-13.6683037,48.4448781]
-                        }
-                    },
-                    "name": "Ambanja Factory",
-                    "city":"Ambanja",
-                    "country":"MG",
-                    "locationId":"809c578721b74cae1d56504594819285",
-                    "GLN":9501101530003
-                }                                                       
+                }                                                     
             ]
         }
-    },    
+    },
     {
         "content": {
             "idData": {
                 "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
-                "timestamp": 1509908024
-            },
-            "data": [
-                {
-                    "type": "ambrosus.asset.qualityControlled",
-                    "name":"Quality Control (post-production, pre-packaging)",
-                    "document" : {
-                        "chemical-report" : {
-                            "url":"https://www.isoformcovers.com/wp-content/uploads/2018/01/rapporto-prova-test-tuv-2.jpg"
-                        }
-                    },
-                    "Test Results":{
-                        "Sample Size": "10g",
-                        "pH":"6.7",
-                        "sugar-percent":"14",
-                        "test-date":"5-NOV-2017",
-                        "tester": "John Wagner",
-                        "testing-company":"CocoTest Inc."
-                    }
-                },
-                {
-                    "type": "ambrosus.event.location",
-                    "location": {
-                        "type": "Feature",
-                        "geometry": {
-                            "type": "Point",
-                            "coordinates": [-13.6683037,48.4448781]
-                        }
-                    },
-                    "name": "Ambanja Factory",
-                    "city":"Ambanja",
-                    "country":"MG",
-                    "locationId":"809c578721b74cae1d56504594819285",
-                    "GLN":9501101530003
-                }                                                       
-            ]
-        }
-    },      
-    {
-        "content": {
-            "idData": {
-                "assetId": "{{assetId}}",
-                "createdBy": "{{userAddress}}",
-                "accessLevel": 0,
-                "timestamp": 1511345560
+                "timestamp": 1496250888
             },
             "data": [
                 {
                     "type": "ambrosus.asset.shipped",
-                    "name":"Raw Cocoa Shipped",
+                    "name":"Chocolate Bars Shipped",
                     "images" : {
-                        "default" : {
-                            "url":"https://www.gtreview.com/wp-content/uploads/2015/01/Cocoa-Beans-Bag-1024x681.jpg"
-                        }
+                        "default" : "https://www.gtreview.com/wp-content/uploads/2015/01/Cocoa-Beans-Bag-1024x681.jpg"
                     },
                     "documents" : {
-                        "shipment-order" : {
+                        "default" : {
                             "url":"https://image.ibb.co/mUrgvH/HO.jpg"
                         }
                     }
@@ -215,12 +152,12 @@
                 "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
-                "timestamp": 1514054731
+                "timestamp": 1496250888
             },
             "data": [
                 {
                     "type": "ambrosus.asset.customs",
-                    "name":"Passed through Customs",
+                    "name":"Arrived at Customs",
                     "documents" : {
                         "import-document" : {
                             "url":"https://image.ibb.co/mUrgvH/HO.jpg"
@@ -228,10 +165,7 @@
                         "bill-of-lading" : {
                             "url":"https://image.ibb.co/mUrgvH/HO.jpg"
                         }
-                    },
-                    "transit-temperature-avg":"14.5",
-                    "transit-temperature-min":"11.1",
-                    "transit-temperature-max":"18.9"
+                    }
                 },
                 {
                     "type": "ambrosus.event.location",
@@ -257,19 +191,15 @@
                 "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
-                "timestamp": 1515054731
+                "timestamp": 1496250888
             },
             "data": [
                 {
                     "type": "ambrosus.asset.shipped",
                     "name":"Shipped to Retailer",
                     "documents" : {
-                        "default" : {
-                            "url":"https://image.ibb.co/mUrgvH/HO.jpg"
-                        }
-                    },
-                    "shipment-ID":"0x....03",
-                    "SSCC":"9033948938"
+                        "default" : "https://image.ibb.co/mUrgvH/HO.jpg"
+                    }
                 },
                 {
                     "type": "ambrosus.event.location",
@@ -277,15 +207,15 @@
                         "type": "Feature",
                         "geometry": {
                             "type": "Point",
-                            "coordinates": [50.909704,-1.4357131]
+                            "coordinates": [51.5249003,-0.1240547]
                         }
                     },
-                    "name": "Port of Southampton",
-                    "city":"Southampton",
-                    "country":"MG",
+                    "name": "Waitrose, Brunswick Centre",
+                    "city":"London",
+                    "country":"UK",
                     "locationId":"809c578721b74cae1d56504594819285",
                     "GLN":9501101530003
-                }                                                      
+                }                                                             
             ]
         }
     },
@@ -295,16 +225,14 @@
                 "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
-                "timestamp": 1515077792
+                "timestamp": 1496250888
             },
             "data": [
                 {
                     "type": "ambrosus.asset.arrived",
                     "name":"Arrived at Retailer",
                     "documents" : {
-                        "default" : {
-                            "url":"https://image.ibb.co/mUrgvH/HO.jpg"
-                        }
+                        "default" : "https://image.ibb.co/mUrgvH/HO.jpg"
                     }
                 },
                 {
@@ -331,16 +259,14 @@
                 "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
-                "timestamp": 1515434192
+                "timestamp": 1496250888
             },
             "data": [
                 {
                     "type": "ambrosus.asset.displayed",
                     "name":"Displayed in Shop",
                     "documents" : {
-                        "default" : {
-                            "url":"https://image.ibb.co/mUrgvH/HO.jpg"
-                        }
+                        "default" : "https://image.ibb.co/mUrgvH/HO.jpg"
                     }
                 },                
                 {
@@ -367,7 +293,7 @@
                 "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
-                "timestamp":  1515582132
+                "timestamp": 1496250888
             },
             "data": [
                 {
@@ -377,7 +303,6 @@
                         "receipt" :{
                             "url":"http://...",
                             "id": "00394009304",
-                            "label":"Receipt for this",
                             "customer-id":"900394"
                         } 
                     }

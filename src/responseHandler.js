@@ -6,18 +6,24 @@ This Source Code Form is “Incompatible With Secondary Licenses”, as defined 
 */
 
 export class Response {
-  handleResponse(request, callback) {
-    const response = {
-      status: request.status,
-      data: JSON.parse(request.response),
-      message: 'success'
-    };
+  handleResponse(request) {
+    return new Promise((resolve, reject) => {
+      const response = {
+        status: request.status,
+        data: null,
+        message: JSON.parse(request.response).reason
+      };
 
-    if (request.status !== 200) {
-      response.data = null;
-      response.message = JSON.parse(request.response).reason;
-    }
+      if (request.status === 200 || request.status === 201) {
+        response.data = JSON.parse(request.response);
+        response.message = 'success';
+        return resolve(response);
+      }
+      return reject(response);
+    });
+  }
 
-    callback(response);
+  rejectResponse(message) {
+    return { status: 400, data: null, message: message };
   }
 }

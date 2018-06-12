@@ -52,15 +52,13 @@ createAsset = (assetInfo) => {
   const data = [];
   ambrosus.createAsset(data)
   .then((response) => {
-    if (response.reason) {
-      console.log('Asset Creation Failed');
-      console.log(response.reason);
-    } else {
-      console.log('Asset ID Created: ' + response.assetId);
-      initEventCreation(assetInfo, response.assetId);
-    }
+    console.log('Asset ID Created: ' + response.data.assetId);
+    initEventCreation(assetInfo, response.data.assetId);
   })
-  .catch((error) => { console.log(error) });
+  .catch((error) => {
+    console.log('Asset Creation Failed');
+    console.log(error.message);
+  });
 };
 
 initEventCreation = (assetInfo, assetId) => {
@@ -72,14 +70,12 @@ initEventCreation = (assetInfo, assetId) => {
 createEvent = (data, assetId) => {
   ambrosus.createEvent(assetId, data)
   .then((response) => {
-    if (response.reason) {
-      console.log('Event Creation Failed');
-      console.log(response.reason);
-    } else {
-      console.log('Event Created Successfully: ' + response.eventId);
-    }
+    console.log('Event Created Successfully: ' + response.data.eventId);
   })
-  .catch((error) => { console.log(error); });
+  .catch((error) => {
+    console.log('Event Creation Failed');
+    console.log(error.message);
+  });
 };
 
 readExtension = fileName => {
