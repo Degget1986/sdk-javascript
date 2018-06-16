@@ -47,20 +47,22 @@
             </div>
         </div>
     </div>
-        <script src="./../../lib/ambrosus.min.js"></script>
-        <script type="text/javascript">
+    <script src="./../../lib/ambrosus.min.js"></script>
+    <script type="text/javascript">
 
+        var ambrosus;
         function uploadFile() {
-
-            var processing = document.getElementById('processing');
-            processing.innerHTML = 'Processing . . .';
 
             var files = document.getElementById('file').files;
             var secret = document.getElementById('secret').value;
             var address = document.getElementById('address').value;
             if (files.length <= 0) {
+                alert('Please upload a JSON file');
                 return false;
             }
+
+            var processing = document.getElementById('processing');
+            processing.innerHTML = 'Processing . . .';
 
             var fr = new FileReader();
 
@@ -73,17 +75,16 @@
 
         function init (secret, address, assetDetails) {
 
-            var ambrosus = new AmbrosusSDK({
+            ambrosus = new AmbrosusSDK({
                 apiEndpoint: 'https://gateway-test.ambrosus.com',
                 secret: secret,
                 address: address
             });
 
-            console.log(ambrosus);
-            createAsset(ambrosus, assetDetails);
+            createAsset(assetDetails);
         }
 
-        function createAsset(ambrosus, assetDetails) {
+        function createAsset(assetDetails) {
 
             const data = [];
             var assetInfo = document.getElementById('assetInfo');
@@ -95,7 +96,7 @@
                 assetInfo.style.color = '#00cc00';
                 assetInfo.innerHTML = 'Asset ID Created ' + response.data.assetId + '<br><br> Creating Events ... <br>';
                 assetResponse.innerHTML = '<div style="word-wrap: break-word;"><button data-toggle="collapse" data-target="#assetRes">View JSON Response</button><div id="assetRes" class="collapse">' + JSON.stringify(response, null, "   ") + '</div></div>';
-                initEventCreation(ambrosus, assetDetails, response.data.assetId);
+                initEventCreation(assetDetails, response.data.assetId);
             }).catch(function(error) {
                 processing.innerHTML = '';
                 assetInfo.style.color = '#b80000';
@@ -103,12 +104,12 @@
             });
         }
 
-        function initEventCreation(ambrosus, assetDetails, assetId) {
+        function initEventCreation(assetDetails, assetId) {
             console.log('Asset ID: ' +assetId);
             for (let i = 0; i < assetDetails.length; i++) {
                 var eventInfo = document.getElementById('eventInfo');
                 eventInfo.innerHTML = '';
-                createEvent(ambrosus, assetDetails[i], assetId);
+                createEvent(assetDetails[i], assetId);
             }
 
             assetInfo.innerHTML = 'Asset ID Created ' + assetId + '.<br><br>';
@@ -117,7 +118,7 @@
             ambTo.innerHTML = ambToLink;
         }
 
-        function createEvent (ambrosus, assetDetails, assetId) {
+        function createEvent (assetDetails, assetId) {
             ambrosus.createEvent(assetId, assetDetails)
             .then(function(response) {
                 const eventId = response.data.eventId;
@@ -129,7 +130,6 @@
                 eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Creation Failed: ' + error.message + '</li>';
             });
         }
-
     </script>
 
 </body>

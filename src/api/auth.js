@@ -8,6 +8,15 @@ This Source Code Form is “Incompatible With Secondary Licenses”, as defined 
 export default class Auth {
   constructor(settings) {
     this._settings = settings;
+
+    if (!this._settings || 
+      (!this._settings.secret || !this._settings.token) || this._settings.address ) {
+        console.error(
+          'Secret key and account address are required in order to generate an access token.'
+        );
+      return false;
+    }
+
   }
 
   getToken() {

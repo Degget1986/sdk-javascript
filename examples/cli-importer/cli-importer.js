@@ -3,7 +3,7 @@ global.XMLHttpRequest = require('xhr2');
 const fs = require('fs');
 const program = require('commander');
 const { prompt } = require('inquirer');
-const AmbrosusSDK = require('./../../lib/ambrosus');
+const AmbrosusSDK = require('ambrosus-javascript-sdk');
 
 program
   .version('0.0.1')
@@ -32,8 +32,8 @@ initializeSdk = jsonSettings => {
 
   global.ambrosus = new AmbrosusSDK({
     apiEndpoint: 'https://gateway-test.ambrosus.com',
-    secret: '0x690a959507369 ... 17ea89b82c4d378e1215b66d0f5a',
-    address: '0x9687a7051304 ... bD0C07FFb1102098'
+    secret: '0x690a9595073699b832f67 ... 1e17ea89b82c4d378e1215b66d0f5a',
+    address: '0x9687a705130 ... D69bD0C07FFb1102098'
   });
 
   if (readExtension(jsonSettings.fileName)) {

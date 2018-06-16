@@ -5,10 +5,10 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
 */
 
-import { Response } from '../responseHandler';
-export default class Events extends Response {
+import { handleResponse } from '../responseHandler';
+
+export default class Events {
   constructor(settings, auth) {
-    super();
     this._settings = settings;
 
     auth.getToken().then(token => {
@@ -28,9 +28,11 @@ export default class Events extends Response {
       request.addEventListener(
         'load',
         () => {
-          this.handleResponse(request).then(response => {
+          handleResponse(request).then(response => {
             resolve(response);
-          }).catch(error => { reject(error) });
+          }).catch(error => {
+            reject(error)
+          });
         },
         false
       );
@@ -60,9 +62,11 @@ export default class Events extends Response {
       request.addEventListener(
         'load',
         () => {
-          this.handleResponse(request).then(response => {
+          handleResponse(request).then(response => {
             resolve(response);
-          }).catch(error => { reject(error) });
+          }).catch(error => {
+            reject(error)
+          });
         },
         false
       );
@@ -87,9 +91,11 @@ export default class Events extends Response {
       request.setRequestHeader('Authorization', 'AMB ' + this._settings.secret);
 
       request.onload = () => {
-        this.handleResponse(request).then(response => {
+        handleResponse(request).then(response => {
           resolve(response);
-        }).catch(error => { reject(error) });
+        }).catch(error => {
+          reject(error)
+        });
       };
 
       request.send(JSON.stringify(params));
