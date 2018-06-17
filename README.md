@@ -83,12 +83,6 @@ var ambrosus = new AmbrosusSDK({
 });
 ```
 
-<<<<<<< HEAD
-| Variable | Type   | Definition                        | Example                                                            |
-| -------- | ------ | --------------------------------- | ------------------------------------------------------------------ |
-| secret   | string | Secret key you received in email. | 0x6c06dD0215d4eef9E795C0b5BwED697a26287aFB                         |
-| address  | string | Address you received in email.    | 0x6823520c03ad7b17bc1a7144fbbd2d24bfa2ce933d715ace209d658e03fdd388 |
-=======
 Each state-modifying call needs to have the secret and address values. 
 If you wish to use the SDK only to request or query the data, 
 You can initialise the SDK like - 
@@ -103,8 +97,6 @@ Variable | Type | Definition | Example
 ---------|------|------------|--------
 secret   | string | Secret key you received in email. | 0x6c06dD0215d4eef9E795C0b5BwED697a26287aFB                         
 address  | string | Address you received in email.    | 0x6823520c03ad7b17bc1a7144fbbd2d24bfa2ce933d715ace209d658e03fdd388
-
->>>>>>> origin/dev
 
 ## Response from Ambrosus SDK methods
 
