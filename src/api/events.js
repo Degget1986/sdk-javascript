@@ -1,11 +1,13 @@
 /*
 Copyright: Ambrosus Technologies GmbH
 Email: tech@ambrosus.com
-This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
 */
 
-import { handleResponse } from '../responseHandler';
+import Request from './request';
+import { serializeParams } from './../utils';
 
 export default class Events {
   constructor(settings, auth) {
@@ -14,91 +16,31 @@ export default class Events {
     auth.getToken().then(token => {
       this._settings.token = token;
     });
+
+    this._request = new Request(this._settings);
   }
 
   getEventById(eventId) {
     return new Promise((resolve, reject) => {
-      let request = new XMLHttpRequest();
-
-      request.open(
-        'GET',
-        `${this._settings.apiEndpoint}/events/${eventId}`,
-        true
-      );
-      request.addEventListener(
-        'load',
-        () => {
-          handleResponse(request).then(response => {
-            resolve(response);
-          }).catch(error => {
-            reject(error)
-          });
-        },
-        false
-      );
-      request.send();
+      this._request.getRequest(`events/${eventId}`)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
     });
   }
 
   getEvents(params) {
     return new Promise((resolve, reject) => {
-      let request = new XMLHttpRequest();
-
-      let serializeParams = '';
-
-      for (let key in params) {
-        if (serializeParams !== '') {
-          serializeParams += '&';
-        }
-        serializeParams += key + '=' + encodeURIComponent(params[key]);
-      }
-
-      request.open(
-        'GET',
-        `${this._settings.apiEndpoint}/events?${serializeParams}`,
-        true
-      );
-
-      request.addEventListener(
-        'load',
-        () => {
-          handleResponse(request).then(response => {
-            resolve(response);
-          }).catch(error => {
-            reject(error)
-          });
-        },
-        false
-      );
-
-      request.send();
+      this._request.getRequest(`events?${serializeParams(params)}`)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
     });
   }
 
   createEvent(assetId, params) {
     return new Promise((resolve, reject) => {
-      let request = new XMLHttpRequest();
-
-      request.open(
-        'POST',
-        `${this._settings.apiEndpoint}/assets/${assetId}/events`,
-        true
-      );
-      request.setRequestHeader(
-        'Content-type',
-        'application/json; charset=utf-8'
-      );
-      request.setRequestHeader('Authorization', 'AMB ' + this._settings.secret);
-
-      request.onload = () => {
-        handleResponse(request).then(response => {
-          resolve(response);
-        }).catch(error => {
-          reject(error)
-        });
-      };
-
-      request.send(JSON.stringify(params));
+      this._request.postRequest(`assets/${assetId}/events`, params)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
     });
   }
 }

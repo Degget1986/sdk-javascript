@@ -26,7 +26,7 @@
             <div class="container-pad">
                 <div class="form-group">
                     <label for="usr">Asset ID:</label>
-                    <input type="text" id="assetId" name="assetId" placeholder="Enter Asset Address" value="0x6904151c80b33a26925bf940b061c7d365dee013f468adc555d6c699dc0e3b79" class="form-control">                    
+                    <input type="text" id="assetId" name="assetId" placeholder="Enter Asset Address" value="0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d" class="form-control">                    
                 </div>
                 <br>
                 <div>
@@ -58,27 +58,38 @@
 
                 var assetId = document.getElementById('assetId').value;
                 ambrosus.getAssetById(assetId)
-                .then(function(response) {
-                    console.log(response);
-                    assetResponse.innerHTML = JSON.stringify(response, null, "  ");
-                    processing.innerHTML = '';
-                    getEvents(assetId);
-                })
-                .catch(function(error) { assetResponse.innerHTML = JSON.stringify(error, null, "  "); });
+                    .then(function(response) {
+                        console.log(response);
+                        assetResponse.innerHTML = JSON.stringify(response, null, "  ");
+                        processing.innerHTML = '';
+                        getEvents(assetId);
+                    })
+                    .catch(function(error) { assetResponse.innerHTML = JSON.stringify(error, null, "  "); });
             }
 
             function getEvents(assetId) {
                 ambrosus.getEvents({assetId: assetId})
-                .then(function(response2) {
-                    document.getElementById("event").innerHTML = 'Events for Asset ID: ' + assetId;
-                    var eventResponse = document.getElementById('eventResponse').value;
-                    console.log('Events for the asset: ');
-                    document.getElementById("eventResponse").innerHTML = JSON.stringify(response2, null, "  ");
-                    console.log(response2);
-                })
-                .catch(function(error) {
-                    console.log(error);
-                });
+                    .then(function(response2) {
+                        document.getElementById("event").innerHTML = 'Events for Asset ID: ' + assetId;
+                        var eventResponse = document.getElementById('eventResponse').value;
+                        console.log('Events for the asset: ');
+                        document.getElementById("eventResponse").innerHTML = JSON.stringify(response2, null, "  ");
+                        console.log(response2);
+                        parseEvents(response2.data);
+                    })
+                    .catch(function(error) {
+                        console.log(error);
+                    });
+            }
+
+            function parseEvents(eventsArray) {
+                console.log(eventsArray);
+                ambrosus.parseEvents(eventsArray)
+                    .then(function(parsedEvents) {
+                        console.log(parsedEvents);
+                    }).catch(function(error) {
+                        console.log(error);
+                    });
             }
 
         </script>

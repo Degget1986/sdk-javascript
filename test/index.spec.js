@@ -1,11 +1,12 @@
 /* global describe, it, before */
 
 /* Imports */
+global.XMLHttpRequest = require('xhr2');
 import chai from 'chai';
-import {
-  config
-} from '../lib/ambrosus';
-import request from 'request';
+import AmbrosusSDK from '../src/index';
+import { handleResponse, rejectResponse, successResponse } from '../src/responseHandler';
+import { checkTimeStamp, parseEvents } from '../src/utils';
+import eventsArray from './eventsArray';
 
 /* Declarations */
 const expect = chai.expect;
@@ -16,13 +17,13 @@ let lib;
 
 describe('Given an instance of my api library', () => {
   before(() => {
-    lib = new config({
+    lib = new AmbrosusSDK({
       apiEndpoint: apiEndpoint
     });
   });
   describe('see if library is initialised', () => {
-    it('should return the name', () => {
-      expect(lib.name).to.be.equal('api');
+    it('should return the apiEndpoint', () => {
+      expect(lib._settings.apiEndpoint).to.be.equal(apiEndpoint);
     });
   });
 });
@@ -31,23 +32,101 @@ describe('Assets', () => {
   /*
    * Test the /GET Asset endpoints
    */
+
   describe('/GET asset by ID', () => {
     it('it should GET specified asset the by correct id', (done) => {
-      request.get(`${apiEndpoint}/assets/${assetId}`, (err, res) => {
-        expect(res.statusCode).to.equal(200);
+      lib.getAssetById(assetId).then((response) => {
+        expect(response.status).to.equal(200);
+        done();
+      }).catch((error) => {
+        done(error);
+      })
+    }).timeout(15000);
+  });
+
+  describe('/GET asset by ID', () => {
+    it('it should throw Asset ID is missing error', (done) => {
+      lib.getAssetById().then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
+        done();
+      })
+    }).timeout(15000);
+  });
+
+  describe('/GET asset not found (404) error', () => {
+    it('it should give a 404 error', (done) => {
+      lib.getAssetById({assetId: null}).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(404);
+        done();
+      })
+    }).timeout(15000);
+  });
+
+  describe('/GET assets by params', () => {
+    it('it should get assets array', (done) => {
+      const params = {
+        createdBy: '0x9687a70513047dc6Ee966D69bD0C07FFb1102098',
+        perPage: 1
+      };
+      lib.getAssets(params).then((response) => {
+        expect(response.status).to.equal(200);
+        done();
+      }).catch((error) => {
+        done(error);
+      });
+    }).timeout(15000);
+  });
+
+  describe('/GET assets by empty params', () => {
+    it('it should get assets array', (done) => {
+      lib.getAssets().then((response) => {
+        expect(response.status).to.equal(200);
+        done();
+      }).catch((error) => {
+        done(error);
+      });
+    }).timeout(15000);
+  });
+
+  describe('/GET assets by params', () => {
+    it('it should catch error', (done) => {
+      const params = {
+        createdBy: '0x9687a70513047 ... D69bD0C07FFb110209',
+        perPage: 1
+      };
+      lib.getAssets(params).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
         done();
       });
     }).timeout(15000);
   });
 
-
-  describe('/GET asset not found (404) error', () => {
-    it('it should give a 404 error', (done) => {
-      request.get(`${apiEndpoint}/assets/null`, (err, res) => {
-        expect(res.statusCode).to.equal(404);
+  describe('/CREATE asset', () => {
+    it('it should throw Asset ID is missing error', (done) => {
+      lib.createAsset({data: null}).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
         done();
       });
-    }).timeout(15000);;
+    }).timeout(15000);
+  });
+
+  describe('/CREATE asset', () => {
+    it('it should throw Invalid private key format error', (done) => {
+      lib.createAsset(eventsArray).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
+        done();
+      });
+    }).timeout(15000);
   });
 
 });
@@ -58,18 +137,32 @@ describe('Events', () => {
    */
   describe('/GET event by ID', () => {
     it('it should GET specified event the by correct id', (done) => {
-      request.get(`${apiEndpoint}/events/${eventId}`, (err, res) => {
-        expect(res.statusCode).to.equal(200);
+      lib.getEventById(eventId).then((response) => {
+        expect(response.status).to.equal(200);
         done();
+      }).catch((error) => {
+        done(error);
       });
     }).timeout(15000);;
   });
 
+  describe('/GET event by ID', () => {
+    it('it should throw Event ID is missing error', (done) => {
+      lib.getEventById().then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
+        done();
+      })
+    }).timeout(15000);
+  });
 
   describe('/GET event not found (404) error', () => {
     it('it should give a 404 error', (done) => {
-      request.get(`${apiEndpoint}/events/null`, (err, res) => {
-        expect(res.statusCode).to.equal(404);
+      lib.getEventById({eventId: null}).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(404);
         done();
       });
     }).timeout(15000);;
@@ -77,11 +170,184 @@ describe('Events', () => {
 
   describe('/GET events', () => {
     it('it should GET events', (done) => {
-      request.get(`${apiEndpoint}/events/`, (err, res) => {
-        expect(res.statusCode).to.equal(200);
+      const params = {
+        createdBy: "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+        perPage: 1
+      }
+      lib.getEvents(params).then((response) => {
+        expect(response.status).to.equal(200);
+        done();
+      }).catch((error) => {
+        done(error);
+      })
+    }).timeout(15000);
+  });
+
+  describe('/GET events by params', () => {
+    it('it should catch error', (done) => {
+      const params = {
+        createdBy: '0x9687a70513047 ... D69bD0C07FFb110209',
+        perPage: 1
+      };
+      lib.getEvents(params).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
         done();
       });
-    }).timeout(15000);;
+    }).timeout(15000);
   });
+
+  describe('/CREATE events for assetId', () => {
+    it('it should throw Asset ID is missing error', (done) => {
+      lib.createEvent().then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
+        done();
+      });
+    }).timeout(15000);
+  });
+
+  describe('/CREATE event for assetId', () => {
+    it('it should throw Event ID is missing error', (done) => {
+      lib.createEvent(assetId).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
+        done();
+      });
+    }).timeout(15000);
+  });
+
+  describe('/CREATE event for assetId', () => {
+    it('it should throw Invalid data: No content found at content.data error', (done) => {
+      lib.createEvent(assetId, {content: null}).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
+        done();
+      });
+    }).timeout(15000);
+  });
+
+  describe('/CREATE event for assetId', () => {
+    it('it should do throw Invalid private key format error', (done) => {
+      lib.createEvent(assetId, eventsArray.results[0]).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
+        done();
+      });
+    }).timeout(15000);
+  });
+
+
+});
+
+describe('Response Handler', () => {
+
+  describe('rejectResponse should handle reject response', () => {
+    it('it should return status === 400', (done) => {
+      rejectResponse('Failure').status === 400;
+      done();
+    })
+  });
+
+  describe('successResponse should handle success response', () => {
+    it('it should return status === 200', (done) => {
+      successResponse({data: null}).status === 200;
+      done();
+    })
+  });
+
+  describe('responseHandler should handle failure response', () => {
+    it('it should return status === 400', (done) => {
+      const request = {
+        status: 404,
+        response: JSON.stringify({
+          reason: "sample reason"
+        })
+      }
+      handleResponse(request).then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(404);
+        done();
+      });
+    })
+  });
+
+  describe('responseHandler should handle success response', () => {
+    it('it should return status === 200', (done) => {
+      const request = {
+        status: 200,
+        response: JSON.stringify({
+          data: null
+        })
+      }
+      handleResponse(request).then((response) => {
+        expect(response.status).to.equal(200);
+        done();
+      }).catch((error) => {
+        done(error);
+      });
+    })
+  });
+
+});
+
+
+describe('Utils.js', () => {
+
+  describe('should check the timestamp', () => {
+    it('it should return current timestamp', (done) => {
+      expect(checkTimeStamp({data: null})).to.be.a('number');
+      done();
+    })
+  });
+
+  describe('should check the provided timestamp', () => {
+    it('it should return the provided timestamp', (done) => {
+      const data = {
+        content: {
+          idData: {
+            timestamp: 1496250888
+          }
+        }
+      };
+      expect(checkTimeStamp(data)).to.equal(1496250888);
+      done();
+    })
+  })
+
+  describe('should parse events', () => {
+    it('it should return the parsed events obj', (done) => {
+      expect(parseEvents(eventsArray)).to.be.a('object');
+      done();
+    })
+  })
+
+  describe('should parse events', () => {
+    it('it should return the parsed events obj', (done) => {
+      lib.parseEvents(eventsArray).then((response) => {
+        expect(response.data).to.be.a('object');
+        done();
+      }).catch((error) => {
+        done(error);
+      })
+    })
+  })
+
+  describe('should parse events', () => {
+    it('it should throw Results array is missing error', (done) => {
+      lib.parseEvents().then((response) => {
+        done(response);
+      }).catch((error) => {
+        expect(error.status).to.equal(400);
+        done();
+      })
+    })
+  })
 
 });

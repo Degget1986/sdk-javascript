@@ -1,0 +1,407 @@
+{
+  "results": [{
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0xe62cabd8b812dcbecb723eb9dd17831eb14fc5e4b488416d2756c3ad02e2ee60"
+        },
+        "data": [{
+            "type": "ambrosus.asset.customs",
+            "name": "Arrived at Customs",
+            "documents": {
+              "import-document": {
+                "url": "https://image.ibb.co/mUrgvH/HO.jpg"
+              },
+              "bill-of-lading": {
+                "url": "https://image.ibb.co/mUrgvH/HO.jpg"
+              }
+            }
+          },
+          {
+            "type": "ambrosus.event.location",
+            "location": {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  50.909704, -1.4357131
+                ]
+              }
+            },
+            "name": "Port of Southampton",
+            "city": "Southampton",
+            "country": "MG",
+            "locationId": "809c578721b74cae1d56504594819285",
+            "GLN": 9501101530003
+          }
+        ],
+        "signature": "0x9a2ed3da8abcb6b4129821a3a339c9720a97351aba925c95470b9b1163eeb22d009e6236083e1b485710dfac108d384ebc87c9bc25f1cb1871ab6a5ae29bf88b1b"
+      },
+      "eventId": "0xe221db6923e9c56440d8c374f8b11077431b4ae9a8c40fa4da5472857e2a4253",
+      "metadata": {
+        "bundleId": "0xe977d3dffbb6bcd024c44889b711a9272b8a1fb1a80d785b46a4868123099df3",
+        "entityUploadTimestamp": 1528444594
+      }
+    },
+    {
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0x48ab52cc69af04c1b6634318212b0435f74883c1e5d188d8b88aec8587df1380"
+        },
+        "data": [{
+            "type": "ambrosus.asset.sold",
+            "name": "Sold in Shop",
+            "documents": {
+              "receipt": {
+                "url": "http://...",
+                "id": "00394009304",
+                "customer-id": "900394"
+              }
+            }
+          },
+          {
+            "type": "ambrosus.event.location",
+            "location": {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  51.5249003, -0.1240547
+                ]
+              }
+            },
+            "name": "Waitrose, Brunswick Centre",
+            "city": "London",
+            "country": "UK",
+            "locationId": "809c578721b74cae1d56504594819285",
+            "GLN": 9501101530003
+          }
+        ],
+        "signature": "0x4f37a9cef8af681285f606f92d364a3f45fb5bab33f901afe99d01c3fa2c30bf08514e94d384fd71dda25e8011a9865ec901b2537c3e140288354289cdf10f1b1b"
+      },
+      "eventId": "0x43171ecac121015a016a73c731dd3c2b282fbd6f38ae6ceed51ddf49e4c26f74",
+      "metadata": {
+        "bundleId": "0xe977d3dffbb6bcd024c44889b711a9272b8a1fb1a80d785b46a4868123099df3",
+        "entityUploadTimestamp": 1528444594
+      }
+    },
+    {
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0x652801a47cdc370fb27ab67c5a2761aa1d2a02c2ac01d7074e2e7188afd17f45"
+        },
+        "data": [{
+          "type": "ambrosus.asset.manufactured",
+          "name": "Raw Cocoa Harvested",
+          "documents": {
+            "default": "https://image.ibb.co/mUrgvH/HO.jpg"
+          },
+          "Harvest Information": {
+            "Total volume": "80 grams",
+            "Harvest Date": "03.01.2019",
+            "Brand": "Codefa"
+          },
+          "group1": {
+            "cap type": "spray cap",
+            "model": "Brumes de Saveurs"
+          }
+        }],
+        "signature": "0xe5160a2e02490bb2bf6c9e149a5e60ec94f21e17caad22932dbde2b65a78f07c338fdde1858b31781a081f69ac3c03b18d9cb293416b9b45456bc17a541e79571b"
+      },
+      "eventId": "0xca6695abfbf8c2cd502e613d8c585d397ca3b3908fa5cba6c3a36bc368040625",
+      "metadata": {
+        "bundleId": "0x3af7245acec665be5c9ee102ebfab2064c5ad1ff1f4328860cfee3b918892a15",
+        "entityUploadTimestamp": 1528444594
+      }
+    },
+    {
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0x248a48b6a01f5d84692469cf35dfa41d4767eadcdb8dde09d4ef24d8ea8ef91d"
+        },
+        "data": [{
+            "type": "ambrosus.asset.displayed",
+            "name": "Displayed in Shop",
+            "documents": {
+              "default": "https://image.ibb.co/mUrgvH/HO.jpg"
+            }
+          },
+          {
+            "type": "ambrosus.event.location",
+            "location": {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  51.5249003, -0.1240547
+                ]
+              }
+            },
+            "name": "Waitrose, Brunswick Centre",
+            "city": "London",
+            "country": "UK",
+            "locationId": "809c578721b74cae1d56504594819285",
+            "GLN": 9501101530003
+          }
+        ],
+        "signature": "0xc5b4561162f2f9009044ea580ac84ec606de1c27b8118a7f89822b09258031fb2b5153a2a1f6fde00480f2457a365c346d10719749305cd3ca34e545f6f215861c"
+      },
+      "eventId": "0xd7e5764f67b8ca4784430debcb65d010dda3ae76169a4c2aa426c2c0e2884086",
+      "metadata": {
+        "bundleId": "0x3af7245acec665be5c9ee102ebfab2064c5ad1ff1f4328860cfee3b918892a15",
+        "entityUploadTimestamp": 1528444594
+      }
+    },
+    {
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0x0f0054282888fca32e63b456be52b4fae167d894289ac4901a92ea507e828eea"
+        },
+        "data": [{
+            "type": "ambrosus.asset.shipped",
+            "name": "Shipped to Retailer",
+            "documents": {
+              "default": "https://image.ibb.co/mUrgvH/HO.jpg"
+            }
+          },
+          {
+            "type": "ambrosus.event.location",
+            "location": {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  51.5249003, -0.1240547
+                ]
+              }
+            },
+            "name": "Waitrose, Brunswick Centre",
+            "city": "London",
+            "country": "UK",
+            "locationId": "809c578721b74cae1d56504594819285",
+            "GLN": 9501101530003
+          }
+        ],
+        "signature": "0x985e4f2778c7e58072443e878058a40d82cca5694c60188fbbec1b4764f2e07c7ee15b477105649577fb3ade37fa5b8876235e5d3afbab17211efeb8ba99ba061c"
+      },
+      "eventId": "0x4c9a2853e37afb082a030b7c972e21041c6d9f1b517fcc14fd015d2177339352",
+      "metadata": {
+        "bundleId": "0x3af7245acec665be5c9ee102ebfab2064c5ad1ff1f4328860cfee3b918892a15",
+        "entityUploadTimestamp": 1528444594
+      }
+    },
+    {
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0xdf8bd50aee281f6eb60cda7dab7208bfc1d878355e1c18a46f379065c66a361c"
+        },
+        "data": [{
+            "type": "ambrosus.asset.shipped",
+            "name": "Raw Cocoa Shipped",
+            "images": {
+              "default": "https://www.gtreview.com/wp-content/uploads/2015/01/Cocoa-Beans-Bag-1024x681.jpg"
+            },
+            "documents": {
+              "default": {
+                "url": "https://image.ibb.co/mUrgvH/HO.jpg"
+              }
+            }
+          },
+          {
+            "type": "ambrosus.event.location",
+            "location": {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [-13.4050616,
+                  48.2748573
+                ]
+              }
+            },
+            "name": "Port of Andoany",
+            "city": "Andoany",
+            "country": "MG",
+            "locationId": "809c578721b74cae1d56504594819285",
+            "GLN": 9501101530003
+          }
+        ],
+        "signature": "0xb84114823437a2f01fe5221aa87142f21af0f8eac8afd31dd0eb113707fc9dff2c1a3a7300374ec12aa9c99bb51d7982e1632894e72fa23efd1eb810d09953961b"
+      },
+      "eventId": "0x586650adb5b1098f8678d530722d35339cf98be091b98aa214f57d3ed1c6cbd0",
+      "metadata": {
+        "bundleId": "0x3af7245acec665be5c9ee102ebfab2064c5ad1ff1f4328860cfee3b918892a15",
+        "entityUploadTimestamp": 1528444594
+      }
+    },
+    {
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0x6615c66e3d5a249b5450838a8c0849cd66e8619c7be8dd17e21f46069899c19e"
+        },
+        "data": [{
+            "type": "ambrosus.asset.arrived",
+            "name": "Arrived at Retailer",
+            "documents": {
+              "default": "https://image.ibb.co/mUrgvH/HO.jpg"
+            }
+          },
+          {
+            "type": "ambrosus.event.location",
+            "location": {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [
+                  51.5249003, -0.1240547
+                ]
+              }
+            },
+            "name": "Waitrose, Brunswick Centre",
+            "city": "London",
+            "country": "UK",
+            "locationId": "809c578721b74cae1d56504594819285",
+            "GLN": 9501101530003
+          }
+        ],
+        "signature": "0x0ce439f92fddc3657c6669950829eca2649f9bdec6265d6768a91207fee82d7d115a58d9d37f3c957c55cc3b0271e36a7e6fe7e8ca8b65e9a6c65c3c1a9120c01b"
+      },
+      "eventId": "0x915eabe411c96b2605450feac8783d15822cb96dc9c6623ca3d21ba234122cdc",
+      "metadata": {
+        "bundleId": "0x3af7245acec665be5c9ee102ebfab2064c5ad1ff1f4328860cfee3b918892a15",
+        "entityUploadTimestamp": 1528444594
+      }
+    },
+    {
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0x4aee42374f417605fabc255f5538701be579d9b8ecdcab697a45688fb5638b33"
+        },
+        "data": [{
+            "type": "ambrosus.asset.harvested",
+            "name": "Raw Cocoa Harvested",
+            "images": {
+              "default": "http://www.madacamp.com/images/madagascar/thumb/Sambirano_101.jpg/600px-Sambirano_101.jpg"
+            },
+            "Harvest Information": {
+              "Total volume": "45 kg",
+              "Harvest Date": "03.01.2019"
+            }
+          },
+          {
+            "type": "ambrosus.event.location",
+            "location": {
+              "type": "Feature",
+              "geometry": {
+                "type": "Point",
+                "coordinates": [-13.7111508,
+                  48.4937583
+                ]
+              }
+            },
+            "name": "Sambriano Valley",
+            "city": "Ambanja",
+            "country": "MG",
+            "locationId": "809c578721b74cae1d56504594819285",
+            "GLN": 9501101530003
+          }
+        ],
+        "signature": "0x2b58b63f14d6fdc5f8068c7031899aa5e2928b04b19038adaf825499cd289b1b182f5be66bedefcf75b5ec57f5fc2991b12cfe5bc7ec76cc6bed47ae73e32ec81b"
+      },
+      "eventId": "0x05473ade44f30f7375f876e2f6484fba99f6ebe8712a9f50b8af3dc289d0d6c5",
+      "metadata": {
+        "bundleId": "0x3af7245acec665be5c9ee102ebfab2064c5ad1ff1f4328860cfee3b918892a15",
+        "entityUploadTimestamp": 1528444594
+      }
+    },
+    {
+      "content": {
+        "idData": {
+          "assetId": "0x46debb0de0e1ce401da205aa1522df7911488651089e9c5e360802decf1d987d",
+          "timestamp": 1496250888,
+          "accessLevel": 0,
+          "createdBy": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+          "dataHash": "0x80d433efdb300007d2e2ec6d578105712f1db731216aa214df6b8640688ee9d3"
+        },
+        "data": [{
+            "type": "ambrosus.asset.info",
+            "name": "PURE DARK CHOCOLATE BAR 90%",
+            "assetType": "ambrosus.assetTypes.batch",
+            "images": {
+              "default": {
+                "url": "https://madecasse.com/wp-content/uploads/2016/10/92-dark-chocolate-hero-2.jpg"
+              }
+            },
+            "size": "2.64 oz.",
+            "Product Information": {
+              "attributes": "No-GMOs, Vegan, Gluten Free, Kosher, Soy Free",
+              "ingredients": "Organic cocoa beans, organic sugar, organic cocoa butter",
+              "Brand": "Madecasse"
+            },
+            "Batch Information": {
+              "Origin": "Madagascar"
+            }
+          },
+          {
+            "type": "ambrosus.asset.identifiers",
+            "identifiers": {
+              "Serial Number": "0009243902",
+              "GTIN": [
+                "1043345532"
+              ],
+              "RFID": [
+                "E2001AC16987B6305024DED8"
+              ],
+              "EAN13": [
+                "3451080000324"
+              ],
+              "batchId": [
+                "0x...."
+              ],
+              "Lot": [
+                "6126L70313EJ184"
+              ]
+            }
+          }
+        ],
+        "signature": "0xfd81529bfb0cd58eea3436abf5e382474a513d0c9733eed03f069401602157453e1f76f5ad91af12efbe08e0cb875465090fb5bb9fd608db153ac6d2162f10b11c"
+      },
+      "eventId": "0x42d2de2c418d3304af982bcdafa4e11fa6d609d3391d4a4fd644c6f049011bed",
+      "metadata": {
+        "bundleId": "0x3af7245acec665be5c9ee102ebfab2064c5ad1ff1f4328860cfee3b918892a15",
+        "entityUploadTimestamp": 1528444594
+      }
+    }
+  ],
+  "resultCount": 9
+}

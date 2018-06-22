@@ -90,18 +90,18 @@
             var assetInfo = document.getElementById('assetInfo');
             var assetResponse = document.getElementById('assetResponse');
             ambrosus.createAsset(data)
-            .then(function(response) {
-                console.log(response);
-                processing.innerHTML = '';
-                assetInfo.style.color = '#00cc00';
-                assetInfo.innerHTML = 'Asset ID Created ' + response.data.assetId + '<br><br> Creating Events ... <br>';
-                assetResponse.innerHTML = '<div style="word-wrap: break-word;"><button data-toggle="collapse" data-target="#assetRes">View JSON Response</button><div id="assetRes" class="collapse">' + JSON.stringify(response, null, "   ") + '</div></div>';
-                initEventCreation(assetDetails, response.data.assetId);
-            }).catch(function(error) {
-                processing.innerHTML = '';
-                assetInfo.style.color = '#b80000';
-                assetInfo.innerHTML = error.message;
-            });
+                .then(function(response) {
+                    console.log(response);
+                    processing.innerHTML = '';
+                    assetInfo.style.color = '#00cc00';
+                    assetInfo.innerHTML = 'Asset ID Created ' + response.data.assetId + '<br><br> Creating Events ... <br>';
+                    assetResponse.innerHTML = '<div style="word-wrap: break-word;"><button data-toggle="collapse" data-target="#assetRes">View JSON Response</button><div id="assetRes" class="collapse">' + JSON.stringify(response, null, "   ") + '</div></div>';
+                    initEventCreation(assetDetails, response.data.assetId);
+                }).catch(function(error) {
+                    processing.innerHTML = '';
+                    assetInfo.style.color = '#b80000';
+                    assetInfo.innerHTML = error.message;
+                });
         }
 
         function initEventCreation(assetDetails, assetId) {
@@ -120,15 +120,15 @@
 
         function createEvent (assetDetails, assetId) {
             ambrosus.createEvent(assetId, assetDetails)
-            .then(function(response) {
-                const eventId = response.data.eventId;
-                console.log(response);
-                eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Created: ' + eventId + '<div style="padding-left: 10px; word-wrap: break-word;"><button data-toggle="collapse" data-target="#eventRes' + eventId + '">View JSON Response</button><div id="eventRes' + eventId + '" class="collapse">' + JSON.stringify(response.data, null, "   ") + '</div></div></li>';
-            })
-            .catch(function(error) {
-                console.log(error);
-                eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Creation Failed: ' + error.message + '</li>';
-            });
+                .then(function(response) {
+                    const eventId = response.data.eventId;
+                    console.log(response);
+                    eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Created: ' + eventId + '<div style="padding-left: 10px; word-wrap: break-word;"><button data-toggle="collapse" data-target="#eventRes' + eventId + '">View JSON Response</button><div id="eventRes' + eventId + '" class="collapse">' + JSON.stringify(response.data, null, "   ") + '</div></div></li>';
+                })
+                .catch(function(error) {
+                    console.log(error);
+                    eventInfo.innerHTML = eventInfo.innerHTML + '<li class="list-group-item"> Event Creation Failed: ' + error.message + '</li>';
+                });
         }
     </script>
 

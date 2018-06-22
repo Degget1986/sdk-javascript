@@ -101,12 +101,12 @@
                 var assetResponse = document.getElementById('assetResponse');
 
                 ambrosus.getEvents(finalOptions)
-                .then(function(response) {
-                    console.log(response);
-                    assetResponse.innerHTML = JSON.stringify(response, null, "  ");
-                    processing.innerHTML = '';
-                })
-                .catch(function(error) { assetResponse.innerHTML = JSON.stringify(error, null, "  "); });
+                    .then(function(response) {
+                        console.log(response);
+                        assetResponse.innerHTML = JSON.stringify(response, null, "  ");
+                        processing.innerHTML = '';
+                    })
+                    .catch(function(error) { assetResponse.innerHTML = JSON.stringify(error, null, "  "); });
             }
 
         </script>

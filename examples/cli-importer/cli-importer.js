@@ -51,14 +51,14 @@ initializeSdk = jsonSettings => {
 createAsset = (assetInfo) => {
   const data = [];
   ambrosus.createAsset(data)
-  .then((response) => {
-    console.log('Asset ID Created: ' + response.data.assetId);
-    initEventCreation(assetInfo, response.data.assetId);
-  })
-  .catch((error) => {
-    console.log('Asset Creation Failed');
-    console.log(error.message);
-  });
+    .then((response) => {
+      console.log('Asset ID Created: ' + response.data.assetId);
+      initEventCreation(assetInfo, response.data.assetId);
+    })
+    .catch((error) => {
+      console.log('Asset Creation Failed');
+      console.log(error.message);
+    });
 };
 
 initEventCreation = (assetInfo, assetId) => {
@@ -69,13 +69,13 @@ initEventCreation = (assetInfo, assetId) => {
 
 createEvent = (data, assetId) => {
   ambrosus.createEvent(assetId, data)
-  .then((response) => {
-    console.log('Event Created Successfully: ' + response.data.eventId);
-  })
-  .catch((error) => {
-    console.log('Event Creation Failed');
-    console.log(error.message);
-  });
+    .then((response) => {
+      console.log('Event Created Successfully: ' + response.data.eventId);
+    })
+    .catch((error) => {
+      console.log('Event Creation Failed');
+      console.log(error.message);
+    });
 };
 
 readExtension = fileName => {

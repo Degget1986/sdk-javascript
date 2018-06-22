@@ -1,3 +1,4 @@
+import eslint from 'rollup-plugin-eslint';
 export default {
   input: 'src/index.js',
   output: [
@@ -14,5 +15,8 @@ export default {
   watch: {
     chokidar: true,
     exclude: ['node_modules/**']
-  }
+  },
+  plugins: [
+    eslint()
+  ]
 };

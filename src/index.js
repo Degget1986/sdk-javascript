@@ -1,21 +1,24 @@
 /*
 Copyright: Ambrosus Technologies GmbH
 Email: tech@ambrosus.com
-This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0. If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
+This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
+If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
 */
 
 import Assets from './api/assets';
 import Events from './api/events';
 import Auth from './api/auth';
-import { checkTimeStamp } from './utils';
-import { rejectResponse } from './responseHandler';
+import { checkTimeStamp, parseEvents } from './utils';
+import { rejectResponse, successResponse } from './responseHandler';
 
 export default class AmbrosusSDK {
   constructor(extendSettings) {
     this._settings = {
       apiEndpoint: 'https://gateway-test.ambrosus.com'
     };
+    this.events = {};
+    this.empty = [];
 
     for (const key in extendSettings) {
       if (extendSettings.hasOwnProperty(key)) {
@@ -33,14 +36,9 @@ export default class AmbrosusSDK {
       if (!assetId) {
         return reject(rejectResponse('Asset ID is missing.'));
       }
-      return this._assets
-        .getAssetById(assetId)
-        .then(asset => {
-          resolve(asset);
-        })
-        .catch(error => {
-          reject(error);
-        });
+      return this._assets.getAssetById(assetId)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
     });
   }
 
@@ -50,48 +48,30 @@ export default class AmbrosusSDK {
         return reject(rejectResponse('Event ID is missing.'));
       }
 
-      return this._events
-        .getEventById(eventId)
-        .then(event => {
-          resolve(event);
-        })
-        .catch(error => {
-          reject(error);
-        });
+      return this._events.getEventById(eventId)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
     });
   }
 
   getAssets(params = {}) {
     return new Promise((resolve, reject) => {
-      return this._assets
-        .getAssets(params)
-        .then(asset => {
-          resolve(asset);
-        })
-        .catch(error => {
-          reject(error);
-        });
+      return this._assets.getAssets(params)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
     });
   }
 
   getEvents(params) {
     return new Promise((resolve, reject) => {
-      return this._events
-        .getEvents(params)
-        .then(event => {
-          resolve(event);
-        })
-        .catch(error => {
-          reject(error);
-        });
+      return this._events.getEvents(params)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
     });
   }
 
   createAsset(asset = {}) {
     return new Promise((resolve, reject) => {
-      if (!asset) {
-        return reject(rejectResponse('Asset data is missing.'));
-      }
 
       let params = {
         content: {
@@ -107,8 +87,7 @@ export default class AmbrosusSDK {
         params['data'] = asset.data;
       }
 
-      return this._assets
-        .createAsset(params)
+      return this._assets.createAsset(params)
         .then(assetRes => {
           if (asset.length >= 1) {
             let finalEventResponse = [];
@@ -120,13 +99,15 @@ export default class AmbrosusSDK {
                 });
               });
             }
+            this.emit('asset:created');
             resolve(assetRes);
+          } else {
+            this.emit('asset:created');
+            resolve(assetRes);
+            return;
           }
-          resolve(assetRes);
         })
-        .catch(error => {
-          reject(error);
-        });
+        .catch(error => reject(error));
     });
   }
 
@@ -157,14 +138,50 @@ export default class AmbrosusSDK {
         return reject(rejectResponse('Invalid data: No content found at content.data.'));
       }
 
-      return this._events
-        .createEvent(assetId, params)
-        .then(event => {
-          resolve(event);
-        })
-        .catch(error => {
-          reject(error);
-        });
+      return this._events.createEvent(assetId, params)
+        .then((response) => { this.emit('event:created'); resolve(response); })
+        .catch(error => reject(error));
     });
   }
+
+  parseEvents(eventsArray) {
+    return new Promise((resolve, reject) => {
+
+      if (eventsArray && eventsArray.results) {
+        return resolve(successResponse(parseEvents(eventsArray)));
+      }
+
+      return reject(rejectResponse('Results array is missing.'));
+
+    });
+  }
+
+  on(type, func, ctx) {
+    (this.events[type] = this.events[type] || []).push([func, ctx]);
+    return this;
+  }
+
+  off(type, func) {
+    type || (this.events = {});
+    let list = this.events[type] || this.empty;
+    let i = (list.length = func ? list.length : 0);
+
+    while (i--) {
+      func === list[i][0] && list.splice(i, 1);
+    }
+    return this;
+  }
+
+  emit(type) {
+    let e = this.events[type] || this.empty;
+    let list = e.length > 0 ? e.slice(0, e.length) : e;
+    let i = 0;
+    let j;
+
+    while ((j = list[i++])) {
+      j[0].apply(j[1], this.empty.slice.call(arguments, 1));
+    }
+    return this;
+  }
+
 }
