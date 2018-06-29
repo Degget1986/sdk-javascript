@@ -6,9 +6,12 @@ If a copy of the MPL was not distributed with this file, You can obtain one at h
 This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
 */
 
+import Request from './request';
+
 export default class Auth {
   constructor(settings) {
     this._settings = settings;
+    this._request = new Request(this._settings);
 
     if (!this._settings || !this._settings.secret || !this._settings.address) {
       console.error('Secret key and account address are required in order to generate an access token.');
@@ -21,20 +24,12 @@ export default class Auth {
       if (this._settings.token) {
         resolve(this._settings.token);
       } else {
-        let request = new XMLHttpRequest();
-
-        const params = {
-          validUntil: 1600000000
-        };
-
-        request.open('POST', `${this._settings.apiEndpoint}/token`, true, this._settings);
-
-        request.onload = () => {
-          this._settings.token = JSON.parse(request.responseText);
-          resolve(this._settings.token);
-        };
-
-        request.send(JSON.stringify(params));
+        this._request.postRequest('token', { validUntil: 1600000000 })
+          .then((response) => {
+            this._settings.token = response.data.token;
+            resolve(this._settings.token);
+          })
+          .catch(error => reject(error));
       }
     });
   }

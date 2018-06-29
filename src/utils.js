@@ -9,15 +9,12 @@ This Source Code Form is “Incompatible With Secondary Licenses”, as defined 
 export const checkTimeStamp = event => {
   let timestamp = Math.floor(Date.now() / 1000);
 
-  return event.content && event.content.idData && event.content.idData.timestamp ?
-    event.content.idData.timestamp : timestamp;
+  return event.content && event.content.idData && event.content.idData.timestamp ? event.content.idData.timestamp : timestamp;
 };
 
 export const parseEvents = eventsArray => {
-
   return eventsArray.results.reduce(
-    (asset, { content, eventId}) => {
-
+    (asset, { content, eventId }) => {
       const timestamp = content.idData.timestamp;
       const author = content.idData.createdBy;
 
@@ -42,18 +39,20 @@ export const parseEvents = eventsArray => {
             }
           })
           .map(event => {
-            const target = ['info', 'redirection', 'identifiers', 'branding'].indexOf(event.type) > -1 ?
-              asset : asset.events;
-
-            if (!target[event.type] || target[event.type].timestamp < event.timestamp) {
-              target[event.type] = event;
+            if (['info', 'redirection', 'identifiers', 'branding'].indexOf(event.type) > -1) {
+              if (!asset[event.type] || asset[event.type].timestamp < event.timestamp) {
+                asset[event.type] = event;
+              }
+            } else {
+              asset.events.push(event);
             }
           });
       }
 
       return asset;
-    }, {
-      events: {}
+    },
+    {
+      events: []
     }
   );
 };

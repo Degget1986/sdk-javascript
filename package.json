@@ -1,6 +1,6 @@
 {
   "name": "ambrosus-javascript-sdk",
-  "version": "0.5.0",
+  "version": "0.4.3",
   "description": "Client SDK to simplify connecting to the Ambrosus API",
   "main": "./lib/ambrosus.cjs.js",
   "module": "lib/ambrosus.es.js",
@@ -18,7 +18,7 @@
     "url": "git+https://github.com/ambrosus/sdk-javascript.git"
   },
   "author": "Ambrosus",
-  "license": "MIT",
+  "license": "MPI",
   "bugs": {
     "url": "https://github.com/ambrosus/sdk-javascript/issues"
   },
