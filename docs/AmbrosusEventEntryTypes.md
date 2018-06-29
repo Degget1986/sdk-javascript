@@ -48,7 +48,7 @@
 
 `images` is a dictionary that can hold any number of urls to images, with the identifiers stored as keys (this can be used to distinguish sizes, orientations, etc.)
 
-VLAD: suggest we add a little more structure for the value (e.g. if we want to add legend or more infos about the image). We only expect a `url` field, the others are not validated/checked/enforced. 
+We only expect a `url` field, the others are not validated/checked/enforced. 
 
 
 ```json
@@ -74,6 +74,9 @@ VLAD: suggest we add a little more structure for the value (e.g. if we want to a
 	}
 }
 ```
+
+All other fields are permitted and will not be checked/validated. We recommend that you exclusively developer-friendly keys and only low-caps. Actual styling and user-friendly names should be handled on the client-application side only. 
+
 
 ### Asset/Event identifier
 
