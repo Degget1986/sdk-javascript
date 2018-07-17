@@ -4,7 +4,7 @@
 
 <!-- BADGES -->
 
-[![Build Status](https://travis-ci.com/ambrosus/sdk-javascript-internal.svg?token=8bp7sGWAHfH34uPfst7s&branch=dev)](https://travis-ci.com/ambrosus/sdk-javascript-internal) [![Coverage Status](https://img.shields.io/badge/coverage-83%25-brightgreen.svg)](https://github.com/ambrosus/sdk-javascript-internal)
+[![Build Status](https://travis-ci.com/ambrosus/sdk-javascript-internal.svg?token=8bp7sGWAHfH34uPfst7s&branch=dev)](https://travis-ci.com/ambrosus/sdk-javascript-internal) [![Coverage Status](https://img.shields.io/badge/coverage-75%25-brightgreen.svg)](https://github.com/ambrosus/sdk-javascript-internal)
 
 <!-- END BADGES -->
 
@@ -54,7 +54,7 @@ Import the SDK in your javascript file
 
 ### Download
 
-Directly download the library and host it localy.\
+Directly download the library and host it locally.\
 You can [download library here](https://github.com/ambrosus/sdk-javascript/releases).
 
 If your project structure is for example:
@@ -128,7 +128,7 @@ Every Ambrosus SDK method (examples below), will return the response with this s
 
 ## Events
 
-Librar supports internal events.
+Library supports internal events.
 
 ```javascript
 ambrosus.on('asset:created', function() {

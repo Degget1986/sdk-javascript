@@ -12,17 +12,12 @@ import { serializeParams } from './../utils';
 export default class Events {
   constructor(settings, auth) {
     this._settings = settings;
-
-    auth.getToken().then(token => {
-      this._settings.token = token;
-    });
-
     this._request = new Request(this._settings);
   }
 
   getEventById(eventId) {
     return new Promise((resolve, reject) => {
-      this._request.getRequest(`events/${eventId}`)
+      this._request.getRequest(`events/${encodeURIComponent(eventId)}`)
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

@@ -12,18 +12,12 @@ import { serializeParams } from './../utils';
 export default class Assets {
   constructor(settings, auth) {
     this._settings = settings;
-
-    auth.getToken().then(token => {
-      this._settings.token = token;
-    });
-
     this._request = new Request(this._settings);
-
   }
 
   getAssetById(assetId) {
     return new Promise((resolve, reject) => {
-      this._request.getRequest(`assets/${assetId}`)
+      this._request.getRequest(`assets/${encodeURIComponent(assetId)}`)
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

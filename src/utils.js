@@ -26,9 +26,10 @@ export const parseEvents = eventsArray => {
             obj.name = obj.name || obj.type;
             obj.action = obj.type;
             obj.type = obj.type.substr(obj.type.lastIndexOf('.') + 1);
+            obj.for = obj.type.split('.')[1];
             obj.eventId = eventId;
 
-            if (obj.type === 'location') {
+            if (obj.type === 'location' && obj.for === 'event') {
               content.data.reduce((location, _event) => {
                 if (_event.type !== 'location') {
                   _event.location = location;

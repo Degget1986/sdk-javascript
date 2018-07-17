@@ -156,6 +156,17 @@ export default class AmbrosusSDK {
     });
   }
 
+  getToken(params) {
+    return new Promise((resolve, reject) => {
+      if (!params && !params.validUntil) {
+        return reject(rejectResponse('Invalid data: Unix timestamp was not provided or has an invalid format'));
+      }
+      this._auth.getToken(params)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+  }
+
   on(type, func, ctx) {
     (this.events[type] = this.events[type] || []).push([func, ctx]);
     return this;

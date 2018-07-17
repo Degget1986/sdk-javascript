@@ -12,25 +12,16 @@ export default class Auth {
   constructor(settings) {
     this._settings = settings;
     this._request = new Request(this._settings);
-
-    if (!this._settings || !this._settings.secret || !this._settings.address) {
-      console.error('Secret key and account address are required in order to generate an access token.');
-      return false;
-    }
   }
 
-  getToken() {
+  getToken(params) {
     return new Promise((resolve, reject) => {
-      if (this._settings.token) {
-        resolve(this._settings.token);
-      } else {
-        this._request.postRequest('token', { validUntil: 1600000000 })
-          .then((response) => {
-            this._settings.token = response.data.token;
-            resolve(this._settings.token);
-          })
-          .catch(error => reject(error));
-      }
+      this._request
+        .postRequest('token', params)
+        .then(response => {
+          resolve(response);
+        })
+        .catch(error => reject(error));
     });
   }
 }

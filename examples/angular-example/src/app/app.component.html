@@ -1,0 +1,32 @@
+<div class="container container-pad">
+  <h1>
+    Ambrosus Viewer 🔭
+  </h1>
+  <div class="container-pad">
+    <div class="form-group">
+      <label for="usr">Asset ID:</label>
+      <input type="text" name="assetId" [(ngModel)]="assetId" placeholder="Enter Asset Address"
+        class="form-control">
+    </div>
+    <br>
+    <div>
+      <button (click)="getAssetById()" type="button">Submit</button>
+    </div>
+    <div class="container-pad bottom-pad">
+      <h4 *ngIf="processing">Processing ... </h4>
+      <br>
+      <div *ngIf="assetResponse" class="wrap">
+        <pre><p>{{assetResponse | json}}</p></pre>
+      </div>
+      <div>
+      <div *ngIf="eventResponse">
+        <h4>Events</h4>
+        <br>
+        <div class="wrap">
+          <pre><p>{{eventResponse | json}}</p></pre>
+        </div>
+      </div>
+      <br>
+    </div>
+  </div>
+</div>
