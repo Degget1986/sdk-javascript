@@ -1,27 +1,61 @@
 import resolve from 'rollup-plugin-node-resolve';
-import babel from 'rollup-plugin-babel';
+import buble from 'rollup-plugin-buble';
+
 import minify from 'rollup-plugin-babel-minify';
+import sourceMaps from 'rollup-plugin-sourcemaps';
+import json from 'rollup-plugin-json';
+
+import gzip from 'rollup-plugin-gzip';
+import filesize from 'rollup-plugin-filesize';
+
+import del from 'rollup-plugin-delete';
+
+const path = require('path');
+const license = require('rollup-plugin-license');
+
+const pkg = require('./package.json');
 
 export default {
   input: 'src/index.js',
   output: [
     {
-      file: 'lib/ambrosus.cjs.min.js',
-      format: 'cjs'
+      file: pkg.main,
+      format: 'cjs',
+      banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
+      sourcemap: true
     },
     {
-      file: 'lib/ambrosus.min.js',
+      file: pkg.module,
       format: 'iife',
-      name: 'AmbrosusSDK'
+      banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
+      name: 'AmbrosusSDK',
+      sourcemap: true
     }
   ],
   plugins: [
-    resolve(),
-    babel({
-      exclude: 'node_modules/**' // only transpile our source code
+    del({
+      targets: 'lib/*'
     }),
+    json(),
+    resolve(),
+    buble(),
     minify({
       comments: false
+    }),
+    sourceMaps(),
+    gzip({
+      options: {
+        level: 9
+      },
+      minSize: 1000,
+      delay: 5000
+    }),
+    filesize({ showGzippedSize: true }),
+    license({
+      banner: {
+        sourceMap: true,
+        file: path.join(__dirname, 'LICENSE')
+      }
     })
   ]
 };
