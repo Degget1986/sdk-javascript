@@ -21,15 +21,17 @@ export const parseEvents = eventsArray => {
       if (content && content.data) {
         content.data
           .filter(obj => {
+
+            const [, eventCategory, eventType] = obj.type.split('.');
+
             obj.timestamp = timestamp;
             obj.author = author;
             obj.name = obj.name || obj.type;
-            obj.action = obj.type;
-            obj.type = obj.type.substr(obj.type.lastIndexOf('.') + 1);
-            obj.for = obj.type.split('.')[1];
+            obj.action = '' + obj.type;
+            obj.type = eventType;
             obj.eventId = eventId;
 
-            if (obj.type === 'location' && obj.for === 'event') {
+            if (obj.type === 'location' && eventCategory === 'event') {
               content.data.reduce((location, _event) => {
                 if (_event.type !== 'location') {
                   _event.location = location;
