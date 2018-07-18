@@ -30,7 +30,7 @@
                 {
                     "type": "ambrosus.asset.identifiers",
                     "identifiers": {
-                        "Serial Number":"0009243902",
+                        "Serial Number":["0009243902"],
                         "GTIN": ["1043345532"],
                         "RFID": ["E2001AC16987B6305024DED8"],
                         "EAN13": ["3451080000324"],

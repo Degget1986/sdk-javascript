@@ -33,7 +33,7 @@ export default class Request {
 
   postRequest(path, params) {
     return new Promise((resolve, reject) => {
-      if (this._settings && this._settings.secret && this._settings.address) {
+      if (!this._settings || !this._settings.secret || !this._settings.address) {
         return reject({
           status: 400,
           data: null,

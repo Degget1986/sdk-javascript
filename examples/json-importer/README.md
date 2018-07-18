@@ -8,6 +8,6 @@ Check the example: [chocolate.json](https://github.com/ambrosus/sdk-javascript-i
 
 The `json` file is a template on how the asset and events are supposed to be added to the Ambrosus Network
 
-You can create your own json file or simply test the example - chocolate.json in the current folder. 
+You can create your own json file or simply test the example - chocolate.json provided above. 
 
 Open index.html in your browser, upload your json file and hit submit

@@ -6,6 +6,4 @@ This is a client side example to retrieve asset details by their respective asse
 
 ## Usage 
 
-Make sure your the SDK values are initialised with your credentials in .html file
-
-Open get-asset.html in your browser, enter the assetId and get the pretty JSON response from the API
+Open get-asset.html in your browser, enter a valid assetId and get the pretty JSON response from the API

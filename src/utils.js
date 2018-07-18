@@ -21,7 +21,6 @@ export const parseEvents = eventsArray => {
       if (content && content.data) {
         content.data
           .filter(obj => {
-
             const [, eventCategory, eventType] = obj.type.split('.');
 
             obj.timestamp = timestamp;

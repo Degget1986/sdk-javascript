@@ -20,9 +20,9 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">92% </span>
+        <span class="strong">64% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>23/25</span>
+        <span class='fraction'>16/25</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">60% </span>
@@ -30,21 +30,21 @@
         <span class='fraction'>3/5</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">88.89% </span>
+        <span class="strong">66.67% </span>
         <span class="quiet">Functions</span>
-        <span class='fraction'>8/9</span>
+        <span class='fraction'>6/9</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">92% </span>
+        <span class="strong">64% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>23/25</span>
+        <span class='fraction'>16/25</span>
       </div>
     </div>
     <p class="quiet">
       Press <em>n</em> or <em>j</em> to go to the next uncovered block, <em>b</em>, <em>p</em> or <em>k</em> for the previous block.
     </p>
   </div>
-  <div class='status-line high'></div>
+  <div class='status-line medium'></div>
 <pre><table class="coverage">
 <tr><td class="line-count quiet"><a name='L1'></a><a href='#L1'>1</a>
 <a name='L2'></a><a href='#L2'>2</a>
@@ -141,26 +141,26 @@
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-yes">3x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">3x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -199,27 +199,27 @@ export default class Request {
 &nbsp;
   postRequest(path, params) {
     return new Promise((resolve, reject) =&gt; {
-      <span class="missing-if-branch" title="if path not taken" >I</span>if (this._settings &amp;&amp; this._settings.secret &amp;&amp; <span class="branch-2 cbranch-no" title="branch not covered" >this._settings.address) {</span>
-<span class="cstat-no" title="statement not covered" >        return reject({</span>
+      <span class="missing-if-branch" title="else path not taken" >E</span>if (!this._settings || !this._settings.secret || <span class="branch-2 cbranch-no" title="branch not covered" >!this._settings.address) {</span>
+        return reject({
           status: 400,
           data: null,
           message: 'Secret key and account address are required for a state-modifying call'
         });
       }
 &nbsp;
-      let request = new XMLHttpRequest();
+      let request = <span class="cstat-no" title="statement not covered" >new XMLHttpRequest();</span>
 &nbsp;
-      request.open('POST', `${this._settings.apiEndpoint}/${path}`, true, this._settings);
-      request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-      request.setRequestHeader('Authorization', 'AMB ' + this._settings.secret);
+<span class="cstat-no" title="statement not covered" >      request.open('POST', `${this._settings.apiEndpoint}/${path}`, true, this._settings);</span>
+<span class="cstat-no" title="statement not covered" >      request.setRequestHeader('Content-type', 'application/json; charset=utf-8');</span>
+<span class="cstat-no" title="statement not covered" >      request.setRequestHeader('Authorization', 'AMB ' + this._settings.secret);</span>
 &nbsp;
-      request.onload = () =&gt; {
-        handleResponse(request)
+<span class="cstat-no" title="statement not covered" >      request.onload = <span class="fstat-no" title="function not covered" >() =&gt; </span>{</span>
+<span class="cstat-no" title="statement not covered" >        handleResponse(request)</span>
           .then(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >response =&gt; resolve(response))</span></span>
-          .catch(error =&gt; reject(error));
+          .catch(<span class="cstat-no" title="statement not covered" ><span class="fstat-no" title="function not covered" >error =&gt; reject(error));</span></span>
       };
 &nbsp;
-      request.send(JSON.stringify(params));
+<span class="cstat-no" title="statement not covered" >      request.send(JSON.stringify(params));</span>
     });
   }
 }
@@ -229,7 +229,7 @@ export default class Request {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jul 18 2018 12:39:19 GMT+0300 (EEST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Wed Jul 18 2018 17:07:59 GMT+0300 (EEST)
 </div>
 </div>
 <script src="../../prettify.js"></script>

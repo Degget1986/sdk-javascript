@@ -8,7 +8,7 @@ SDK Example to Fetch Asset and resulting events for the asset by passing the ass
 
 ## Usage 
 
-Install the node dependencies using `node_modules`
+Install the node dependencies using `npm install`
 
 Run `npm run start` to serve the example
 
