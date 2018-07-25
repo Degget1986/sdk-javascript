@@ -10,6 +10,20 @@
 
 Library for simple interaction with Ambrosus API.
 
+## Contribution
+
+Please refer to project's code style guidelines and guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
+
+ 1. **Fork** the repo on GitHub
+ 2. **Clone** the project to your own machine
+ 3. **Commit** changes to your own branch
+ 4. **Push** your work back up to your fork
+ 5. Submit a **Pull request** so that we can review your changes
+
+NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+
+It is mandatory to follow our code of conduct described in [CONTRIBUTING.md](https://github.com/ambrosus/sdk-javascript/blob/master/CONTRIBUTING.md).
+
 ## Overview
 
 - [Prerequisite](#prerequisite)
@@ -90,9 +104,9 @@ var ambrosus = new AmbrosusSDK({
 
 ___
 
-Each state-modifying call needs to have the secret and address values. 
-If you wish to use the SDK only to request or query the data, 
-You can initialise the SDK like - 
+Each state-modifying call needs to have the secret and address values.
+If you wish to use the SDK only to request or query the data,
+You can initialise the SDK like -
 
 ```js
 var ambrosus = new AmbrosusSDK({
@@ -102,7 +116,7 @@ var ambrosus = new AmbrosusSDK({
 
 Variable | Type | Definition | Example
 ---------|------|------------|--------
-secret   | string | Secret key you received in email. | 0x6c06dD0215d4eef9E795C0b5BwED697a26287aFB                         
+secret   | string | Secret key you received in email. | 0x6c06dD0215d4eef9E795C0b5BwED697a26287aFB
 address  | string | Address you received in email.    | 0x6823520c03ad7b17bc1a7144fbbd2d24bfa2ce933d715ace209d658e03fdd388
 
 
