@@ -155,7 +155,7 @@ ambrosus.getAssetById(assetId).then(function(response) {
 }).catch(function(error) {
   // Error if error
   console.log(error);
-);
+});
 ```
 
 Response example for GET asset:
@@ -227,7 +227,7 @@ Options (filters):
     }).catch(function(error) {
       // Error if error
       console.log(error);
-    );
+    });
 ```
 
 Response example for GET assets:
@@ -319,7 +319,7 @@ ambrosus.createAsset(assetData).then(function(response) {
 }).catch(function(error) {
   // Error if error
   console.log(error);
-);
+});
 ```
 
 Response example for GET asset:
@@ -372,7 +372,7 @@ ambrosus.getEventById(eventId).then(function(response) {
 }).catch(function(error) {
   // Error if error
   console.log(error);
-);
+});
 ```
 
 Response example for GET event:
@@ -454,7 +454,7 @@ Options (filters):
     }).catch(function(error) {
       // Error if error
       console.log(error);
-    );
+    });
 ```
 
 Response example for GET events:
@@ -548,7 +548,7 @@ ambrosus.createEvent(assetId, eventData).then(function(response) {
 }).catch(function(error) {
   // Error if error
   console.log(error);
-);
+});
 ```
 
 Response example for CREATE event:
