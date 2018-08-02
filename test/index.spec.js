@@ -13,6 +13,7 @@ const expect = chai.expect;
 const apiEndpoint = 'https://gateway-test.ambrosus.com';
 const assetId = '0x525466324f178cef08e25cf69cffde9f149129e4ceddfaa19767bc29705cef56';
 const eventId = '0x8663d7863dc5131d5ad6050d44ed625cd299b78d2ce289ffc95e63b1559c3f63';
+const bundleId = '0xc455b6d08bbfc5d8c54a90ec390373ef251a727119a88d6d9c5703bd46c3cd4d';
 let lib;
 
 describe('Given an instance of my api library', () => {
@@ -227,6 +228,22 @@ describe('Response Handler', () => {
     })
   });
 
+  describe('/GET bundle by ID', () => {
+    it('it should GET specified bundle the by correct bundle id', (done) => {
+      lib.getBundleById(bundleId)
+        .then(response => { expect(response.status).to.equal(200); done(); })
+        .catch(error => { done(error); })
+    }).timeout(15000);
+  });
+
+  describe('/GET bundle by ID', () => {
+    it('it should throw Bundle ID is missing error', (done) => {
+      lib.getBundleById()
+        .then(response => { done(response); })
+        .catch(error => { expect(error.status).to.equal(400); done(); })
+    }).timeout(15000);
+  });
+
 });
 
 
@@ -267,31 +284,7 @@ describe('Utils.js', () => {
         .catch(error => { done(error); })
     })
   })
-
-  describe('should parse events', () => {
-    it('it should return the parsed events array', (done) => {
-      lib.parseEvents(eventsArray)
-        .then(response => { expect(response.data.events).to.be.a('array'); done(); })
-        .catch(error => { done(error); })
-    })
-  })
-
-  describe('should parse events', () => {
-    it('it should return the parsed asset name as string', (done) => {
-      lib.parseEvents(eventsArray)
-        .then(response => { expect(response.data.info.name).to.be.a('string'); done(); })
-        .catch(error => { done(error); })
-    })
-  })
-
-  describe('should parse events', () => {
-    it('it should return the parsed identifier type as string', (done) => {
-      lib.parseEvents(eventsArray)
-        .then(response => { expect(response.data.identifiers.type).to.be.a('string'); done(); })
-        .catch(error => { done(error); })
-    })
-  })
-
+  
   describe('should parse events', () => {
     it('it should throw Results array is missing error', (done) => {
       lib.parseEvents()

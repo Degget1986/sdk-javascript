@@ -1,6 +1,6 @@
 {
   "name": "ambrosus-javascript-sdk",
-  "version": "0.7.4",
+  "version": "0.7.5",
   "description": "Client SDK to simplify connecting to the Ambrosus API",
   "main": "lib/ambrosus.cjs.min.js",
   "module": "lib/ambrosus.min.js",
@@ -9,7 +9,7 @@
     "test": "test"
   },
   "scripts": {
-    "build": "rollup --config rollup.config.prod.js",
+    "build": "rollup --config rollup.config.prod.js && npm run test",
     "dev": "rollup --config rollup.config.dev.js --watch",
     "test": "BABEL_ENV=test nyc --reporter=html --reporter=text mocha --require babel-core/register"
   },

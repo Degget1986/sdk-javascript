@@ -11,6 +11,7 @@ import Events from './api/events';
 import Auth from './api/auth';
 import { checkTimeStamp, parseEvents } from './utils';
 import { rejectResponse, successResponse } from './responseHandler';
+let assetSequenceNumber = 0;
 
 export default class AmbrosusSDK {
   constructor(extendSettings) {
@@ -78,14 +79,10 @@ export default class AmbrosusSDK {
           idData: {
             createdBy: this._settings.address,
             timestamp: checkTimeStamp(asset),
-            sequenceNumber: 0
+            sequenceNumber: assetSequenceNumber = (assetSequenceNumber + 1) % 1000000
           }
         }
       };
-
-      if (asset.data) {
-        params['data'] = asset.data;
-      }
 
       return this._assets.createAsset(params)
         .then(assetRes => {
@@ -162,6 +159,17 @@ export default class AmbrosusSDK {
         return reject(rejectResponse('Invalid data: Unix timestamp was not provided or has an invalid format'));
       }
       this._auth.getToken(params)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+  }
+
+  getBundleById(bundleId) {
+    return new Promise((resolve, reject) => {
+      if (!bundleId) {
+        return reject(rejectResponse('Bundle ID is missing.'));
+      }
+      return this._events.getBundleById(bundleId)
         .then(response => resolve(response))
         .catch(error => reject(error));
     });

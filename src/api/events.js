@@ -38,4 +38,13 @@ export default class Events {
         .catch(error => reject(error));
     });
   }
+
+  getBundleById(bundleId) {
+    return new Promise((resolve, reject) => {
+      this._request.getRequest(`bundle/${encodeURIComponent(bundleId)}`)
+        .then(response => resolve(response))
+        .catch(error => reject(error));
+    });
+  }
+
 }

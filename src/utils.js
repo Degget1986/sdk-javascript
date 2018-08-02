@@ -21,16 +21,19 @@ export const parseEvents = eventsArray => {
       if (content && content.data) {
         content.data
           .filter(obj => {
-            const [, eventCategory, eventType] = obj.type.split('.');
+            const parts = obj.type.split('.');
+            const type = parts[parts.length - 1];
+            const category = parts[parts.length - 2] || 'asset';
+            const namespace = parts[parts.length -3] || 'ambrosus';
 
             obj.timestamp = timestamp;
             obj.author = author;
-            obj.name = obj.name || obj.type;
-            obj.action = '' + obj.type;
-            obj.type = eventType;
+            obj.name = obj.name || type;
+            obj.action = type;
+            obj.type = type;
             obj.eventId = eventId;
 
-            if (obj.type === 'location' && eventCategory === 'event') {
+            if (obj.type === 'location' && category === 'event') {
               content.data.reduce((location, _event) => {
                 if (_event.type !== 'location') {
                   _event.location = location;
