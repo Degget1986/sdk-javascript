@@ -8,8 +8,7 @@ This Source Code Form is “Incompatible With Secondary Licenses”, as defined 
 
 import Assets from './api/assets';
 import Events from './api/events';
-import Auth from './api/auth';
-import { checkTimeStamp, parseEvents } from './utils';
+import { checkTimeStamp, parseEvents, serializeForHashing, base64url, checkAccessLevel } from './utils';
 import { rejectResponse, successResponse } from './responseHandler';
 let assetSequenceNumber = 0;
 
@@ -27,9 +26,48 @@ export default class AmbrosusSDK {
       }
     }
 
-    this._auth = new Auth(this._settings);
-    this._assets = new Assets(this._settings, this._auth);
-    this._events = new Events(this._settings, this._auth);
+    /* istanbul ignore if */
+    if (this._settings.Web3 && this._settings.secret) {
+      this.web3 = new this._settings.Web3();
+
+      if (this.web3.version.api) {
+        console.log('Old version of web3 is not supported, Please import v1.0.0+');
+      } else {
+        this._settings.address = this.getAddress(this._settings.secret);
+        this._settings.token = this.getToken(this._settings.secret);
+      }
+
+    } else if (this._settings.Web3) {
+      this.web3 = new this._settings.Web3();
+    }
+
+    this._assets = new Assets(this._settings);
+    this._events = new Events(this._settings);
+
+  }
+
+  getToken(secret) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required generate the token'); }
+    /* istanbul ignore next */
+    const idData = {
+      createdBy: this.getAddress(secret),
+      validUntil: 1546300800
+    };
+
+    /* istanbul ignore next */
+    return base64url(serializeForHashing({ signature: this.sign(idData, secret), idData }));
+  }
+
+  getAddress(secret) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+    /* istanbul ignore next */
+    return this.web3.eth.accounts.privateKeyToAccount(secret).address;
+  }
+
+  sign(data, secret) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the signature'); }
+    /* istanbul ignore next */
+    return this.web3.eth.accounts.sign(serializeForHashing(data), secret).signature;
   }
 
   getAssetById(assetId) {
@@ -72,30 +110,47 @@ export default class AmbrosusSDK {
   }
 
   createAsset(asset = {}) {
+    /* istanbul ignore next */
     return new Promise((resolve, reject) => {
+      let idData = {};
+
+      if (!this.web3) {
+        return reject(rejectResponse('web3.js library is required to create an asset'));
+      } else if (!this._settings.secret) {
+        return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
+      }
+
+      idData = {
+        timestamp: checkTimeStamp(event),
+        sequenceNumber: assetSequenceNumber = (assetSequenceNumber + 1) % 1000000,
+        createdBy: this._settings.address
+      };
+
+      if (asset && asset.content && asset.content.data) {
+        idData['dataHash'] = this.web3.eth.accounts.hashMessage(serializeForHashing(asset.content.data));
+      }
 
       let params = {
         content: {
-          idData: {
-            createdBy: this._settings.address,
-            timestamp: checkTimeStamp(asset),
-            sequenceNumber: assetSequenceNumber = (assetSequenceNumber + 1) % 1000000
-          }
+          idData: idData,
+          signature: this.sign(idData, this._settings.secret)
         }
       };
+
+      if (params.content && params.content.idData && params.content.idData.dataHash) {
+        params.content['data'] = asset.content.data;
+      }
 
       return this._assets.createAsset(params)
         .then(assetRes => {
           if (asset.length >= 1) {
-            let finalEventResponse = [];
 
-            for (let i = 0; i < asset.length; i++) {
-              finalEventResponse[i] = new Promise((resolve, reject) => {
-                return this.createEvent(assetRes.data.assetId, asset[i]).then(eventRes => {
-                  resolve(eventRes);
-                });
-              });
-            }
+            asset.map((event) => {
+              return this.createEvent(assetRes.data.assetId, event)
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+            });
+
             this.emit('asset:created');
             resolve(assetRes);
           } else {
@@ -109,7 +164,15 @@ export default class AmbrosusSDK {
   }
 
   createEvent(assetId, event) {
+    /* istanbul ignore next */
     return new Promise((resolve, reject) => {
+
+      if (!this.web3) {
+        return reject(rejectResponse('web3.js library is required to create an event'));
+      } else if (!this._settings.secret) {
+        return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
+      }
+
       if (!assetId) {
         return reject(rejectResponse('Asset ID is missing.'));
       }
@@ -118,19 +181,26 @@ export default class AmbrosusSDK {
         return reject(rejectResponse('Event data is missing.'));
       }
 
-      let params = {
-        content: {
-          idData: {
-            assetId: assetId,
-            timestamp: checkTimeStamp(event),
-            accessLevel: 0,
-            createdBy: this._settings.address
-          }
-        }
-      };
+      let params = {};
 
       if (event.content && event.content.data) {
-        params.content['data'] = event.content.data;
+
+        const idData = {
+          assetId: assetId,
+          timestamp: checkTimeStamp(event),
+          accessLevel: checkAccessLevel(event),
+          createdBy: this._settings.address,
+          dataHash: this.web3.eth.accounts.hashMessage(serializeForHashing(event.content.data))
+        };
+
+        params = {
+          content: {
+            idData: idData,
+            signature: this.sign(idData, this._settings.secret),
+            data: event.content.data
+          }
+        };
+
       } else {
         return reject(rejectResponse('Invalid data: No content found at content.data.'));
       }
@@ -150,17 +220,6 @@ export default class AmbrosusSDK {
 
       return reject(rejectResponse('Results array is missing.'));
 
-    });
-  }
-
-  getToken(params) {
-    return new Promise((resolve, reject) => {
-      if (!params && !params.validUntil) {
-        return reject(rejectResponse('Invalid data: Unix timestamp was not provided or has an invalid format'));
-      }
-      this._auth.getToken(params)
-        .then(response => resolve(response))
-        .catch(error => reject(error));
     });
   }
 

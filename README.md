@@ -4,7 +4,7 @@
 
 <!-- BADGES -->
 
-[![Build Status](https://travis-ci.com/ambrosus/sdk-javascript-internal.svg?token=8bp7sGWAHfH34uPfst7s&branch=dev)](https://travis-ci.com/ambrosus/sdk-javascript-internal) [![Coverage Status](https://img.shields.io/badge/coverage-76%25-brightgreen.svg)](https://github.com/ambrosus/sdk-javascript-internal)
+[![Build Status](https://travis-ci.com/ambrosus/sdk-javascript-internal.svg?token=8bp7sGWAHfH34uPfst7s&branch=dev)](https://travis-ci.com/ambrosus/sdk-javascript-internal) [![Coverage Status](https://img.shields.io/badge/coverage-80%25-brightgreen.svg)](https://github.com/ambrosus/sdk-javascript-internal)
 
 <!-- END BADGES -->
 
@@ -31,13 +31,13 @@ It is mandatory to follow our code of conduct described in [CONTRIBUTING.md](htt
 - [Usage](#usage)
 - [Response from Ambrosus SDK methods](#response-from-ambrosus-sdk-methods)
 - [SDK Events](#listen-to-sdk-events)
-- [Ambrosus SDK methods](https://github.com/ambrosus/sdk-javascript/wiki)
-  - [Get asset](https://github.com/ambrosus/sdk-javascript/wiki/Assets#get-asset)
-  - [Get assets](https://github.com/ambrosus/sdk-javascript/wiki/Assets#get-assets)
-  - [Create asset](https://github.com/ambrosus/sdk-javascript/wiki/Assets#create-asset)
-  - [Get event](https://github.com/ambrosus/sdk-javascript/wiki/Events#get-event)
-  - [Get events](https://github.com/ambrosus/sdk-javascript/wiki/Events#get-events)
-  - [Create event](https://github.com/ambrosus/sdk-javascript/wiki/Events#create-event)
+- [Ambrosus SDK methods](https://github.com/ambrosus/sdk-javascript-internal/wiki)
+  - [Get asset](https://github.com/ambrosus/sdk-javascript-internal/wiki/Assets#get-asset)
+  - [Get assets](https://github.com/ambrosus/sdk-javascript-internal/wiki/Assets#get-assets)
+  - [Create asset](https://github.com/ambrosus/sdk-javascript-internal/wiki/Assets#create-asset)
+  - [Get event](https://github.com/ambrosus/sdk-javascript-internal/wiki/Events#get-event)
+  - [Get events](https://github.com/ambrosus/sdk-javascript-internal/wiki/Events#get-events)
+  - [Create event](https://github.com/ambrosus/sdk-javascript-internal/wiki/Events#create-event)
 - [Examples](#examples)
 
 ## Prerequisite
@@ -87,13 +87,23 @@ You would include it in your index.html where you use Ambrosus SDK like:
 ## Usage
 
 Initialize the Ambrosus library.\
+
+In order to use the web3.js library to support client side data signing while creating assets or events or token,
+we will need to import the web3.js library.\
+
+For *node.js*\
+Simply `npm install web3` and import in your `.js` file like - `const Web3 = require('web3');`
+
+For a client side *HTML*\
+Import web3 using the script tag. like - `<script async src="/path/to/js/web3.min.js"></script>`
+
 In the script on your page where you use Ambrosus SDK, put this code in the beginning of the script:
 
 ```js
 var ambrosus = new AmbrosusSDK({
   // Provide env variables
   secret: '0x6823520c03ad7b17bc1a7144fbbd2d24bfa2ce933d715ace209d658e03fdd388',
-  address: '0x6c06dD0215d4eef9E795C0b5BwED697a26287aFB'
+  Web3: Web3
 });
 ```
 

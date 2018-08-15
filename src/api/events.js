@@ -10,7 +10,7 @@ import Request from './request';
 import { serializeParams } from './../utils';
 
 export default class Events {
-  constructor(settings, auth) {
+  constructor(settings) {
     this._settings = settings;
     this._request = new Request(this._settings);
   }

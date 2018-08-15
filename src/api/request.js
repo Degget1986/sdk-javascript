@@ -18,6 +18,12 @@ export default class Request {
       let request = new XMLHttpRequest();
 
       request.open('GET', `${this._settings.apiEndpoint}/${path}`, true);
+      if (this._settings.headers) {
+        for (const key in this._settings.headers) {
+          request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
+          console.log(`${key}`, `${this._settings.headers[key]}`);
+        }
+      }
       request.addEventListener(
         'load',
         () => {
@@ -33,19 +39,10 @@ export default class Request {
 
   postRequest(path, params) {
     return new Promise((resolve, reject) => {
-      if (!this._settings || !this._settings.secret || !this._settings.address) {
-        return reject({
-          status: 400,
-          data: null,
-          message: 'Secret key and account address are required for a state-modifying call'
-        });
-      }
-
       let request = new XMLHttpRequest();
 
       request.open('POST', `${this._settings.apiEndpoint}/${path}`, true, this._settings);
       request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-      request.setRequestHeader('Authorization', 'AMB ' + this._settings.secret);
 
       request.onload = () => {
         handleResponse(request)

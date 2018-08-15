@@ -5,8 +5,9 @@ global.XMLHttpRequest = require('xhr2');
 import chai from 'chai';
 import AmbrosusSDK from '../src/index';
 import { handleResponse, rejectResponse, successResponse } from '../src/responseHandler';
-import { checkTimeStamp, parseEvents } from '../src/utils';
+import { checkTimeStamp, parseEvents, serializeParams, serializeForHashing, base64url } from '../src/utils';
 import eventsArray from './eventsArray';
+const Web3 = require('web3');
 
 /* Declarations */
 const expect = chai.expect;
@@ -15,10 +16,15 @@ const assetId = '0x525466324f178cef08e25cf69cffde9f149129e4ceddfaa19767bc29705ce
 const eventId = '0x8663d7863dc5131d5ad6050d44ed625cd299b78d2ce289ffc95e63b1559c3f63';
 const bundleId = '0xc455b6d08bbfc5d8c54a90ec390373ef251a727119a88d6d9c5703bd46c3cd4d';
 let lib;
+let lib1;
 
 describe('Given an instance of my api library', () => {
   before(() => {
     lib = new AmbrosusSDK({
+      apiEndpoint: apiEndpoint,
+      Web3: Web3
+    });
+    lib1 = new AmbrosusSDK({
       apiEndpoint: apiEndpoint
     });
   });
@@ -84,20 +90,18 @@ describe('Assets', () => {
     }).timeout(15000);
   });
 
-  describe('/POST asset', () => {
-    it('it should throw Asset ID is missing error', (done) => {
-      lib.createAsset({data: null})
-        .then(response => { done(response); })
-        .catch(error => { expect(error.status).to.equal(400); done(); })
-    }).timeout(15000);
+  describe('should serialize json', () => {
+    it('it should return stringified JSON', (done) => {
+      expect(serializeForHashing(eventsArray)).to.be.a('string');
+      done();
+    })
   });
 
-  describe('/POST asset', () => {
-    it('it should throw Invalid private key format error', (done) => {
-      lib.createAsset(eventsArray)
-        .then(response => { done(response); })
-        .catch(error => { expect(error.status).to.equal(400); done(); })
-    }).timeout(15000);
+  describe('should serialize json', () => {
+    it('it should return single string (base64url)', (done) => {
+      expect(base64url(serializeForHashing(eventsArray))).to.be.a('string');
+      done();
+    })
   });
 
 });
@@ -169,14 +173,6 @@ describe('Events', () => {
   describe('/POST event for assetId', () => {
     it('it should throw Invalid data: No content found at content.data error', (done) => {
       lib.createEvent(assetId, {content: null})
-        .then(response => { done(response); })
-        .catch(error => { expect(error.status).to.equal(400); done(); })
-    }).timeout(15000);
-  });
-
-  describe('/POST event for assetId', () => {
-    it('it should throw Invalid private key format error', (done) => {
-      lib.createEvent(assetId, eventsArray.results[0])
         .then(response => { done(response); })
         .catch(error => { expect(error.status).to.equal(400); done(); })
     }).timeout(15000);
@@ -292,5 +288,54 @@ describe('Utils.js', () => {
         .catch(error => { expect(error.status).to.equal(400); done(); })
     })
   })
+
+  describe('should serialize json', () => {
+    it('it should return serialized params', (done) => {
+      expect(serializeParams(eventsArray)).to.be.a('string');
+      done();
+    })
+  })
+
+});
+
+
+describe('web3.js validations', () => {
+
+  describe('/GET token', () => {
+    it('it should throw web3.js required error', (done) => {
+      const token = lib1.getToken();
+      expect(token.status).to.equal(400); done();
+    });
+  });
+
+  describe('/GET address from secret', () => {
+    it('it should throw web3.js required error', (done) => {
+      const token = lib1.getAddress();
+      expect(token.status).to.equal(400); done();
+    });
+  });
+
+  describe('/GET sign transaction', () => {
+    it('it should throw web3.js required error', (done) => {
+      const token = lib1.sign();
+      expect(token.status).to.equal(400); done();
+    });
+  });
+
+  describe('/POST create asset', () => {
+    it('it should throw web3.js required error', (done) => {
+      lib1.createAsset()
+        .then(response => { done(response); })
+        .catch(error => { expect(error.status).to.equal(400); done(); })
+    }).timeout(15000);
+  });
+
+  describe('/POST create event', () => {
+    it('it should throw web3.js required error', (done) => {
+      lib1.createEvent()
+        .then(response => { done(response); })
+        .catch(error => { expect(error.status).to.equal(400); done(); })
+    }).timeout(15000);
+  });
 
 });
