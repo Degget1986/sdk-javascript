@@ -21,7 +21,6 @@ export default class Request {
       if (this._settings.headers) {
         for (const key in this._settings.headers) {
           request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
-          console.log(`${key}`, `${this._settings.headers[key]}`);
         }
       }
       request.addEventListener(
@@ -43,6 +42,11 @@ export default class Request {
 
       request.open('POST', `${this._settings.apiEndpoint}/${path}`, true, this._settings);
       request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+      if (this._settings.headers) {
+        for (const key in this._settings.headers) {
+          request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
+        }
+      }
 
       request.onload = () => {
         handleResponse(request)

@@ -338,4 +338,18 @@ describe('web3.js validations', () => {
     }).timeout(15000);
   });
 
+  describe('/GET publicKey & privateKey pair ', () => {
+    it('it should throw web3.js required error', (done) => {
+      const response = lib1.getPkPair();
+      expect(response.status).to.equal(400); done();
+    });
+  });
+
+  describe('/GET publicKey & privateKey pair ', () => {
+    it('it should provide a pk pair', (done) => {
+      const response = lib.getPkPair();
+      expect(response.address).to.be.a('string'); done();
+    });
+  });
+
 });
