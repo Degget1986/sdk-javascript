@@ -26,7 +26,7 @@ export default {
     },
     {
       file: pkg.module,
-      format: 'iife',
+      format: 'umd',
       banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
       name: 'AmbrosusSDK',
       sourcemap: true
