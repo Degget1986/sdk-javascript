@@ -36,13 +36,14 @@ export default class Request {
     });
   }
 
-  postRequest(path, params) {
+  postRequest(path, params, hasHeader = false) {
     return new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
 
       request.open('POST', `${this._settings.apiEndpoint}/${path}`, true, this._settings);
       request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-      if (this._settings.headers) {
+      
+      if (this._settings.headers && hasHeader === true) {
         for (const key in this._settings.headers) {
           request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
         }

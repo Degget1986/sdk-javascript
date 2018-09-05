@@ -285,10 +285,13 @@ export default class AmbrosusSDK {
   setTokenHeader(secret) {
     if (!secret) {
       return rejectResponse('Secret is required to generate the token');
+    } else if (!this.web3) {
+      return rejectResponse('web3.js library is required to create an event');
+    } else {
+      this._settings['headers'] = {
+        'Authorization': `AMB_TOKEN ${this.getToken(secret)}`
+      };
     }
-    this._settings['headers'] = {
-      'Authorization': `AMB_TOKEN ${this.getToken(secret)}`
-    };
   }
 
   on(type, func, ctx) {
