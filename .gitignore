@@ -9,4 +9,3 @@ npm-debug.log
 examples/json-importer/index-vlad.html
 .nyc_output
 coverage/
-coverage/src
