@@ -32,6 +32,7 @@ export default class Assets {
   }
 
   createAsset(params) {
+    /* istanbul ignore next */
     return new Promise((resolve, reject) => {
       this._request.postRequest('assets', params)
         .then(response => resolve(response))

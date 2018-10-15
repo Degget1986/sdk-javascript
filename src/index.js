@@ -262,6 +262,7 @@ export default class AmbrosusSDK {
       if (!bundleId) {
         return reject(rejectResponse('Bundle ID is missing.'));
       }
+      /* istanbul ignore next */
       return this._events.getBundleById(bundleId)
         .then(response => resolve(response))
         .catch(error => reject(error));
@@ -272,10 +273,14 @@ export default class AmbrosusSDK {
     return new Promise((resolve, reject) => {
       if (!this._settings.secret) {
         return reject(rejectResponse('Secret key is required to add an account.'));
-      } else if (!params) {
+      } 
+      /* istanbul ignore next */
+      else if (!params) {
         return reject(rejectResponse('Create account params are required to create an account.'));
       }
+      /* istanbul ignore next */
       this.setTokenHeader(this._settings.secret);
+      /* istanbul ignore next */
       return this._accounts.addAccount(params)
         .then(response => resolve(response))
         .catch(error => reject(error));
@@ -283,6 +288,7 @@ export default class AmbrosusSDK {
   }
 
   setTokenHeader(secret) {
+    /* istanbul ignore next */
     if (!secret) {
       return rejectResponse('Secret is required to generate the token');
     } else if (!this.web3) {
@@ -295,30 +301,38 @@ export default class AmbrosusSDK {
   }
 
   on(type, func, ctx) {
+    /* istanbul ignore next */
     (this.events[type] = this.events[type] || []).push([func, ctx]);
+    /* istanbul ignore next */
     return this;
   }
 
   off(type, func) {
+    /* istanbul ignore next */
     type || (this.events = {});
     let list = this.events[type] || this.empty;
     let i = (list.length = func ? list.length : 0);
 
+    /* istanbul ignore next */
     while (i--) {
       func === list[i][0] && list.splice(i, 1);
     }
+    /* istanbul ignore next */
     return this;
   }
 
   emit(type) {
+    /* istanbul ignore next */
     let e = this.events[type] || this.empty;
     let list = e.length > 0 ? e.slice(0, e.length) : e;
     let i = 0;
     let j;
 
+    /* istanbul ignore next */
     while ((j = list[i++])) {
       j[0].apply(j[1], this.empty.slice.call(arguments, 1));
     }
+    /* istanbul ignore next */
     return this;
   }
 

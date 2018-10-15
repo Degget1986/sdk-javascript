@@ -37,6 +37,7 @@ export default class Request {
   }
 
   postRequest(path, params, hasHeader = false) {
+    /* istanbul ignore next */
     return new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
 
