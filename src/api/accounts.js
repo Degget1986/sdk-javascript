@@ -15,6 +15,7 @@ export default class Accounts {
   }
 
   addAccount(params) {
+    /* istanbul ignore next */
     return new Promise((resolve, reject) => {
       this._request.postRequest('accounts', params, true)
         .then(response => resolve(response))

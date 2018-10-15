@@ -32,6 +32,7 @@ export default class Events {
   }
 
   createEvent(assetId, params) {
+    /* istanbul ignore next */
     return new Promise((resolve, reject) => {
       this._request.postRequest(`assets/${assetId}/events`, params)
         .then(response => resolve(response))
@@ -40,6 +41,7 @@ export default class Events {
   }
 
   getBundleById(bundleId) {
+    /* istanbul ignore next */
     return new Promise((resolve, reject) => {
       this._request.getRequest(`bundle/${encodeURIComponent(bundleId)}`)
         .then(response => resolve(response))
