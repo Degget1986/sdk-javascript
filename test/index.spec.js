@@ -177,6 +177,22 @@ describe('Events', () => {
     }).timeout(15000);
   });
 
+  describe('should parse events', () => {
+    it('it should return the parsed events obj successfully', (done) => {
+      lib.parseEvents(eventsArray)
+        .then(response => { expect(response).to.be.a('object'); done(); })
+        .catch(error => { done(error); })
+    }).timeout(15000);
+  });
+
+  describe('should parse events', () => {
+    it('it should return error due to empty event', (done) => {
+      lib.parseEvents({})
+        .then(response => { done(response); })
+        .catch(error => { expect(error.status).to.equal(400); done(); })
+    }).timeout(15000);
+  });
+
 });
 
 describe('Response Handler', () => {
@@ -350,22 +366,6 @@ describe('Administration', () => {
   describe('/POST add account ', () => {
     it('it should throw secret is missing error', (done) => {
       lib.addAccount()
-        .then(response => { done(response); })
-        .catch(error => { expect(error.status).to.equal(400); done(); })
-    }).timeout(15000);
-  });
-
-  describe('should parse events', () => {
-    it('it should return the parsed events obj successfully', (done) => {
-      lib.parseEvents(eventsArray)
-        .then(response => { expect(response).to.be.a('object'); done(); })
-        .catch(error => { done(error); })
-    }).timeout(15000);
-  });
-
-  describe('should parse events', () => {
-    it('it should return error due to empty event', (done) => {
-      lib.parseEvents({})
         .then(response => { done(response); })
         .catch(error => { expect(error.status).to.equal(400); done(); })
     }).timeout(15000);
