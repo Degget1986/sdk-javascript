@@ -4,7 +4,7 @@
 
 <!-- BADGES -->
 
-[![Build Status](https://travis-ci.com/ambrosus/sdk-javascript-internal.svg?token=8bp7sGWAHfH34uPfst7s&branch=dev)](https://travis-ci.com/ambrosus/sdk-javascript-internal) [![Coverage Status](https://img.shields.io/badge/coverage-81%25-brightgreen.svg)](https://github.com/ambrosus/sdk-javascript-internal)
+[![Build Status](https://travis-ci.com/ambrosus/sdk-javascript.svg?branch=master)](https://travis-ci.com/ambrosus/sdk-javascript) [![Coverage Status](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](https://github.com/ambrosus/sdk-javascript-internal)
 
 <!-- END BADGES -->
 
