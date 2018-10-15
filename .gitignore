@@ -8,3 +8,5 @@ npm-debug.log
 *.swp
 examples/json-importer/index-vlad.html
 .nyc_output
+coverage/
+coverage/src
