@@ -4,7 +4,7 @@
 
 <!-- BADGES -->
 
-[![Build Status](https://travis-ci.com/ambrosus/sdk-javascript.svg?branch=master)](https://travis-ci.com/ambrosus/sdk-javascript) [![Coverage Status](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](https://github.com/ambrosus/sdk-javascript-internal)
+[![Build Status](https://travis-ci.com/ambrosus/sdk-javascript.svg?branch=master)](https://travis-ci.com/ambrosus/sdk-javascript) [![Coverage Status](https://img.shields.io/badge/coverage-90%25-brightgreen.svg)](https://github.com/ambrosus/sdk-javascript)
 
 <!-- END BADGES -->
 
@@ -31,13 +31,13 @@ It is mandatory to follow our code of conduct described in [CONTRIBUTING.md](htt
 - [Usage](#usage)
 - [Response from Ambrosus SDK methods](#response-from-ambrosus-sdk-methods)
 - [SDK Events](#listen-to-sdk-events)
-- [Ambrosus SDK methods](https://github.com/ambrosus/sdk-javascript-internal/wiki)
-  - [Get asset](https://github.com/ambrosus/sdk-javascript-internal/wiki/Assets#get-asset)
-  - [Get assets](https://github.com/ambrosus/sdk-javascript-internal/wiki/Assets#get-assets)
-  - [Create asset](https://github.com/ambrosus/sdk-javascript-internal/wiki/Assets#create-asset)
-  - [Get event](https://github.com/ambrosus/sdk-javascript-internal/wiki/Events#get-event)
-  - [Get events](https://github.com/ambrosus/sdk-javascript-internal/wiki/Events#get-events)
-  - [Create event](https://github.com/ambrosus/sdk-javascript-internal/wiki/Events#create-event)
+- [Ambrosus SDK methods](https://github.com/ambrosus/sdk-javascript/wiki)
+  - [Get asset](https://github.com/ambrosus/sdk-javascript/wiki/Assets#get-asset)
+  - [Get assets](https://github.com/ambrosus/sdk-javascript/wiki/Assets#get-assets)
+  - [Create asset](https://github.com/ambrosus/sdk-javascript/wiki/Assets#create-asset)
+  - [Get event](https://github.com/ambrosus/sdk-javascript/wiki/Events#get-event)
+  - [Get events](https://github.com/ambrosus/sdk-javascript/wiki/Events#get-events)
+  - [Create event](https://github.com/ambrosus/sdk-javascript/wiki/Events#create-event)
 - [Examples](#examples)
 
 ## Prerequisite
