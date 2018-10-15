@@ -14,7 +14,6 @@ const expect = chai.expect;
 const apiEndpoint = 'https://gateway-test.ambrosus.com';
 const assetId = '0x525466324f178cef08e25cf69cffde9f149129e4ceddfaa19767bc29705cef56';
 const eventId = '0x8663d7863dc5131d5ad6050d44ed625cd299b78d2ce289ffc95e63b1559c3f63';
-const bundleId = '0xc455b6d08bbfc5d8c54a90ec390373ef251a727119a88d6d9c5703bd46c3cd4d';
 let lib;
 let lib1;
 
@@ -225,14 +224,6 @@ describe('Response Handler', () => {
   });
 
   describe('/GET bundle by ID', () => {
-    it('it should GET specified bundle the by correct bundle id', (done) => {
-      lib.getBundleById(bundleId)
-        .then(response => { expect(response.status).to.equal(200); done(); })
-        .catch(error => { done(error); })
-    }).timeout(15000);
-  });
-
-  describe('/GET bundle by ID', () => {
     it('it should throw Bundle ID is missing error', (done) => {
       lib.getBundleById()
         .then(response => { done(response); })
@@ -350,6 +341,34 @@ describe('web3.js validations', () => {
       const response = lib.getPkPair();
       expect(response.address).to.be.a('string'); done();
     });
+  });
+
+});
+
+describe('Administration', () => {
+
+  describe('/POST add account ', () => {
+    it('it should throw secret is missing error', (done) => {
+      lib.addAccount()
+        .then(response => { done(response); })
+        .catch(error => { expect(error.status).to.equal(400); done(); })
+    }).timeout(15000);
+  });
+
+  describe('should parse events', () => {
+    it('it should return the parsed events obj successfully', (done) => {
+      lib.parseEvents(eventsArray)
+        .then(response => { expect(response).to.be.a('object'); done(); })
+        .catch(error => { done(error); })
+    }).timeout(15000);
+  });
+
+  describe('should parse events', () => {
+    it('it should return error due to empty event', (done) => {
+      lib.parseEvents({})
+        .then(response => { done(response); })
+        .catch(error => { expect(error.status).to.equal(400); done(); })
+    }).timeout(15000);
   });
 
 });
