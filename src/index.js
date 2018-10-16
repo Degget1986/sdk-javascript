@@ -23,32 +23,36 @@ import {
 let assetSequenceNumber = 0;
 
 export default class AmbrosusSDK {
-  constructor(extendSettings) {
+  constructor(extendSettings = {}) {
     this._settings = {
       apiEndpoint: 'https://gateway-test.ambrosus.com'
     };
     this.events = {};
     this.empty = [];
 
-    for (const key in extendSettings) {
-      if (extendSettings.hasOwnProperty(key)) {
-        this._settings[key] = extendSettings[key];
+    if (typeof extendSettings === 'object') {
+      for (const key in extendSettings) {
+        if (extendSettings.hasOwnProperty(key)) {
+          this._settings[key] = extendSettings[key];
+        }
       }
-    }
-
-    /* istanbul ignore if */
-    if (this._settings.Web3 && this._settings.secret) {
-      this.web3 = new this._settings.Web3();
-
-      if (this.web3.version.api) {
-        console.log('Old version of web3 is not supported, Please import v1.0.0+');
-      } else {
-        this._settings.address = this.getAddress(this._settings.secret);
-        this._settings.token = this.getToken(this._settings.secret);
+  
+      /* istanbul ignore if */
+      if (this._settings.Web3 && this._settings.secret) {
+        this.web3 = new this._settings.Web3();
+  
+        if (this.web3.version.api) {
+          console.log('Old version of web3 is not supported, Please import v1.0.0+');
+        } else {
+          this._settings.address = this.getAddress(this._settings.secret);
+          this._settings.token = this.getToken(this._settings.secret);
+        }
+  
+      } else if (this._settings.Web3) {
+        this.web3 = new this._settings.Web3();
       }
-
-    } else if (this._settings.Web3) {
-      this.web3 = new this._settings.Web3();
+    } else {
+      return rejectResponse('SDK Init parameters should be an object');
     }
 
     this._assets = new Assets(this._settings);
