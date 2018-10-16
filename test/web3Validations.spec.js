@@ -1,4 +1,4 @@
-describe('web3.js validations', () => {
+describe('web3.js', () => {
 
     describe('/GET token', () => {
         it('it should throw web3.js required error', (done) => {
@@ -27,26 +27,16 @@ describe('web3.js validations', () => {
     describe('/POST create asset', () => {
         it('it should throw web3.js required error', (done) => {
             lib1.createAsset()
-                .then(response => {
-                    done(response);
-                })
-                .catch(error => {
-                    expect(error.status).to.equal(400);
-                    done();
-                })
+                .then(response => { done(response); })
+                .catch(error => { expect(error.status).to.equal(400); done(); })
         }).timeout(15000);
     });
 
     describe('/POST create event', () => {
         it('it should throw web3.js required error', (done) => {
             lib1.createEvent()
-                .then(response => {
-                    done(response);
-                })
-                .catch(error => {
-                    expect(error.status).to.equal(400);
-                    done();
-                })
+                .then(response => { done(response); })
+                .catch(error => { expect(error.status).to.equal(400); done(); })
         }).timeout(15000);
     });
 
