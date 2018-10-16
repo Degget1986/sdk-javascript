@@ -16,3 +16,4 @@ global.lib1 = new AmbrosusSDK({ apiEndpoint: apiEndpoint });
 global.eventsArray = eventsArray;
 global.assetId = '0x525466324f178cef08e25cf69cffde9f149129e4ceddfaa19767bc29705cef56';
 global.eventId = '0x8663d7863dc5131d5ad6050d44ed625cd299b78d2ce289ffc95e63b1559c3f63';
+global.randomSecret = '0x8663d7863dc5131d5ad6050d44ed625cd299b78d2ce289ffc95e63b1559c3f63';
