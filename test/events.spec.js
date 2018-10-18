@@ -1,9 +1,5 @@
 describe('Events', () => {
 
-    /*
-     * Test the /GET Events endpoints
-     */
-
     describe('/GET event by ID: Pass correct eventId', () => {
         it('it should GET specified event the by correct id', (done) => {
             lib.getEventById(eventId)
@@ -99,6 +95,22 @@ describe('Events', () => {
             lib.parseEvents('123')
                 .then(response => { done(response); })
                 .catch(error => { expect(error.status).to.equal(400); done(); })
+        }).timeout(15000);
+    });
+
+    describe('/POST create event: pass a legit json object as event object', () => {
+        it('it should throw Permission denied (403) error', (done) => {
+            lib2.createEvent(assetId, chocolateJson[0])
+                .then(response => { done(response); })
+                .catch(error => { expect(error.status).to.equal(403); done(); })
+        }).timeout(15000);
+    });
+
+    describe('/POST create event: pass a random string as event object', () => {
+        it('it should throw (400) error, event should be an object', (done) => {
+          lib2.createEvent(assetId, 'randomString')
+            .then(response => { done(response); })
+            .catch(error => { expect(error.status).to.equal(400); done(); })
         }).timeout(15000);
     });
 

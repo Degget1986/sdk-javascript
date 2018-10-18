@@ -1,7 +1,4 @@
 describe('Assets', () => {
-    /*
-     * Test the /GET Asset endpoints
-     */
   
     describe('/GET asset by ID', () => {
       it('it should GET specified asset the by correct id', (done) => {
@@ -74,6 +71,39 @@ describe('Assets', () => {
       it('it should catch error due to no parameters', (done) => {
         const params = `{ createdBy: 0x9687a70513047dc6Ee966D69bD0C07FFb1102098, perPage: 1 }`;
         lib.getAssets(params)
+          .then(response => { done(response); })
+          .catch(error => { expect(error.status).to.equal(400); done(); })
+      }).timeout(15000);
+    });
+
+
+    describe('/POST create empty asset', () => {
+      it('it should throw Permission denied (403) error', (done) => {
+        lib2.createAsset()
+          .then(response => { done(response); })
+          .catch(error => { expect(error.status).to.equal(403); done(); })
+      }).timeout(15000);
+    });
+
+    describe('/POST create asset and bulk events: pass a legit json object', () => {
+      it('it should throw Permission denied (403) error', (done) => {
+        lib2.createAsset(chocolateJson)
+          .then(response => { done(response); })
+          .catch(error => { expect(error.status).to.equal(403); done(); })
+      }).timeout(15000);
+    });
+
+    describe('/POST create asset and bulk events: pass a random string', () => {
+      it('it should throw (400) error, asset should be an object', (done) => {
+        lib2.createAsset('randomString')
+          .then(response => { done(response); })
+          .catch(error => { expect(error.status).to.equal(400); done(); })
+      }).timeout(15000);
+    });
+
+    describe('/POST create asset and bulk events: pass a number', () => {
+      it('it should throw (400) error', (done) => {
+        lib2.createAsset(1234)
           .then(response => { done(response); })
           .catch(error => { expect(error.status).to.equal(400); done(); })
       }).timeout(15000);
