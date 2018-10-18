@@ -32,35 +32,35 @@ describe('web3.js', () => {
 
     describe('/GET address', () => {
         it('it should get the address given that SDK is initilized with a secret', (done) => {
-            expect(aSDK.getToken()).to.be.a('string');
+            expect(aSDK.getAddress()).to.be.a('string');
             done();
         });
     });
 
     describe('/GET address', () => {
         it('it should get the address given that the secret is passed in the method call', (done) => {
-            expect(lib.getToken(randomSecret)).to.be.a('string');
+            expect(lib.getAddress(randomSecret)).to.be.a('string');
             done();
         });
     });
 
-    describe('/GET signed data', () => {
+    describe('/GET signature', () => {
         it('it should throw web3.js required error', (done) => {
             expect(lib1.sign().status).to.equal(400);
             done();
         });
     });
 
-    describe('/GET signed data', () => {
-        it('it should get the address given that SDK is initilized with a secret', (done) => {
-            expect(aSDK.sign({data: 'randomData'}, randomSecret)).to.be.a('string');
+    describe('/GET signature', () => {
+        it('it should get the signature given that SDK is initilized with a secret', (done) => {
+            expect(aSDK.sign({data: 'randomData'})).to.be.a('string');
             done();
         });
     });
 
-    describe('/GET signed data', () => {
-        it('it should get the address given that the secret is passed in the method call', (done) => {
-            expect(lib.getToken(randomSecret)).to.be.a('string');
+    describe('/GET signature', () => {
+        it('it should generate the signature given that the secret is passed in the method call', (done) => {
+            expect(lib.sign({data: 'randomData'}, randomSecret)).to.be.a('string');
             done();
         });
     });
