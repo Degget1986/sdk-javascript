@@ -62,9 +62,9 @@ export default class AmbrosusSDK {
   }
 
   getToken(secret = null, timestamp) {
-    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the token'); }
     else if (!secret) {
-      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the address'); }
+      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the token'); }
       else { secret = this._settings.secret }
     }
 
