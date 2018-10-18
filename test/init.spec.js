@@ -1,7 +1,7 @@
 describe('Given an instance of my api library', () => {
     before(() => {
-        lib = new AmbrosusSDK({ apiEndpoint: apiEndpoint, Web3: Web3 });
-        lib1 = new AmbrosusSDK({ apiEndpoint: apiEndpoint });
+        lib = new AmbrosusSDK({ apiEndpoint, Web3 });
+        lib1 = new AmbrosusSDK({ apiEndpoint });
     });
 
     describe('see if library is initialised', () => {
@@ -47,7 +47,7 @@ describe('Given an instance of my api library', () => {
 
     describe('initialize the sdk with random secret and web3', () => {
         it('see if address is generated', () => {
-            const aSDK = new AmbrosusSDK({ Web3: Web3, secret: randomSecret });
+            const aSDK = new AmbrosusSDK({ Web3, secret: randomSecret });
             const address = aSDK.getAddress(randomSecret);
             expect(aSDK._settings.address).to.be.equal(address);
         });
@@ -55,7 +55,7 @@ describe('Given an instance of my api library', () => {
 
     describe('initialize the sdk with random secret and web3', () => {
         it('see if token is generated', () => {
-            const aSDK = new AmbrosusSDK({ Web3: Web3, secret: randomSecret });
+            const aSDK = new AmbrosusSDK({ Web3, secret: randomSecret });
             const token = aSDK.getToken(randomSecret);
             expect(aSDK._settings.token).to.be.equal(token);
         });
