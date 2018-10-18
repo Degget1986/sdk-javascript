@@ -1,5 +1,3 @@
-const aSDK = new AmbrosusSDK({ secret: randomSecret, Web3 });
-
 describe('web3.js', () => {
 
     describe('/GET token', () => {
@@ -11,7 +9,7 @@ describe('web3.js', () => {
 
     describe('/GET token', () => {
         it('it should generate the token given that SDK is initilized with a secret', (done) => {
-            expect(aSDK.getToken()).to.be.a('string');
+            expect(lib2.getToken()).to.be.a('string');
             done();
         });
     });
@@ -32,7 +30,7 @@ describe('web3.js', () => {
 
     describe('/GET address', () => {
         it('it should get the address given that SDK is initilized with a secret', (done) => {
-            expect(aSDK.getAddress()).to.be.a('string');
+            expect(lib2.getAddress()).to.be.a('string');
             done();
         });
     });
@@ -53,7 +51,7 @@ describe('web3.js', () => {
 
     describe('/GET signature', () => {
         it('it should get the signature given that SDK is initilized with a secret', (done) => {
-            expect(aSDK.sign({data: 'randomData'})).to.be.a('string');
+            expect(lib2.sign({data: 'randomData'})).to.be.a('string');
             done();
         });
     });
