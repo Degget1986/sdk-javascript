@@ -20,14 +20,14 @@
     </h1>
     <div class='clearfix'>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.23% </span>
+        <span class="strong">91.21% </span>
         <span class="quiet">Statements</span>
-        <span class='fraction'>82/94</span>
+        <span class='fraction'>83/91</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">67.21% </span>
+        <span class="strong">76.81% </span>
         <span class="quiet">Branches</span>
-        <span class='fraction'>41/61</span>
+        <span class='fraction'>53/69</span>
       </div>
       <div class='fl pad1y space-right2'>
         <span class="strong">100% </span>
@@ -35,9 +35,9 @@
         <span class='fraction'>16/16</span>
       </div>
       <div class='fl pad1y space-right2'>
-        <span class="strong">87.8% </span>
+        <span class="strong">93.83% </span>
         <span class="quiet">Lines</span>
-        <span class='fraction'>72/82</span>
+        <span class='fraction'>76/81</span>
       </div>
     </div>
     <p class="quiet">
@@ -462,11 +462,10 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-yes">9x</span>
-<span class="cline-any cline-yes">2x</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">7x</span>
+<span class="cline-any cline-yes">6x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -482,22 +481,23 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">14x</span>
-<span class="cline-any cline-yes">14x</span>
 <span class="cline-any cline-yes">13x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">13x</span>
+<span class="cline-any cline-yes">12x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">11x</span>
-<span class="cline-any cline-yes">10x</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">9x</span>
+<span class="cline-any cline-yes">8x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-yes">1x</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -814,42 +814,42 @@ export default class AmbrosusSDK {
   }
 &nbsp;
   getToken(secret, timestamp) {
-    let validSecret;
-    if (!this.web3) { return rejectResponse('web3.js Library is required generate the token'); } 
-    else if (secret) { validSecret = secret; } 
-    else <span class="missing-if-branch" title="else path not taken" >E</span>if (this._settings.secret) { validSecret = this._settings.secret; } 
-    else { <span class="cstat-no" title="statement not covered" >return rejectResponse('Secret key is required generate the token'); }</span>
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+    else if (!secret) {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!this._settings.secret) { <span class="cstat-no" title="statement not covered" >return rejectResponse('Secret key is required generate the address'); }</span>
+      else { secret = this._settings.secret }
+    }
 &nbsp;
     /* istanbul ignore next */
     const idData = {
-      createdBy: this.getAddress(validSecret),
+      createdBy: this.getAddress(secret),
       validUntil: timestamp ? timestamp : Math.floor(Date.now() / 1000) + 300
     };
 &nbsp;
     /* istanbul ignore next */
     return base64url(serializeForHashing({
-      signature: this.sign(idData, validSecret),
+      signature: this.sign(idData, secret),
       idData
     }));
   }
 &nbsp;
-  getAddress(secret) {
-    let validSecret;
+  getAddress(secret = null) {
     if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
-    else <span class="missing-if-branch" title="else path not taken" >E</span>if (secret) { validSecret = secret; }
-    else <span class="cstat-no" title="statement not covered" >if (this._settings.secret) { <span class="cstat-no" title="statement not covered" >validSecret = this._settings.secret; } </span></span>
-    else { <span class="cstat-no" title="statement not covered" >return rejectResponse('Secret key is required generate the address'); }</span>
+    else if (!secret) {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!this._settings.secret) { <span class="cstat-no" title="statement not covered" >return rejectResponse('Secret key is required generate the address'); }</span>
+      else { secret = this._settings.secret }
+    }
 &nbsp;
     /* istanbul ignore next */
-    return this.web3.eth.accounts.privateKeyToAccount(validSecret).address;
+    return this.web3.eth.accounts.privateKeyToAccount(secret).address;
   }
 &nbsp;
-  sign(data, secret) {
-    let validSecret;
-    if (!this.web3) { return rejectResponse('web3.js Library is required get the signature'); } 
-    else <span class="missing-if-branch" title="else path not taken" >E</span>if (secret) { validSecret = secret; }
-    else <span class="cstat-no" title="statement not covered" >if (this._settings.secret) { <span class="cstat-no" title="statement not covered" >validSecret = this._settings.secret; } </span></span>
-    else { <span class="cstat-no" title="statement not covered" >return rejectResponse('Secret key is required generate the address'); }</span>
+  sign(data = {}, secret) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+    else if (!secret) {
+      <span class="missing-if-branch" title="if path not taken" >I</span>if (!this._settings.secret) { <span class="cstat-no" title="statement not covered" >return rejectResponse('Secret key is required generate the address'); }</span>
+      else { secret = this._settings.secret }
+    }
     
     /* istanbul ignore next */
     return this.web3.eth.accounts.sign(serializeForHashing(data), secret).signature;
@@ -1108,7 +1108,7 @@ export default class AmbrosusSDK {
 </div><!-- /wrapper -->
 <div class='footer quiet pad2 space-top1 center small'>
   Code coverage
-  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 18 2018 11:28:20 GMT+0530 (IST)
+  generated by <a href="https://istanbul.js.org/" target="_blank">istanbul</a> at Thu Oct 18 2018 11:50:55 GMT+0530 (IST)
 </div>
 </div>
 <script src="../prettify.js"></script>
