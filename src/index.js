@@ -62,42 +62,42 @@ export default class AmbrosusSDK {
   }
 
   getToken(secret, timestamp) {
-    let validSecret;
-    if (!this.web3) { return rejectResponse('web3.js Library is required generate the token'); } 
-    else if (secret) { validSecret = secret; } 
-    else if (this._settings.secret) { validSecret = this._settings.secret; } 
-    else { return rejectResponse('Secret key is required generate the token'); }
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+    else if (!secret) {
+      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the address'); }
+      else { secret = this._settings.secret }
+    }
 
     /* istanbul ignore next */
     const idData = {
-      createdBy: this.getAddress(validSecret),
+      createdBy: this.getAddress(secret),
       validUntil: timestamp ? timestamp : Math.floor(Date.now() / 1000) + 300
     };
 
     /* istanbul ignore next */
     return base64url(serializeForHashing({
-      signature: this.sign(idData, validSecret),
+      signature: this.sign(idData, secret),
       idData
     }));
   }
 
-  getAddress(secret) {
-    let validSecret;
+  getAddress(secret = null) {
     if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
-    else if (secret) { validSecret = secret; }
-    else if (this._settings.secret) { validSecret = this._settings.secret; } 
-    else { return rejectResponse('Secret key is required generate the address'); }
+    else if (!secret) {
+      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the address'); }
+      else { secret = this._settings.secret }
+    }
 
     /* istanbul ignore next */
-    return this.web3.eth.accounts.privateKeyToAccount(validSecret).address;
+    return this.web3.eth.accounts.privateKeyToAccount(secret).address;
   }
 
-  sign(data, secret) {
-    let validSecret;
-    if (!this.web3) { return rejectResponse('web3.js Library is required get the signature'); } 
-    else if (secret) { validSecret = secret; }
-    else if (this._settings.secret) { validSecret = this._settings.secret; } 
-    else { return rejectResponse('Secret key is required generate the address'); }
+  sign(data = {}, secret) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+    else if (!secret) {
+      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the address'); }
+      else { secret = this._settings.secret }
+    }
     
     /* istanbul ignore next */
     return this.web3.eth.accounts.sign(serializeForHashing(data), secret).signature;
