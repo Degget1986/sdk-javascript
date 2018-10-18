@@ -1,25 +1,66 @@
+const aSDK = new AmbrosusSDK({ secret: randomSecret, Web3 });
+
 describe('web3.js', () => {
 
     describe('/GET token', () => {
         it('it should throw web3.js required error', (done) => {
-            const token = lib1.getToken();
-            expect(token.status).to.equal(400);
+            expect(lib1.getToken().status).to.equal(400);
             done();
         });
     });
 
-    describe('/GET address from secret', () => {
-        it('it should throw web3.js required error', (done) => {
-            const token = lib1.getAddress();
-            expect(token.status).to.equal(400);
+    describe('/GET token', () => {
+        it('it should generate the token given that SDK is initilized with a secret', (done) => {
+            expect(aSDK.getToken()).to.be.a('string');
             done();
         });
     });
 
-    describe('/GET sign transaction', () => {
+    describe('/GET token', () => {
+        it('it should generate the token given that the secret is passed in the method call', (done) => {
+            expect(lib.getToken(randomSecret)).to.be.a('string');
+            done();
+        });
+    });
+
+    describe('/GET address', () => {
         it('it should throw web3.js required error', (done) => {
-            const token = lib1.sign();
-            expect(token.status).to.equal(400);
+            expect(lib1.getAddress().status).to.equal(400);
+            done();
+        });
+    });
+
+    describe('/GET address', () => {
+        it('it should get the address given that SDK is initilized with a secret', (done) => {
+            expect(aSDK.getToken()).to.be.a('string');
+            done();
+        });
+    });
+
+    describe('/GET address', () => {
+        it('it should get the address given that the secret is passed in the method call', (done) => {
+            expect(lib.getToken(randomSecret)).to.be.a('string');
+            done();
+        });
+    });
+
+    describe('/GET signed data', () => {
+        it('it should throw web3.js required error', (done) => {
+            expect(lib1.sign().status).to.equal(400);
+            done();
+        });
+    });
+
+    describe('/GET signed data', () => {
+        it('it should get the address given that SDK is initilized with a secret', (done) => {
+            expect(aSDK.sign({data: 'randomData'}, randomSecret)).to.be.a('string');
+            done();
+        });
+    });
+
+    describe('/GET signed data', () => {
+        it('it should get the address given that the secret is passed in the method call', (done) => {
+            expect(lib.getToken(randomSecret)).to.be.a('string');
             done();
         });
     });
@@ -42,16 +83,21 @@ describe('web3.js', () => {
 
     describe('/GET publicKey & privateKey pair ', () => {
         it('it should throw web3.js required error', (done) => {
-            const response = lib1.getPkPair();
-            expect(response.status).to.equal(400);
+            expect(lib1.getPkPair().status).to.equal(400);
             done();
         });
     });
 
     describe('/GET publicKey & privateKey pair ', () => {
         it('it should provide a pk pair', (done) => {
-            const response = lib.getPkPair();
-            expect(response.address).to.be.a('string');
+            expect(lib.getPkPair().address).to.be.a('string');
+            done();
+        });
+    });
+
+    describe('/GET publicKey & privateKey pair ', () => {
+        it('it should provide a pk pair', (done) => {
+            expect(lib.getPkPair().privateKey).to.be.a('string');
             done();
         });
     });
