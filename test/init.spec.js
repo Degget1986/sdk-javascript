@@ -1,8 +1,4 @@
 describe('Given an instance of my api library', () => {
-    before(() => {
-        lib = new AmbrosusSDK({ apiEndpoint, Web3 });
-        lib1 = new AmbrosusSDK({ apiEndpoint });
-    });
 
     describe('see if library is initialised', () => {
         it('should return the apiEndpoint', () => {
