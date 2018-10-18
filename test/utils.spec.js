@@ -93,4 +93,36 @@ describe('Utils.js', () => {
         });
     });
 
+    describe('Miscellaneous', () => {
+        
+        describe('/GET bundle by ID', () => {
+            it('it should throw Bundle ID is missing error', (done) => {
+                lib.getBundleById()
+                    .then(response => { done(response); })
+                    .catch(error => { expect(error.status).to.equal(400); done(); })
+            }).timeout(15000);
+        });
+
+        describe('/SET token as header', () => {
+            it('it should set the token as header given that sdk is initialized with web3', (done) => {
+                lib.setTokenHeader(randomSecret);
+                expect(lib._settings.headers.Authorization).to.be.a('string'); done();
+            }).timeout(15000);
+        });
+
+        describe('/SET token as header: without passing secret in method call', () => {
+            it('it should set the token as header given that sdk is initialized with web3 & secret', (done) => {
+                lib2.setTokenHeader();
+                expect(lib2._settings.headers.Authorization).to.be.a('string'); done();
+            }).timeout(15000);
+        });
+
+        describe('/SET token as header', () => {
+            it('it should throw web3 is required error', (done) => {
+                const response = lib1.setTokenHeader(randomSecret);
+                expect(response.status).to.equal(400); done();
+            }).timeout(15000);
+        });
+    });
+
 });

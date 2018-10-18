@@ -38,12 +38,4 @@ describe('Response Handler', () => {
         });
     });
 
-    describe('/GET bundle by ID', () => {
-        it('it should throw Bundle ID is missing error', (done) => {
-            lib.getBundleById()
-                .then(response => { done(response); })
-                .catch(error => { expect(error.status).to.equal(400); done(); })
-        }).timeout(15000);
-    });
-
 });
