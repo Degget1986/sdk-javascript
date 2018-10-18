@@ -61,7 +61,7 @@ export default class AmbrosusSDK {
 
   }
 
-  getToken(secret, timestamp) {
+  getToken(secret = null, timestamp) {
     if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
     else if (!secret) {
       if (!this._settings.secret) { return rejectResponse('Secret key is required generate the address'); }
@@ -92,10 +92,10 @@ export default class AmbrosusSDK {
     return this.web3.eth.accounts.privateKeyToAccount(secret).address;
   }
 
-  sign(data = {}, secret) {
-    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+  sign(data = {}, secret = null) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required generate a signature'); }
     else if (!secret) {
-      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the address'); }
+      if (!this._settings.secret) { return rejectResponse('Secret key is required generate a signature'); }
       else { secret = this._settings.secret }
     }
     
@@ -304,17 +304,18 @@ export default class AmbrosusSDK {
     });
   }
 
-  setTokenHeader(secret) {
+  setTokenHeader(secret = null) {
     /* istanbul ignore next */
-    if (!secret) {
-      return rejectResponse('Secret is required to generate the token');
-    } else if (!this.web3) {
-      return rejectResponse('web3.js library is required to create an event');
-    } else {
-      this._settings['headers'] = {
-        'Authorization': `AMB_TOKEN ${this.getToken(secret)}`
-      };
+    if (!this.web3) { return rejectResponse('web3.js Library is required set the token'); }
+    else if (!secret) {
+      if (!this._settings.secret) { return rejectResponse('Secret key is required set the token'); }
+      else { secret = this._settings.secret }
     }
+    
+    this._settings['headers'] = {
+      'Authorization': `AMB_TOKEN ${this.getToken(secret)}`
+    };
+
   }
 
   on(type, func, ctx) {
