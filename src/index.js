@@ -62,34 +62,43 @@ export default class AmbrosusSDK {
   }
 
   getToken(secret, timestamp) {
-    if (!this.web3) {
-      return rejectResponse('web3.js Library is required generate the token');
-    }
+    let validSecret;
+    if (!this.web3) { return rejectResponse('web3.js Library is required generate the token'); } 
+    else if (secret) { validSecret = secret; } 
+    else if (this._settings.secret) { validSecret = this._settings.secret; } 
+    else { return rejectResponse('Secret key is required generate the token'); }
+
     /* istanbul ignore next */
     const idData = {
-      createdBy: this.getAddress(secret),
+      createdBy: this.getAddress(validSecret),
       validUntil: timestamp ? timestamp : Math.floor(Date.now() / 1000) + 300
     };
 
     /* istanbul ignore next */
     return base64url(serializeForHashing({
-      signature: this.sign(idData, secret),
+      signature: this.sign(idData, validSecret),
       idData
     }));
   }
 
   getAddress(secret) {
-    if (!this.web3) {
-      return rejectResponse('web3.js Library is required get the address');
-    }
+    let validSecret;
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+    else if (secret) { validSecret = secret; }
+    else if (this._settings.secret) { validSecret = this._settings.secret; } 
+    else { return rejectResponse('Secret key is required generate the address'); }
+
     /* istanbul ignore next */
-    return this.web3.eth.accounts.privateKeyToAccount(secret).address;
+    return this.web3.eth.accounts.privateKeyToAccount(validSecret).address;
   }
 
   sign(data, secret) {
-    if (!this.web3) {
-      return rejectResponse('web3.js Library is required get the signature');
-    }
+    let validSecret;
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the signature'); } 
+    else if (secret) { validSecret = secret; }
+    else if (this._settings.secret) { validSecret = this._settings.secret; } 
+    else { return rejectResponse('Secret key is required generate the address'); }
+    
     /* istanbul ignore next */
     return this.web3.eth.accounts.sign(serializeForHashing(data), secret).signature;
   }
