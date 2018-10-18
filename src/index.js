@@ -158,14 +158,16 @@ export default class AmbrosusSDK {
     return new Promise((resolve, reject) => {
       let idData = {};
 
-      if (!this.web3) {
+      if (typeof asset !== 'object') {
+        return reject(rejectResponse('asset should be a json object or empty'));
+      } else if (!this.web3) {
         return reject(rejectResponse('web3.js library is required to create an asset'));
       } else if (!this._settings.secret) {
         return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
       }
 
       idData = {
-        timestamp: checkTimeStamp(event),
+        timestamp: checkTimeStamp(asset),
         sequenceNumber: assetSequenceNumber = (assetSequenceNumber + 1) % 1000000,
         createdBy: this._settings.address
       };
@@ -211,7 +213,9 @@ export default class AmbrosusSDK {
     /* istanbul ignore next */
     return new Promise((resolve, reject) => {
 
-      if (!this.web3) {
+      if (typeof event !== 'object') {
+        return reject(rejectResponse('event should be a json object'));
+      } else if (!this.web3) {
         return reject(rejectResponse('web3.js library is required to create an event'));
       } else if (!this._settings.secret) {
         return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
