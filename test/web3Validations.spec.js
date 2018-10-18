@@ -87,14 +87,14 @@ describe('web3.js', () => {
     });
 
     describe('/GET publicKey & privateKey pair ', () => {
-        it('it should provide a pk pair', (done) => {
+        it('it should provide a address', (done) => {
             expect(lib.getPkPair().address).to.be.a('string');
             done();
         });
     });
 
     describe('/GET publicKey & privateKey pair ', () => {
-        it('it should provide a pk pair', (done) => {
+        it('it should provide a secret', (done) => {
             expect(lib.getPkPair().privateKey).to.be.a('string');
             done();
         });
