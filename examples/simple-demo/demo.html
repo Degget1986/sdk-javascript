@@ -6,12 +6,14 @@
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <title>Ambrosus JS SDK</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="./../../lib/ambrosus.js"></script>
+  <script src="./../../lib/ambrosus.umd.min.js"></script>
   <script>
-
+    
+    console.log(AmbrosusSDK.utils.checkTimeStamp(1234));
     var ambrosus = new AmbrosusSDK({
       apiEndpoint: 'https://gateway-test.ambrosus.com'
     })
+
 
     ambrosus.getAssetById('0x6904151c80b33a26925bf940b061c7d365dee013f468adc555d6c699dc0e3b79')
       .then(function(response) {
