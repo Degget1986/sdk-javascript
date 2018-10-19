@@ -23,32 +23,36 @@ import {
 let assetSequenceNumber = 0;
 
 export default class AmbrosusSDK {
-  constructor(extendSettings) {
+  constructor(extendSettings = {}) {
     this._settings = {
       apiEndpoint: 'https://gateway-test.ambrosus.com'
     };
     this.events = {};
     this.empty = [];
 
-    for (const key in extendSettings) {
-      if (extendSettings.hasOwnProperty(key)) {
-        this._settings[key] = extendSettings[key];
+    if (typeof extendSettings === 'object') {
+      for (const key in extendSettings) {
+        if (extendSettings.hasOwnProperty(key)) {
+          this._settings[key] = extendSettings[key];
+        }
       }
-    }
-
-    /* istanbul ignore if */
-    if (this._settings.Web3 && this._settings.secret) {
-      this.web3 = new this._settings.Web3();
-
-      if (this.web3.version.api) {
-        console.log('Old version of web3 is not supported, Please import v1.0.0+');
-      } else {
-        this._settings.address = this.getAddress(this._settings.secret);
-        this._settings.token = this.getToken(this._settings.secret);
+  
+      /* istanbul ignore if */
+      if (this._settings.Web3 && this._settings.secret) {
+        this.web3 = new this._settings.Web3();
+  
+        if (this.web3.version.api) {
+          console.log('Old version of web3 is not supported, Please import v1.0.0+');
+        } else {
+          this._settings.address = this.getAddress(this._settings.secret);
+          this._settings.token = this.getToken(this._settings.secret);
+        }
+  
+      } else if (this._settings.Web3) {
+        this.web3 = new this._settings.Web3();
       }
-
-    } else if (this._settings.Web3) {
-      this.web3 = new this._settings.Web3();
+    } else {
+      return rejectResponse('SDK Init parameters should be an object');
     }
 
     this._assets = new Assets(this._settings);
@@ -57,10 +61,13 @@ export default class AmbrosusSDK {
 
   }
 
-  getToken(secret, timestamp) {
-    if (!this.web3) {
-      return rejectResponse('web3.js Library is required generate the token');
+  getToken(secret = null, timestamp) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the token'); }
+    else if (!secret) {
+      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the token'); }
+      else { secret = this._settings.secret }
     }
+
     /* istanbul ignore next */
     const idData = {
       createdBy: this.getAddress(secret),
@@ -74,18 +81,24 @@ export default class AmbrosusSDK {
     }));
   }
 
-  getAddress(secret) {
-    if (!this.web3) {
-      return rejectResponse('web3.js Library is required get the address');
+  getAddress(secret = null) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
+    else if (!secret) {
+      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the address'); }
+      else { secret = this._settings.secret }
     }
+
     /* istanbul ignore next */
     return this.web3.eth.accounts.privateKeyToAccount(secret).address;
   }
 
-  sign(data, secret) {
-    if (!this.web3) {
-      return rejectResponse('web3.js Library is required get the signature');
+  sign(data = {}, secret = null) {
+    if (!this.web3) { return rejectResponse('web3.js Library is required generate a signature'); }
+    else if (!secret) {
+      if (!this._settings.secret) { return rejectResponse('Secret key is required generate a signature'); }
+      else { secret = this._settings.secret }
     }
+    
     /* istanbul ignore next */
     return this.web3.eth.accounts.sign(serializeForHashing(data), secret).signature;
   }
@@ -145,14 +158,16 @@ export default class AmbrosusSDK {
     return new Promise((resolve, reject) => {
       let idData = {};
 
-      if (!this.web3) {
+      if (typeof asset !== 'object') {
+        return reject(rejectResponse('asset should be a json object or empty'));
+      } else if (!this.web3) {
         return reject(rejectResponse('web3.js library is required to create an asset'));
       } else if (!this._settings.secret) {
         return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
       }
 
       idData = {
-        timestamp: checkTimeStamp(event),
+        timestamp: checkTimeStamp(asset),
         sequenceNumber: assetSequenceNumber = (assetSequenceNumber + 1) % 1000000,
         createdBy: this._settings.address
       };
@@ -198,7 +213,9 @@ export default class AmbrosusSDK {
     /* istanbul ignore next */
     return new Promise((resolve, reject) => {
 
-      if (!this.web3) {
+      if (typeof event !== 'object') {
+        return reject(rejectResponse('event should be a json object'));
+      } else if (!this.web3) {
         return reject(rejectResponse('web3.js library is required to create an event'));
       } else if (!this._settings.secret) {
         return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
@@ -287,17 +304,18 @@ export default class AmbrosusSDK {
     });
   }
 
-  setTokenHeader(secret) {
+  setTokenHeader(secret = null) {
     /* istanbul ignore next */
-    if (!secret) {
-      return rejectResponse('Secret is required to generate the token');
-    } else if (!this.web3) {
-      return rejectResponse('web3.js library is required to create an event');
-    } else {
-      this._settings['headers'] = {
-        'Authorization': `AMB_TOKEN ${this.getToken(secret)}`
-      };
+    if (!this.web3) { return rejectResponse('web3.js Library is required set the token'); }
+    else if (!secret) {
+      if (!this._settings.secret) { return rejectResponse('Secret key is required set the token'); }
+      else { secret = this._settings.secret }
     }
+    
+    this._settings['headers'] = {
+      'Authorization': `AMB_TOKEN ${this.getToken(secret)}`
+    };
+
   }
 
   on(type, func, ctx) {
