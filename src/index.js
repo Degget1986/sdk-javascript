@@ -355,3 +355,10 @@ export default class AmbrosusSDK {
   }
 
 }
+
+AmbrosusSDK.utils = {
+  checkTimeStamp,
+  parseEvents,
+  base64url,
+  serializeForHashing
+}

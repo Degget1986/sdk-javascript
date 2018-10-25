@@ -160,6 +160,16 @@ ambrosus.on('asset:created', function() {
 });
 ```
 
+## Public SDK Methods 
+
+The SDK also exports utility methods which can be used without initializing the SDK. 
+Example to access the public utility methods
+
+```javascript
+const parseEvents = AmbrosusSDK.utils.parseEvents(eventsArray);
+// Parse events object
+```
+
 ## Examples
 
 See [examples/](examples/) for working examples of how the SDK can be used.
