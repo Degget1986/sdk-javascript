@@ -23,9 +23,7 @@ let assetSequenceNumber = 0;
 
 export default class AmbrosusSDK {
   constructor(extendSettings = {}) {
-    console.log(Utils);
     this.utils = Utils;
-    console.log(this.utils);
     this._settings = {
       apiEndpoint: 'https://gateway-test.ambrosus.com'
     };
