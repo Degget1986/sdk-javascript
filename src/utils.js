@@ -5,6 +5,39 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
 */
+export const timeSince = date => {
+  try {
+    let seconds = Math.floor((+new Date() - date) / 1000);
+    let interval = Math.floor(seconds / 31536000);
+
+    if (interval >= 1) {
+      return interval + " year" + (interval > 1 ? 's' : '');
+    }
+    interval = Math.floor(seconds / 2592000);
+    if (interval >= 1) {
+      return interval + " month" + (interval > 1 ? 's' : '');
+    }
+    interval = Math.floor(seconds / 86400);
+    if (interval >= 1) {
+      return interval + " day" + (interval > 1 ? 's' : '');
+    }
+    interval = Math.floor(seconds / 3600);
+    if (interval >= 1) {
+      return interval + " hour" + (interval > 1 ? 's' : '');
+    }
+    interval = Math.floor(seconds / 60);
+    if (interval >= 1) {
+      return interval + " minute" + (interval > 1 ? 's' : '');
+    }
+
+    seconds = seconds < 1 ? 1 : seconds;
+
+    return Math.floor(seconds) + " second" + (seconds !== 1 ? 's' : '');
+  } catch (error) {
+    return '';
+  }
+}
+
 export const validTimestamp = timestamp => {
   return new Date(timestamp).getTime() > 0;
 };
@@ -324,6 +357,7 @@ export const parseTimelineEvents = (e) => {
         const type = parts[parts.length - 1];
         const category = parts[parts.length - 2] || 'asset';
         const namespace = parts[parts.length - 3] || 'ambrosus';
+        const ago = timeSince(timestamp * 1000);
 
         obj.timestamp = timestamp;
         obj.createdBy = createdBy;
@@ -418,4 +452,5 @@ export default {
   isLatest,
   findEvent,
   parseTimelineEvents,
+  timeSince,
 };
