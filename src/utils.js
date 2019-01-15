@@ -72,11 +72,15 @@ export const parseEvents = eventsArray => {
             obj.type = type;
             obj.eventId = eventId;
 
-            if (obj.type === 'location' && category === 'event') {
-              content.data.reduce((location, _event) => {
-                if (_event.type !== 'location') {
-                  _event.location = location;
+            if ((obj.type === 'location' || obj.type === 'identifiers') && category === 'event') {
+              content.data.reduce((_obj, _event) => {
+                if (obj.type === 'location' && _event.type !== 'location') {
+                  _event.location = _obj;
                 }
+                if (obj.type === 'identifiers' && _event.type !== 'identifiers') {
+                  _event.identifiers = _obj;
+                }
+                return _obj;
               }, obj);
             } else {
               return obj;
