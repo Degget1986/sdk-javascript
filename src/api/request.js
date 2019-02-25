@@ -1,5 +1,5 @@
 /*
-Copyright: Ambrosus Technologies GmbH
+Copyright: Ambrosus Inc.
 Email: tech@ambrosus.com
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -43,7 +43,7 @@ export default class Request {
 
       request.open('POST', `${this._settings.apiEndpoint}/${path}`, true, this._settings);
       request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-      
+
       if (this._settings.headers && hasHeader === true) {
         for (const key in this._settings.headers) {
           request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
