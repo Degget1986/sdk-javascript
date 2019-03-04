@@ -26,6 +26,7 @@ export default class Assets {
   /**
    * Find asset by id
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/asset/assets/fetch-an-asset-by-id  Find asset by Id}
    * @function getAssetById
    * @param {string} assetId
    * @returns {Promise<Object>} Promise - Asset found.
@@ -41,6 +42,7 @@ export default class Assets {
   /**
    * Get all assets with the matching params
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/asset/assetsassetid/find-assets Find Assets}
    * @function getAssets
    * @param {Object} params
    * @returns {Promise<Object>} Promise - Assets.
@@ -56,6 +58,7 @@ export default class Assets {
   /**
    * Create an asset with the provided params
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/asset/assets/create-an-asset Create a new Asset}
    * @function createAsset
    * @param {Object} params
    * @returns {Promise<Object>} Promise - Asset created.

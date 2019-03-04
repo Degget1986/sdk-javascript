@@ -26,6 +26,7 @@ export default class Events {
   /**
    * Find event by id
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventseventid/fetch-event Find Event by Id}
    * @function getEventById
    * @param {string} eventId
    * @returns {Promise<Object>} Promise - Event.
@@ -41,6 +42,7 @@ export default class Events {
   /**
    * Get all events with the matching params.
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventsassetidfromtimestamptotimestampperpagepagecreatedbydata/find-events Find Events}
    * @function getEvents
    * @param {Object} params
    * @returns {Promise<Object>} Promise - Events
@@ -56,6 +58,7 @@ export default class Events {
   /**
    * Create a new event.
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
    * @function createEvent
    * @param {string} assetId
    * @param {Object} params
@@ -73,6 +76,7 @@ export default class Events {
   /**
    * Find bundle by id.
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/bundles/bundlebundleid/fetch-bundle Find Bundle by Id}
    * @function getBundleById
    * @param {string} bundleId
    * @returns {Promise<Object>} Promise - Bundle.

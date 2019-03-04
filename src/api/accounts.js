@@ -23,6 +23,7 @@ export default class Accounts {
   /**
    * Add a new account
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/account/accounts/add-account Add Account}
    * @function addAccount
    * @param {Object} params
    * @returns {Promise<Object>} Promise - Account created.

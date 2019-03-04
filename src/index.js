@@ -181,6 +181,7 @@ export default class AmbrosusSDK {
   /**
    * Find asset by Id.
    *
+   * {@link https: //ambrosus.docs.apiary.io/#reference/asset/assets/fetch-an-asset-by-id  Find asset by Id}
    * @function getAssetById
    * @param {string} assetId
    * @returns {Object} asset
@@ -199,6 +200,7 @@ export default class AmbrosusSDK {
   /**
    * Find Event by Id.
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventseventid/fetch-event Find Event by Id}
    * @function getEventById
    * @param {string} eventId
    * @returns {Object} event
@@ -218,6 +220,7 @@ export default class AmbrosusSDK {
   /**
    * Get all assets with the matching params
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/asset/assetsassetid/find-assets Find Assets}
    * @function getAssets
    * @param {Object} params
    * @returns {Object} assets
@@ -233,6 +236,7 @@ export default class AmbrosusSDK {
   /**
    * Get all Events with the matching params
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventsassetidfromtimestamptotimestampperpagepagecreatedbydata/find-events Find Events}
    * @param {Object} params
    * @returns {Object} assets
    */
@@ -247,6 +251,7 @@ export default class AmbrosusSDK {
   /**
    * Creates a new Asset
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/asset/assets/create-an-asset Create a new Asset}
    * @function createAsset
    * @param {Object} asset
    * @returns {Object} assetResponse
@@ -310,6 +315,7 @@ export default class AmbrosusSDK {
   /**
    * Creates a new Event.
    *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
    * @function createEvent
    * @param {string} assetId
    * @param {Object} event
