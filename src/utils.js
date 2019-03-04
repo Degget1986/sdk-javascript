@@ -1,24 +1,48 @@
 /*
-Copyright: Ambrosus Technologies GmbH
+Copyright: Ambrosus Inc.
 Email: tech@ambrosus.com
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
 */
 
+/**
+ * Is timestamp valid.
+ *
+ * @function validTimestamp
+ * @param {any} timestamp
+ * @returns {boolean} isValid
+ */
 const validTimestamp = timestamp => {
   return new Date(timestamp).getTime() > 0;
 };
 
+/**
+ * Check if timestamp exists
+ *
+ * @function checkTimeStamp
+ * @param {any} event
+ * @returns {number} timestamp
+ */
 export const checkTimeStamp = event => {
   let timestamp = Math.floor(Date.now() / 1000);
 
   return event.content && event.content.idData && event.content.idData.timestamp && validTimestamp(event.content.idData.timestamp) ? event.content.idData.timestamp : timestamp;
 };
 
+/**
+ * Parse all events
+ *
+ * @function parseEvents
+ * @param {Array.<Object>} eventsArray
+ * @returns {Object} events
+ */
 export const parseEvents = eventsArray => {
   return eventsArray.results.reduce(
-    (asset, { content, eventId }) => {
+    (asset, {
+      content,
+      eventId
+    }) => {
       const timestamp = content.idData.timestamp;
       const author = content.idData.createdBy;
 
@@ -28,7 +52,7 @@ export const parseEvents = eventsArray => {
             const parts = obj.type.split('.');
             const type = parts[parts.length - 1];
             const category = parts[parts.length - 2] || 'asset';
-            const namespace = parts[parts.length -3] || 'ambrosus';
+            const namespace = parts[parts.length - 3] || 'ambrosus';
 
             obj.timestamp = timestamp;
             obj.author = author;
@@ -59,13 +83,19 @@ export const parseEvents = eventsArray => {
       }
 
       return asset;
-    },
-    {
+    }, {
       events: []
     }
   );
 };
 
+/**
+ * Seralize object into query params
+ *
+ * @function serializeParams
+ * @param {Object} params
+ * @returns {string} queryParams
+ */
 export const serializeParams = params => {
   let serializeParams = '';
 
@@ -78,6 +108,13 @@ export const serializeParams = params => {
   return serializeParams;
 };
 
+/**
+ * Serialize Object
+ *
+ * @function serializeForHashing
+ * @param {Object} object
+ * @returns {string} serializedString
+ */
 export const serializeForHashing = (object) => {
   const isDict = (subject) => typeof subject === 'object' && !Array.isArray(subject);
   const isString = (subject) => typeof subject === 'string';
@@ -97,7 +134,13 @@ export const serializeForHashing = (object) => {
   return object.toString();
 };
 
-// private method for UTF-8 encoding
+/**
+ * private method for UTF - 8 encoding
+ *
+ * @function utf8Encode
+ * @param {string} string
+ * @returns {string} encodedText
+ */
 const utf8Encode = (string) => {
   string = string.replace(/\r\n/g, '\n');
   let utftext = '';
@@ -124,6 +167,13 @@ const utf8Encode = (string) => {
 
 let _keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
+/**
+ * Base 64 encode
+ *
+ * @function base64url
+ * @param {string} input
+ * r@returns {string} encodedString
+ */
 export const base64url = (input) => {
 
   let output = '';
@@ -148,17 +198,20 @@ export const base64url = (input) => {
     } else if (isNaN(chr3)) {
       enc4 = 64;
     }
-
     output = output +
       _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
       _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
-
   }
-
   return output;
-
 };
 
+/**
+ * Check the accessLevel of the asset
+ *
+ * @function checkAccessLevel
+ * @param {Object} event
+ * @returns {number} accessLevel
+ */
 export const checkAccessLevel = event => {
   try {
     return event.content.idData.accessLevel;

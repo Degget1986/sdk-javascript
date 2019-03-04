@@ -1,5 +1,5 @@
 /*
-Copyright: Ambrosus Technologies GmbH
+Copyright: Ambrosus Inc.
 Email: tech@ambrosus.com
 This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
 If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
@@ -22,7 +22,13 @@ import {
 } from './responseHandler';
 let assetSequenceNumber = 0;
 
+/** Class for SDK */
 export default class AmbrosusSDK {
+
+  /**
+   * Creating a SDK and initializing all the default variables.
+   * @param {any} extendSettings
+   */
   constructor(extendSettings = {}) {
     this._settings = {
       apiEndpoint: 'https://gateway-test.ambrosus.com'
@@ -36,18 +42,18 @@ export default class AmbrosusSDK {
           this._settings[key] = extendSettings[key];
         }
       }
-  
+
       /* istanbul ignore if */
       if (this._settings.Web3 && this._settings.secret) {
         this.web3 = new this._settings.Web3();
-  
+
         if (this.web3.version.api) {
           console.log('Old version of web3 is not supported, Please import v1.0.0+');
         } else {
           this._settings.address = this.getAddress(this._settings.secret);
           this._settings.token = this.getToken(this._settings.secret);
         }
-  
+
       } else if (this._settings.Web3) {
         this.web3 = new this._settings.Web3();
       }
@@ -61,11 +67,23 @@ export default class AmbrosusSDK {
 
   }
 
+  /**
+   * Setting the secret key
+   *
+   * @function getToken
+   * @param {string} secret
+   * @param {number} timestamp
+   * @returns {Object} Rejected Response or encoded Data
+   */
   getToken(secret = null, timestamp) {
-    if (!this.web3) { return rejectResponse('web3.js Library is required get the token'); }
-    else if (!secret) {
-      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the token'); }
-      else { secret = this._settings.secret }
+    if (!this.web3) {
+      return rejectResponse('web3.js Library is required get the token');
+    } else if (!secret) {
+      if (!this._settings.secret) {
+        return rejectResponse('Secret key is required generate the token');
+      } else {
+        secret = this._settings.secret
+      }
     }
 
     /* istanbul ignore next */
@@ -81,30 +99,55 @@ export default class AmbrosusSDK {
     }));
   }
 
+  /**
+   * Returns the address
+   *
+   * @function getAddress
+   * @param {string} secret
+   * @returns {Object | string} Rejected Response or address
+   */
   getAddress(secret = null) {
-    if (!this.web3) { return rejectResponse('web3.js Library is required get the address'); }
-    else if (!secret) {
-      if (!this._settings.secret) { return rejectResponse('Secret key is required generate the address'); }
-      else { secret = this._settings.secret }
+    if (!this.web3) {
+      return rejectResponse('web3.js Library is required get the address');
+    } else if (!secret) {
+      if (!this._settings.secret) {
+        return rejectResponse('Secret key is required generate the address');
+      } else {
+        secret = this._settings.secret
+      }
     }
 
     /* istanbul ignore next */
     return this.web3.eth.accounts.privateKeyToAccount(secret).address;
   }
 
+  /**
+   * Retruns the signed value of the Object provided.
+   *
+   * @function sign
+   * @param {Object} data
+   * @param {string} secret
+   * @returns {Object | string} Rejected Response or Signed data
+   */
   sign(data = {}, secret = null) {
-    if (!this.web3) { return rejectResponse('web3.js Library is required generate a signature'); }
-    else if (!secret) {
-      if (!this._settings.secret) { return rejectResponse('Secret key is required generate a signature'); }
-      else { secret = this._settings.secret }
+    if (!this.web3) {
+      return rejectResponse('web3.js Library is required generate a signature');
+    } else if (!secret) {
+      if (!this._settings.secret) {
+        return rejectResponse('Secret key is required generate a signature');
+      } else {
+        secret = this._settings.secret
+      }
     }
-    
+
     /* istanbul ignore next */
     return this.web3.eth.accounts.sign(serializeForHashing(data), secret).signature;
   }
 
   /**
    * Returns object consisting of address & privateKey
+   *
+   * @function getPkPair
    * @returns {address, privateKey}
    */
   getPkPair() {
@@ -114,6 +157,13 @@ export default class AmbrosusSDK {
     return this.web3.eth.accounts.create(this.web3.utils.randomHex(32));
   }
 
+  /**
+   * Returns the asset with respect to assetId
+   *
+   * @function getAssetById
+   * @param {string} assetId
+   * @returns {Object} asset
+   */
   getAssetById(assetId) {
     return new Promise((resolve, reject) => {
       if (!assetId) {
@@ -125,6 +175,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Returns the event with respect to eventId
+   *
+   * @function getEventById
+   * @param {string} eventId
+   * @returns {Object} event
+   */
   getEventById(eventId) {
     return new Promise((resolve, reject) => {
       if (!eventId) {
@@ -137,6 +194,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Returns assets
+   *
+   * @function getAssets
+   * @param {any} params
+   * @returns {Object} assets
+   */
   getAssets(params = {}) {
     return new Promise((resolve, reject) => {
       return this._assets.getAssets(params)
@@ -145,6 +209,12 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Returns events
+   *
+   * @param {any} params
+   * @returns {Object} assets
+   */
   getEvents(params) {
     return new Promise((resolve, reject) => {
       return this._events.getEvents(params)
@@ -153,6 +223,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Creates a new Asset
+   *
+   * @function createAsset
+   * @param {any} asset
+   * @returns {any} assetResponse
+   */
   createAsset(asset = {}) {
     /* istanbul ignore next */
     return new Promise((resolve, reject) => {
@@ -209,6 +286,14 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Creates a new Event.
+   *
+   * @function createEvent
+   * @param {string} assetId
+   * @param {Object} event
+   * @returns {any} eventResponse
+   */
   createEvent(assetId, event) {
     /* istanbul ignore next */
     return new Promise((resolve, reject) => {
@@ -262,6 +347,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Parse the provided events
+   *
+   * @function parseEvents
+   * @param {any} eventsArray
+   * @returns {any} Reject Response or Success Response with parsed events
+   */
   parseEvents(eventsArray) {
     return new Promise((resolve, reject) => {
 
@@ -274,6 +366,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Returns this bundle with respect to id
+   *
+   * @function getBundleById
+   * @param {string} bundleId
+   * @returns {any} bundle
+   */
   getBundleById(bundleId) {
     return new Promise((resolve, reject) => {
       if (!bundleId) {
@@ -286,11 +385,18 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Adds a new account
+   *
+   * @function addAccount
+   * @param {any} params
+   * @returns {any} account response
+   */
   addAccount(params) {
     return new Promise((resolve, reject) => {
       if (!this._settings.secret) {
         return reject(rejectResponse('Secret key is required to add an account.'));
-      } 
+      }
       /* istanbul ignore next */
       else if (!params) {
         return reject(rejectResponse('Create account params are required to create an account.'));
@@ -304,20 +410,36 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Set token to the header
+   *
+   * @function setTokenHeader
+   * @param {string} secret
+   */
   setTokenHeader(secret = null) {
     /* istanbul ignore next */
-    if (!this.web3) { return rejectResponse('web3.js Library is required set the token'); }
-    else if (!secret) {
-      if (!this._settings.secret) { return rejectResponse('Secret key is required set the token'); }
-      else { secret = this._settings.secret }
+    if (!this.web3) {
+      return rejectResponse('web3.js Library is required set the token');
+    } else if (!secret) {
+      if (!this._settings.secret) {
+        return rejectResponse('Secret key is required set the token');
+      } else {
+        secret = this._settings.secret
+      }
     }
-    
+
     this._settings['headers'] = {
       'Authorization': `AMB_TOKEN ${this.getToken(secret)}`
     };
 
   }
 
+  /**
+   *
+   * @param {any} type
+   * @param {any} func
+   * @param {any} ctx
+   */
   on(type, func, ctx) {
     /* istanbul ignore next */
     (this.events[type] = this.events[type] || []).push([func, ctx]);
@@ -325,6 +447,11 @@ export default class AmbrosusSDK {
     return this;
   }
 
+  /**
+   *
+   * @param {any} type
+   * @param {any} func
+   */
   off(type, func) {
     /* istanbul ignore next */
     type || (this.events = {});
@@ -339,6 +466,10 @@ export default class AmbrosusSDK {
     return this;
   }
 
+  /**
+   *
+   * @param {any} type
+   */
   emit(type) {
     /* istanbul ignore next */
     let e = this.events[type] || this.empty;
