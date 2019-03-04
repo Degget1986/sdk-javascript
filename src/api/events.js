@@ -16,7 +16,7 @@ export default class Events {
 
   /**
    * Initialize the events class
-   * @param {any} settings
+   * @param {Object} settings
    */
   constructor(settings) {
     this._settings = settings;
@@ -42,7 +42,7 @@ export default class Events {
    * Get all events with the matching params.
    *
    * @function getEvents
-   * @param {any} params
+   * @param {Object} params
    * @returns {Promise<Object>} Promise - Events
    */
   getEvents(params) {
@@ -58,7 +58,7 @@ export default class Events {
    *
    * @function createEvent
    * @param {string} assetId
-   * @param {any} params
+   * @param {Object} params
    * @returns {Promise<Object>} Promise - Event created.
    */
   createEvent(assetId, params) {

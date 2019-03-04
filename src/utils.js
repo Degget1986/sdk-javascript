@@ -11,7 +11,7 @@ This Source Code Form is “Incompatible With Secondary Licenses”, as defined 
  *
  * @function timeSince
  * @param {Date} date
- * returns {string} formatted date
+ * @returns {string} formatted date
  */
 export const timeSince = date => {
   try {
@@ -60,7 +60,7 @@ export const validTimestamp = timestamp => {
  * Check if timestamp exists
  *
  * @function checkTimeStamp
- * @param {any} event
+ * @param {Object} event
  * @returns {number} timestamp
  */
 export const checkTimeStamp = event => {
@@ -514,7 +514,7 @@ export const parseTimelineEvents = (e) => {
  * Check whether the event is latest
  *
  * @function isLatest
- * @param {any} type
+ * @param {string} type
  * @returns {boolean}
  */
 export const isLatest = (type) => {
@@ -524,7 +524,7 @@ export const isLatest = (type) => {
 /**
  * Finds a signle event from the events object
  * @function findEvent
- * @param {any} eventType
+ * @param {string} eventType
  * @param {Object} events
  * @returns {Object} event
  */

@@ -16,7 +16,7 @@ export default class Assets {
 
   /**
    * Initialize the asset class
-   * @param {any} settings
+   * @param {Object} settings
    */
   constructor(settings) {
     this._settings = settings;
@@ -42,7 +42,7 @@ export default class Assets {
    * Get all assets with the matching params
    *
    * @function getAssets
-   * @param {any} params
+   * @param {Object} params
    * @returns {Promise<Object>} Promise - Assets.
    */
   getAssets(params) {
@@ -57,7 +57,7 @@ export default class Assets {
    * Create a asset with the provided params
    *
    * @function createAsset
-   * @param {any} params
+   * @param {Object} params
    * @returns {Promise<Object>} Promise - Asset created.
    */
   createAsset(params) {

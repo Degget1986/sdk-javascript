@@ -15,7 +15,7 @@ export default class Request {
 
   /**
    * Initialize the request class
-   * @param {any} settings
+   * @param {Object} settings
    */
   constructor(settings) {
     this._settings = settings;
@@ -53,7 +53,7 @@ export default class Request {
    * Create a POST Request
    *
    * @param {string} path
-   * @param {any} params
+   * @param {Object} params
    * @param {boolean} hasHeader
    */
   postRequest(path, params, hasHeader = false) {

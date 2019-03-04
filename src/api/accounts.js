@@ -13,7 +13,7 @@ export default class Accounts {
   /**
    *
    * Initializing the account class
-   * @param {any} settings
+   * @param {Object} settings
    */
   constructor(settings) {
     this._settings = settings;
@@ -24,7 +24,7 @@ export default class Accounts {
    * add an account
    *
    * @function addAccount
-   * @param {any} params
+   * @param {Object} params
    * @returns {Promise<Object>} Promise - Account created.
    */
   addAccount(params) {

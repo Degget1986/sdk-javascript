@@ -26,7 +26,7 @@ export default class AmbrosusSDK {
 
   /**
    * Creating a SDK and initializing all the default variables.
-   * @param {any} extendSettings
+   * @param {Object} extendSettings
    */
   constructor(extendSettings = {}) {
     this.utils = Utils;
@@ -70,8 +70,8 @@ export default class AmbrosusSDK {
    * Calculate the hash for the data
    *
    * @function calculateHash
-   * @param {any} data
-   * @returns {any} Hash Message
+   * @param {Object} data
+   * @returns {string} Hash Message
    */
   calculateHash(data) {
     if (!this.web3) {
@@ -212,7 +212,7 @@ export default class AmbrosusSDK {
    * Returns assets
    *
    * @function getAssets
-   * @param {any} params
+   * @param {Object} params
    * @returns {Object} assets
    */
   getAssets(params = {}) {
@@ -226,7 +226,7 @@ export default class AmbrosusSDK {
   /**
    * Returns events
    *
-   * @param {any} params
+   * @param {Object} params
    * @returns {Object} assets
    */
   getEvents(params) {
@@ -241,8 +241,8 @@ export default class AmbrosusSDK {
    * Creates a new Asset
    *
    * @function createAsset
-   * @param {any} asset
-   * @returns {any} assetResponse
+   * @param {Object} asset
+   * @returns {Object} assetResponse
    */
   createAsset(asset = {}) {
     /* istanbul ignore next */
@@ -306,7 +306,7 @@ export default class AmbrosusSDK {
    * @function createEvent
    * @param {string} assetId
    * @param {Object} event
-   * @returns {any} eventResponse
+   * @returns {Object} eventResponse
    */
   createEvent(assetId, event) {
     /* istanbul ignore next */
@@ -365,8 +365,8 @@ export default class AmbrosusSDK {
    * Parse the provided events
    *
    * @function parseEvents
-   * @param {any} eventsArray
-   * @returns {any} Reject Response or Success Response with parsed events
+   * @param {Object} eventsArray
+   * @returns {Object} Reject Response or Success Response with parsed events
    */
   parseEvents(eventsArray) {
     return new Promise((resolve, reject) => {
@@ -385,7 +385,7 @@ export default class AmbrosusSDK {
    *
    * @function getBundleById
    * @param {string} bundleId
-   * @returns {any} bundle
+   * @returns {Object} bundle
    */
   getBundleById(bundleId) {
     return new Promise((resolve, reject) => {
@@ -403,8 +403,8 @@ export default class AmbrosusSDK {
    * Adds a new account
    *
    * @function addAccount
-   * @param {any} params
-   * @returns {any} account response
+   * @param {Object} params
+   * @returns {Object} account response
    */
   addAccount(params) {
     return new Promise((resolve, reject) => {
