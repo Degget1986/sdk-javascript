@@ -5,16 +5,15 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
 */
-
 import Assets from './api/assets';
 import Events from './api/events';
 import Accounts from './api/accounts';
-import {
+import Utils, {
   checkTimeStamp,
   parseEvents,
   serializeForHashing,
   base64url,
-  checkAccessLevel
+  checkAccessLevel,
 } from './utils';
 import {
   rejectResponse,
@@ -30,6 +29,7 @@ export default class AmbrosusSDK {
    * @param {any} extendSettings
    */
   constructor(extendSettings = {}) {
+    this.utils = Utils;
     this._settings = {
       apiEndpoint: 'https://gateway-test.ambrosus.com'
     };
@@ -64,8 +64,22 @@ export default class AmbrosusSDK {
     this._assets = new Assets(this._settings);
     this._events = new Events(this._settings);
     this._accounts = new Accounts(this._settings);
-
   }
+
+  /**
+   * Calculate the hash for the data
+   *
+   * @function calculateHash
+   * @param {any} data
+   * @returns {any} Hash Message
+   */
+  calculateHash(data) {
+    if (!this.web3) {
+      return rejectResponse('web3.js Library is required get the token');
+    } else {
+      return this.web3.eth.accounts.hashMessage(serializeForHashing(data));
+    }
+  };
 
   /**
    * Setting the secret key
@@ -484,7 +498,6 @@ export default class AmbrosusSDK {
     /* istanbul ignore next */
     return this;
   }
-
 }
 
 AmbrosusSDK.utils = {
