@@ -178,7 +178,7 @@ export const serializeForHashing = (object) => {
 };
 
 /**
- * private method for UTF - 8 encoding
+ * Private method for UTF - 8 encoding
  *
  * @function utf8Encode
  * @param {string} string
@@ -263,6 +263,7 @@ export const checkAccessLevel = event => {
 };
 
 /**
+ * Get the Title
  *
  * @function getName
  * @param {Object} obj
@@ -523,6 +524,7 @@ export const isLatest = (type) => {
 
 /**
  * Finds a signle event from the events object
+ *
  * @function findEvent
  * @param {string} eventType
  * @param {Object} events

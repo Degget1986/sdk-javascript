@@ -16,7 +16,7 @@ export default class Events {
 
   /**
    * Initialize the events class
-   * @param {Object} settings
+   * @param {RequestSettings} settings
    */
   constructor(settings) {
     this._settings = settings;

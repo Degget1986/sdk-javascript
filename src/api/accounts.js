@@ -11,9 +11,9 @@ import Request from './request';
 /** Class for accounts */
 export default class Accounts {
   /**
-   *
    * Initializing the account class
-   * @param {Object} settings
+   *
+   * @param {RequestSettings} settings
    */
   constructor(settings) {
     this._settings = settings;
@@ -21,7 +21,7 @@ export default class Accounts {
   }
 
   /**
-   * add an account
+   * Add a new account
    *
    * @function addAccount
    * @param {Object} params

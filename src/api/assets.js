@@ -16,7 +16,7 @@ export default class Assets {
 
   /**
    * Initialize the asset class
-   * @param {Object} settings
+   * @param {RequestSettings} settings
    */
   constructor(settings) {
     this._settings = settings;
@@ -54,7 +54,7 @@ export default class Assets {
   }
 
   /**
-   * Create a asset with the provided params
+   * Create an asset with the provided params
    *
    * @function createAsset
    * @param {Object} params

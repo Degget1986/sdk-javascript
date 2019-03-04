@@ -5,6 +5,12 @@ This Source Code Form is subject to the terms of the Mozilla Public License, v. 
 If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
 This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
 */
+
+/**
+ * Object Property for request.
+ * @typedef {{apiEndpoint: string, headers: Object}} RequestSettings
+ */
+
 import Assets from './api/assets';
 import Events from './api/events';
 import Accounts from './api/accounts';
@@ -26,6 +32,7 @@ export default class AmbrosusSDK {
 
   /**
    * Creating a SDK and initializing all the default variables.
+   *
    * @param {Object} extendSettings
    */
   constructor(extendSettings = {}) {
@@ -117,7 +124,7 @@ export default class AmbrosusSDK {
    * Returns the address
    *
    * @function getAddress
-   * @param {string} secret
+   * @param {string | null} secret
    * @returns {Object | string} Rejected Response or address
    */
   getAddress(secret = null) {
@@ -172,7 +179,7 @@ export default class AmbrosusSDK {
   }
 
   /**
-   * Returns the asset with respect to assetId
+   * Find asset by Id.
    *
    * @function getAssetById
    * @param {string} assetId
@@ -190,7 +197,7 @@ export default class AmbrosusSDK {
   }
 
   /**
-   * Returns the event with respect to eventId
+   * Find Event by Id.
    *
    * @function getEventById
    * @param {string} eventId
@@ -209,7 +216,7 @@ export default class AmbrosusSDK {
   }
 
   /**
-   * Returns assets
+   * Get all assets with the matching params
    *
    * @function getAssets
    * @param {Object} params
@@ -224,7 +231,7 @@ export default class AmbrosusSDK {
   }
 
   /**
-   * Returns events
+   * Get all Events with the matching params
    *
    * @param {Object} params
    * @returns {Object} assets
@@ -449,6 +456,7 @@ export default class AmbrosusSDK {
   }
 
   /**
+   * Subscribe to an event.
    *
    * @param {any} type
    * @param {any} func
@@ -462,6 +470,7 @@ export default class AmbrosusSDK {
   }
 
   /**
+   * Unsubscribe from a global event.
    *
    * @param {any} type
    * @param {any} func
@@ -481,6 +490,7 @@ export default class AmbrosusSDK {
   }
 
   /**
+   * Emit a global event
    *
    * @param {any} type
    */

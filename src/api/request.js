@@ -15,7 +15,7 @@ export default class Request {
 
   /**
    * Initialize the request class
-   * @param {Object} settings
+   * @param {RequestSettings} settings
    */
   constructor(settings) {
     this._settings = settings;

@@ -46,7 +46,7 @@ export const rejectResponse = message => {
 };
 
 /**
- * Send a sucess response
+ * Send a success response
  *
  * @function successResponse
  * @param {any} data
