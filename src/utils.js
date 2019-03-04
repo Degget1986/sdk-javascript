@@ -49,7 +49,7 @@ export const timeSince = date => {
  * Is timestamp valid.
  *
  * @function validTimestamp
- * @param {any} timestamp
+ * @param {string} timestamp
  * @returns {boolean} isValid
  */
 export const validTimestamp = timestamp => {
