@@ -1,11 +1,3 @@
-/*
-Copyright: Ambrosus Inc.
-Email: tech@ambrosus.com
-This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
-*/
-
 import {
   handleResponse
 } from './../responseHandler';
@@ -26,11 +18,11 @@ export default class Request {
    *
    * @param {string} path
    */
-  getRequest(path) {
+  getRequest(path, { headers, params, body, }) {
     return new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
 
-      request.open('GET', `${this._settings.apiEndpoint}/${path}`, true);
+      request.open('GET', path, true);
       if (this._settings.headers) {
         for (const key in this._settings.headers) {
           request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
