@@ -23,11 +23,11 @@ export default class Request {
    *
    * @param {string} path
    */
-  getRequest(path) {
+  getRequest(path, { headers, params, body, }) {
     return new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
 
-      request.open('GET', `${this._settings.apiEndpoint}/${path}`, true);
+      request.open('GET', path, true);
       if (this._settings.headers) {
         for (const key in this._settings.headers) {
           request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
