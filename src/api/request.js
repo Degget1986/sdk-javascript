@@ -1,23 +1,33 @@
-/*
-Copyright: Ambrosus Inc.
-Email: tech@ambrosus.com
-This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
-*/
+/**
+ * Copyright 2018 Ambrosus Inc.
+ * Email: tech@ambrosus.com
+ */
 
-import { handleResponse } from './../responseHandler';
+import {
+  handleResponse
+} from './../responseHandler';
 
+/** Class for Request */
 export default class Request {
+
+  /**
+   * Initialize the request class
+   * @param {RequestSettings} settings
+   */
   constructor(settings) {
     this._settings = settings;
   }
 
-  getRequest(path) {
+  /**
+   * Create a GET request
+   *
+   * @param {string} path
+   */
+  getRequest(path, { headers, params, body, }) {
     return new Promise((resolve, reject) => {
       let request = new XMLHttpRequest();
 
-      request.open('GET', `${this._settings.apiEndpoint}/${path}`, true);
+      request.open('GET', path, true);
       if (this._settings.headers) {
         for (const key in this._settings.headers) {
           request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
@@ -36,6 +46,13 @@ export default class Request {
     });
   }
 
+  /**
+   * Create a POST Request
+   *
+   * @param {string} path
+   * @param {Object} params
+   * @param {boolean} hasHeader
+   */
   postRequest(path, params, hasHeader = false) {
     /* istanbul ignore next */
     return new Promise((resolve, reject) => {

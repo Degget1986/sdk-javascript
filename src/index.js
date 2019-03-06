@@ -1,10 +1,12 @@
-/*
-Copyright: Ambrosus Inc.
-Email: tech@ambrosus.com
-This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
-*/
+/**
+ * Copyright 2018 Ambrosus Inc.
+ * Email: tech@ambrosus.com
+ */
+/**
+ * Object Property for request.
+ * @typedef {{apiEndpoint: string, headers: Object}} RequestSettings
+ */
+
 import Assets from './api/assets';
 import Events from './api/events';
 import Accounts from './api/accounts';
@@ -21,7 +23,14 @@ import {
 } from './responseHandler';
 let assetSequenceNumber = 0;
 
+/** Class for SDK */
 export default class AmbrosusSDK {
+
+  /**
+   * Creating a SDK and initializing all the default variables.
+   *
+   * @param {Object} extendSettings
+   */
   constructor(extendSettings = {}) {
     this.utils = Utils;
     this._settings = {
@@ -60,6 +69,13 @@ export default class AmbrosusSDK {
     this._accounts = new Accounts(this._settings);
   }
 
+  /**
+   * Calculate the hash for the data
+   *
+   * @function calculateHash
+   * @param {Object} data
+   * @returns {string} Hash Message
+   */
   calculateHash(data) {
     if (!this.web3) {
       return rejectResponse('web3.js Library is required get the token');
@@ -68,6 +84,14 @@ export default class AmbrosusSDK {
     }
   };
 
+  /**
+   * Setting the secret key
+   *
+   * @function getToken
+   * @param {string} secret
+   * @param {number} timestamp
+   * @returns {Object} Rejected Response or encoded Data
+   */
   getToken(secret = null, timestamp) {
     if (!this.web3) {
       return rejectResponse('web3.js Library is required get the token');
@@ -92,6 +116,13 @@ export default class AmbrosusSDK {
     }));
   }
 
+  /**
+   * Returns the address
+   *
+   * @function getAddress
+   * @param {string | null} secret
+   * @returns {Object | string} Rejected Response or address
+   */
   getAddress(secret = null) {
     if (!this.web3) {
       return rejectResponse('web3.js Library is required get the address');
@@ -107,6 +138,14 @@ export default class AmbrosusSDK {
     return this.web3.eth.accounts.privateKeyToAccount(secret).address;
   }
 
+  /**
+   * Retruns the signed value of the Object provided.
+   *
+   * @function sign
+   * @param {Object} data
+   * @param {string} secret
+   * @returns {Object | string} Rejected Response or Signed data
+   */
   sign(data = {}, secret = null) {
     if (!this.web3) {
       return rejectResponse('web3.js Library is required generate a signature');
@@ -124,6 +163,8 @@ export default class AmbrosusSDK {
 
   /**
    * Returns object consisting of address & privateKey
+   *
+   * @function getPkPair
    * @returns {address, privateKey}
    */
   getPkPair() {
@@ -133,6 +174,14 @@ export default class AmbrosusSDK {
     return this.web3.eth.accounts.create(this.web3.utils.randomHex(32));
   }
 
+  /**
+   * Find asset by Id.
+   *
+   * {@link https: //ambrosus.docs.apiary.io/#reference/asset/assets/fetch-an-asset-by-id  Find asset by Id}
+   * @function getAssetById
+   * @param {string} assetId
+   * @returns {Object} asset
+   */
   getAssetById(assetId) {
     return new Promise((resolve, reject) => {
       if (!assetId) {
@@ -144,6 +193,14 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Find Event by Id.
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventseventid/fetch-event Find Event by Id}
+   * @function getEventById
+   * @param {string} eventId
+   * @returns {Object} event
+   */
   getEventById(eventId) {
     return new Promise((resolve, reject) => {
       if (!eventId) {
@@ -156,6 +213,14 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Get all assets with the matching params
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/asset/assetsassetid/find-assets Find Assets}
+   * @function getAssets
+   * @param {Object} params
+   * @returns {Object} assets
+   */
   getAssets(params = {}) {
     return new Promise((resolve, reject) => {
       return this._assets.getAssets(params)
@@ -164,6 +229,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Get all Events with the matching params
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventsassetidfromtimestamptotimestampperpagepagecreatedbydata/find-events Find Events}
+   * @param {Object} params
+   * @returns {Object} assets
+   */
   getEvents(params) {
     return new Promise((resolve, reject) => {
       return this._events.getEvents(params)
@@ -172,6 +244,14 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Creates a new Asset
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/asset/assets/create-an-asset Create a new Asset}
+   * @function createAsset
+   * @param {Object} asset
+   * @returns {Object} assetResponse
+   */
   createAsset(asset = {}) {
     /* istanbul ignore next */
     return new Promise((resolve, reject) => {
@@ -228,6 +308,15 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Creates a new Event.
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
+   * @function createEvent
+   * @param {string} assetId
+   * @param {Object} event
+   * @returns {Object} eventResponse
+   */
   createEvent(assetId, event) {
     /* istanbul ignore next */
     return new Promise((resolve, reject) => {
@@ -281,6 +370,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Parse the provided events
+   *
+   * @function parseEvents
+   * @param {Object} eventsArray
+   * @returns {Object} Reject Response or Success Response with parsed events
+   */
   parseEvents(eventsArray) {
     return new Promise((resolve, reject) => {
 
@@ -293,6 +389,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Returns this bundle with respect to id
+   *
+   * @function getBundleById
+   * @param {string} bundleId
+   * @returns {Object} bundle
+   */
   getBundleById(bundleId) {
     return new Promise((resolve, reject) => {
       if (!bundleId) {
@@ -305,6 +408,13 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Adds a new account
+   *
+   * @function addAccount
+   * @param {Object} params
+   * @returns {Object} account response
+   */
   addAccount(params) {
     return new Promise((resolve, reject) => {
       if (!this._settings.secret) {
@@ -323,6 +433,12 @@ export default class AmbrosusSDK {
     });
   }
 
+  /**
+   * Set token to the header
+   *
+   * @function setTokenHeader
+   * @param {string} secret
+   */
   setTokenHeader(secret = null) {
     /* istanbul ignore next */
     if (!this.web3) {
@@ -341,6 +457,13 @@ export default class AmbrosusSDK {
 
   }
 
+  /**
+   * Subscribe to an event.
+   *
+   * @param {any} type
+   * @param {any} func
+   * @param {any} ctx
+   */
   on(type, func, ctx) {
     /* istanbul ignore next */
     (this.events[type] = this.events[type] || []).push([func, ctx]);
@@ -348,6 +471,12 @@ export default class AmbrosusSDK {
     return this;
   }
 
+  /**
+   * Unsubscribe from a global event.
+   *
+   * @param {any} type
+   * @param {any} func
+   */
   off(type, func) {
     /* istanbul ignore next */
     type || (this.events = {});
@@ -362,6 +491,11 @@ export default class AmbrosusSDK {
     return this;
   }
 
+  /**
+   * Emit a global event
+   *
+   * @param {any} type
+   */
   emit(type) {
     /* istanbul ignore next */
     let e = this.events[type] || this.empty;
@@ -376,4 +510,11 @@ export default class AmbrosusSDK {
     /* istanbul ignore next */
     return this;
   }
+}
+
+AmbrosusSDK.utils = {
+  checkTimeStamp,
+  parseEvents,
+  base64url,
+  serializeForHashing
 }

@@ -1,15 +1,19 @@
-/*
-Copyright: Ambrosus Inc.
-Email: tech@ambrosus.com
-This Source Code Form is subject to the terms of the Mozilla Public License, v. 2.0.
-If a copy of the MPL was not distributed with this file, You can obtain one at https://mozilla.org/MPL/2.0/.
-This Source Code Form is “Incompatible With Secondary Licenses”, as defined by the Mozilla Public License, v. 2.0.
-*/
+/**
+ * Copyright 2018 Ambrosus Inc.
+ * Email: tech@ambrosus.com
+ */
+
+/**
+ * Get time since from the provided Date.
+ *
+ * @function timeSince
+ * @param {Date} date
+ * @returns {string} formatted date
+ */
 export const timeSince = date => {
   try {
     let seconds = Math.floor((+new Date() - date) / 1000);
     let interval = Math.floor(seconds / 31536000);
-
     if (interval >= 1) {
       return interval + " year" + (interval > 1 ? 's' : '');
     }
@@ -38,16 +42,37 @@ export const timeSince = date => {
   }
 }
 
+/**
+ * Is timestamp valid.
+ *
+ * @function validTimestamp
+ * @param {string} timestamp
+ * @returns {boolean} isValid
+ */
 export const validTimestamp = timestamp => {
   return new Date(timestamp).getTime() > 0;
 };
 
+/**
+ * Check if timestamp exists
+ *
+ * @function checkTimeStamp
+ * @param {Object} event
+ * @returns {number} timestamp
+ */
 export const checkTimeStamp = event => {
   let timestamp = Math.floor(Date.now() / 1000);
 
   return event.content && event.content.idData && event.content.idData.timestamp && validTimestamp(event.content.idData.timestamp) ? event.content.idData.timestamp : timestamp;
 };
 
+/**
+ * Parse all events
+ *
+ * @function parseEvents
+ * @param {Array.<Object>} eventsArray
+ * @returns {Object} events
+ */
 export const parseEvents = eventsArray => {
   return eventsArray.results.reduce(
     (asset, {
@@ -104,6 +129,13 @@ export const parseEvents = eventsArray => {
   );
 };
 
+/**
+ * Seralize object into query params
+ *
+ * @function serializeParams
+ * @param {Object} params
+ * @returns {string} queryParams
+ */
 export const serializeParams = params => {
   let serializeParams = '';
 
@@ -116,6 +148,13 @@ export const serializeParams = params => {
   return serializeParams;
 };
 
+/**
+ * Serialize Object
+ *
+ * @function serializeForHashing
+ * @param {Object} object
+ * @returns {string} serializedString
+ */
 export const serializeForHashing = (object) => {
   const isDict = (subject) => typeof subject === 'object' && !Array.isArray(subject);
   const isString = (subject) => typeof subject === 'string';
@@ -135,7 +174,13 @@ export const serializeForHashing = (object) => {
   return object.toString();
 };
 
-// private method for UTF-8 encoding
+/**
+ * Private method for UTF - 8 encoding
+ *
+ * @function utf8Encode
+ * @param {string} string
+ * @returns {string} encodedText
+ */
 export const utf8Encode = (string) => {
   string = string.replace(/\r\n/g, '\n');
   let utftext = '';
@@ -162,6 +207,13 @@ export const utf8Encode = (string) => {
 
 let _keyStr = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789+/=';
 
+/**
+ * Base 64 encode
+ *
+ * @function base64url
+ * @param {string} input
+ * r@returns {string} encodedString
+ */
 export const base64url = (input) => {
   let output = '';
   let chr1, chr2, chr3, enc1, enc2, enc3, enc4;
@@ -185,16 +237,20 @@ export const base64url = (input) => {
     } else if (isNaN(chr3)) {
       enc4 = 64;
     }
-
     output = output +
       _keyStr.charAt(enc1) + _keyStr.charAt(enc2) +
       _keyStr.charAt(enc3) + _keyStr.charAt(enc4);
   }
-
   return output;
-
 };
 
+/**
+ * Check the accessLevel of the asset
+ *
+ * @function checkAccessLevel
+ * @param {Object} event
+ * @returns {number} accessLevel
+ */
 export const checkAccessLevel = event => {
   try {
     return event.content.idData.accessLevel;
@@ -203,6 +259,14 @@ export const checkAccessLevel = event => {
   }
 };
 
+/**
+ * Get the Title
+ *
+ * @function getName
+ * @param {Object} obj
+ * @param {string} alternative
+ * @returns {any} name
+ */
 export const getName = (obj, alternative = 'No title') => {
   try {
     const name = obj.name;
@@ -214,12 +278,26 @@ export const getName = (obj, alternative = 'No title') => {
   }
 };
 
+/**
+ * Get the name from the URL
+ *
+ * @function getUrlName
+ * @param {string} url
+ * @returns {string} name
+ */
 export const getUrlName = (url) => {
   let name = url.split('/');
   name = name[name.length - 1];
   return name;
 };
 
+/**
+ * Get image URL from the object
+ *
+ * @function getImage
+ * @param {Object} obj
+ * @returns {string} Image URL
+ */
 export const getImage = (obj) => {
   try {
     return obj.images.default.url;
@@ -228,6 +306,13 @@ export const getImage = (obj) => {
   }
 };
 
+/**
+ * Get location from the Object
+ *
+ * @function getLocation
+ * @param {Object} event
+ * @returns {Object} Location
+ */
 export const getLocation = (event) => {
   const location = event.location || event;
   const {
@@ -240,6 +325,14 @@ export const getLocation = (event) => {
   );
 };
 
+/**
+ * Sorts the Event by descending order based on the timestamp
+ *
+ * @function sortEventsByTimestamp
+ * @param {Object} a
+ * @param {Object} b
+ * @returns {Object}
+ */
 export const sortEventsByTimestamp = (a, b) => {
   if (a.timestamp > b.timestamp) {
     return -1;
@@ -250,6 +343,13 @@ export const sortEventsByTimestamp = (a, b) => {
   return 0;
 };
 
+/**
+ * Parse the Event and create groups/properties array
+ *
+ * @function parseEvent
+ * @param {Object}  event
+ * @returns {Object} event
+ */
 export const parseEvent = (event) => {
   event.info = {};
   event.info['groups'] = [];
@@ -309,6 +409,13 @@ export const parseEvent = (event) => {
   return event;
 };
 
+/**
+ * Parse the Asset and create groups/properties Array
+ *
+ * @function parseAsset
+ * @param {Object} asset
+ * @returns {Object} asset
+ */
 export const parseAsset = (asset) => {
   if (!asset.info) {
     asset.info = {};
@@ -347,6 +454,13 @@ export const parseAsset = (asset) => {
   });
 };
 
+/**
+ * Parse the timeline events based on Date
+ *
+ * @function parseTimelineEvents
+ * @param {Object} e
+ * @returns {Object} parsedEvents.
+ */
 export const parseTimelineEvents = (e) => {
   const events = e.reduce((_events, {
     content,
@@ -394,10 +508,25 @@ export const parseTimelineEvents = (e) => {
   return events;
 };
 
+/**
+ * Check whether the event is latest
+ *
+ * @function isLatest
+ * @param {string} type
+ * @returns {boolean}
+ */
 export const isLatest = (type) => {
   return (['info', 'redirection', 'identifiers', 'branding', 'location'].indexOf(type) === -1);
 };
 
+/**
+ * Finds a signle event from the events object
+ *
+ * @function findEvent
+ * @param {string} eventType
+ * @param {Object} events
+ * @returns {Object} event
+ */
 export const findEvent = (eventType, events) => {
   let e = false;
   events.map(event => {
@@ -457,4 +586,4 @@ export default {
   findEvent,
   parseTimelineEvents,
   timeSince,
-};
+}
