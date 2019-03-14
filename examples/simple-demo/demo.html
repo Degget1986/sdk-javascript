@@ -1,31 +1,30 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8" />
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <title>Ambrosus JS SDK</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <script src="./../../lib/ambrosus.umd.min.js"></script>
-  <script>
-    
-    var ambrosus = new AmbrosusSDK({
-      apiEndpoint: 'https://gateway-test.ambrosus.com'
-    })
+    <head>
+        <meta charset="utf-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>Ambrosus JS SDK</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="./../../lib/ambrosus.umd.min.js"></script>
+        <script>
+            var ambrosus = new AmbrosusSDK({
+                apiEndpoint: 'https://gateway-test.ambrosus.com'
+            })
 
-    ambrosus.getAssetById('0x6904151c80b33a26925bf940b061c7d365dee013f468adc555d6c699dc0e3b79')
-      .then(function(response) {
-        console.log(response);
-      }).catch(function(error) {
-        console.log(error);
-      });
+            ambrosus.assets.getAssetById('0x6904151c80b33a26925bf940b061c7d365dee013f468adc555d6c699dc0e3b79')
+                .then(function(response) {
+                    console.log(response);
+                }).catch(function(error) {
+                    console.log(error);
+                });
 
-  </script>
-</head>
+        </script>
+    </head>
 
-<body>
-  <h1>Sample Implementation of Ambrosus SDK</h1>
-  <p>Check Console</p>
-</body>
+    <body>
+        <h1>Sample Implementation of Ambrosus SDK</h1>
+        <p>Check Console</p>
+    </body>
 
 </html>

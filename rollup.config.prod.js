@@ -16,46 +16,49 @@ const license = require('rollup-plugin-license');
 const pkg = require('./package.json');
 
 export default {
-  input: 'src/index.js',
-  output: [
-    {
-      file: pkg.main,
-      format: 'cjs',
-      banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
-      sourcemap: true
+    input: 'src/index.js',
+    external: ['web3'],
+    output: [{
+        file: pkg.main,
+        format: 'cjs',
+        banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
+        sourcemap: true
     },
     {
-      file: pkg.module,
-      format: 'umd',
-      banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
-      name: 'AmbrosusSDK',
-      sourcemap: true
-    }
-  ],
-  plugins: [
-    del({
-      targets: 'lib/*'
-    }),
-    json(),
-    resolve(),
-    buble(),
-    minify({
-      comments: false
-    }),
-    sourceMaps(),
-    gzip({
-      options: {
-        level: 9
-      },
-      minSize: 1000,
-      delay: 5000
-    }),
-    filesize({ showGzippedSize: true }),
-    license({
-      banner: {
-        sourceMap: true,
-        file: path.join(__dirname, 'LICENSE')
-      }
-    })
-  ]
+        file: pkg.module,
+        format: 'umd',
+        banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
+        name: 'AmbrosusSDK',
+        sourcemap: true
+    }],
+    plugins: [
+        del({
+            targets: 'lib/*'
+        }),
+        json(),
+        resolve({
+            modulesOnly: true
+        }),
+        buble(),
+        minify({
+            comments: false
+        }),
+        sourceMaps(),
+        gzip({
+            gzipOptions: {
+                level: 9
+            },
+            minSize: 1000,
+            additionalFilesDelay: 5000
+        }),
+        filesize({
+            showGzippedSize: true
+        }),
+        license({
+            banner: {
+                sourceMap: true,
+                file: path.join(__dirname, 'LICENSE')
+            }
+        })
+    ]
 };

@@ -21,7 +21,7 @@ const EventResponse = ({ response }) => {
   )
 
   return divLoaded;
-  
+
 };
 
 export default EventResponse;

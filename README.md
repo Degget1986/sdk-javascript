@@ -66,44 +66,14 @@ Import the SDK in your javascript file
 
 `const AmbrosusSDK = require('ambrosus-javascript-sdk');`
 
-### Download
-
-Directly download the library and host it locally.\
-You can [download library here](https://github.com/ambrosus/sdk-javascript/releases).
-
-If your project structure is for example:
-
-```
-project-name/js/ambrosus.min.js
-project-name/index.html
-```
-
-You would include it in your index.html where you use Ambrosus SDK like:
-
-```
-<script async src="/js/ambrosus.min.js"></script>
-```
-
 ## Usage
 
 Initialize the Ambrosus library.\
-
-In order to use the web3.js library to support client side data signing while creating assets or events or token,
-we will need to import the web3.js library.\
-
-For *node.js*\
-Simply `npm install web3` and import in your `.js` file like - `const Web3 = require('web3');`
-
-For a client side *HTML*\
-Import web3 using the script tag. like - `<script async src="/path/to/js/web3.min.js"></script>`
-
-In the script on your page where you use Ambrosus SDK, put this code in the beginning of the script:
 
 ```js
 var ambrosus = new AmbrosusSDK({
   // Provide env variables
   secret: '0x6823520c03ad7b17bc1a7144fbbd2d24bfa2ce933d715ace209d658e03fdd388',
-  Web3: Web3
 });
 ```
 
@@ -120,7 +90,7 @@ You can initialise the SDK like -
 
 ```js
 var ambrosus = new AmbrosusSDK({
-  apiEndpoint: 'https://gateway-test.ambrosus.com'
+  apiEndpoint: 'https://gateway-test.ambrosus.com',
 });
 ```
 
@@ -140,7 +110,7 @@ Every Ambrosus SDK method (examples below), will return the response with this s
 {
   "status": 404,
   "data": null,
-  "message": "Entity not found: No event with id = null found"
+  "message": "Entity not found: No event with id = null found",
 }
 ```
 
@@ -160,9 +130,9 @@ ambrosus.on('asset:created', function() {
 });
 ```
 
-## Public SDK Methods 
+## Public SDK Methods
 
-The SDK also exports utility methods which can be used without initializing the SDK. 
+The SDK also exports utility methods which can be used without initializing the SDK.
 Example to access the public utility methods
 
 ```javascript

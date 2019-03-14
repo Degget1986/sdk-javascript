@@ -1,4 +1,5 @@
 dist/
+lib/
 es/
 node_modules/
 generated-docs/
@@ -9,3 +10,5 @@ npm-debug.log
 examples/json-importer/index-vlad.html
 .nyc_output
 coverage
+out
+.jsbeautifyrc

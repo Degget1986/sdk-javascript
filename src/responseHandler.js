@@ -11,20 +11,20 @@
  * @returns {Object} response
  */
 export const handleResponse = request => {
-  return new Promise((resolve, reject) => {
-    const response = {
-      status: request.status,
-      data: null,
-      message: JSON.parse(request.response).reason
-    };
+    return new Promise((resolve, reject) => {
+        const response = {
+            status: request.status,
+            data: null,
+            message: JSON.parse(request.response).reason
+        };
 
-    if (request.status === 200 || request.status === 201) {
-      response.data = JSON.parse(request.response);
-      response.message = 'success';
-      resolve(response);
-    }
-    reject(response);
-  });
+        if (request.status === 200 || request.status === 201) {
+            response.data = JSON.parse(request.response);
+            response.message = 'success';
+            resolve(response);
+        }
+        reject(response);
+    });
 };
 
 /**
@@ -35,11 +35,11 @@ export const handleResponse = request => {
  * @returns {{status: number, data: null, message: any}} rejectData
  */
 export const rejectResponse = message => {
-  return {
-    status: 400,
-    data: null,
-    message: message
-  };
+    return {
+        status: 400,
+        data: null,
+        message: message
+    };
 };
 
 /**
@@ -50,9 +50,9 @@ export const rejectResponse = message => {
  * @returns {{status: 200, data: any, message: 'success'}} successData
  */
 export const successResponse = data => {
-  return {
-    status: 200,
-    data: data,
-    message: 'success'
-  };
+    return {
+        status: 200,
+        data: data,
+        message: 'success'
+    };
 };

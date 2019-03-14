@@ -14,7 +14,7 @@ export class AmbrosusService {
 
   getAssetById(assetId) {
     return new Observable(observer => {
-      this.ambrosus.getAssetById(assetId).then(response => {
+      this.ambrosus.assets.getAssetById(assetId).then(response => {
         observer.next(response.data);
       }).catch(error => {
         observer.error(error.message);
@@ -24,7 +24,7 @@ export class AmbrosusService {
 
   getEventsById(assetId) {
     return new Observable(observer => {
-      this.ambrosus.getEvents({ assetId: assetId }).then(response => {
+      this.ambrosus.events.getEvents({ assetId: assetId }).then(response => {
         observer.next(response.data);
       }).catch(error => {
         observer.error(error.message);

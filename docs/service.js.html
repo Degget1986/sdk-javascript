@@ -1,0 +1,279 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>service.js - Documentation</title>
+
+    <script src="scripts/prettify/prettify.js"></script>
+    <script src="scripts/prettify/lang-css.js"></script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="https://code.ionicframework.com/ionicons/2.0.1/css/ionicons.min.css">
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+<body>
+
+<input type="checkbox" id="nav-trigger" class="nav-trigger" />
+<label for="nav-trigger" class="navicon-button x">
+  <div class="navicon"></div>
+</label>
+
+<label for="nav-trigger" class="overlay"></label>
+
+<nav>
+    <li class="nav-link nav-home-link"><a href="index.html">Home</a></li><li class="nav-heading">Classes</li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Accounts.html">Accounts</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Accounts.html#addAccount">addAccount</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="AmbrosusSDK.html">AmbrosusSDK</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Assets.html">Assets</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assets.html#createAsset">createAsset</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assets.html#getAssetById">getAssetById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Assets.html#getAssets">getAssets</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="EventHandler.html">EventHandler</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="EventHandler.html#emit">emit</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="EventHandler.html#off">off</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="EventHandler.html#on">on</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Events.html">Events</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Events.html#createEvent">createEvent</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Events.html#createSingleEvent">createSingleEvent</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Events.html#getBundleById">getBundleById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Events.html#getEventById">getEventById</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Events.html#getEvents">getEvents</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Events.html#parseEvents">parseEvents</a></span></li><li class="nav-heading"><span class="nav-item-type type-class">C</span><span class="nav-item-name"><a href="Service.html">Service</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#calculateHash">calculateHash</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#decryptPrivateKey">decryptPrivateKey</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#encryptData">encryptData</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#getAccount">getAccount</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#getAddress">getAddress</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#getBalance">getBalance</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#getPkPair">getPkPair</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#getToken">getToken</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#getVersion">getVersion</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#isRPCValid">isRPCValid</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#loadContract">loadContract</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#sendSignedTransaction">sendSignedTransaction</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="Service.html#sign">sign</a></span></li><li class="nav-heading"><a href="global.html">Globals</a></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#base64url">base64url</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkAccessLevel">checkAccessLevel</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#checkTimeStamp">checkTimeStamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#findEvent">findEvent</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#fromWei">fromWei</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getImage">getImage</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getLocation">getLocation</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getName">getName</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getRequest">getRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#getUrlName">getUrlName</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#handleResponse">handleResponse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#isAddress">isAddress</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#isLatest">isLatest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#isObject">isObject</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#parseAsset">parseAsset</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#parseEvent">parseEvent</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#parseEvents">parseEvents</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#parseTimelineEvents">parseTimelineEvents</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#postRequest">postRequest</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#randomHex">randomHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#rejectResponse">rejectResponse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#serializeForHashing">serializeForHashing</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#serializeParams">serializeParams</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#sortEventsByTimestamp">sortEventsByTimestamp</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#successResponse">successResponse</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#timeSince">timeSince</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toHex">toHex</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#toWei">toWei</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#utf8Encode">utf8Encode</a></span></li><li class="nav-item"><span class="nav-item-type type-function">F</span><span class="nav-item-name"><a href="global.html#validTimestamp">validTimestamp</a></span></li>
+</nav>
+
+<div id="main">
+    
+    <h1 class="page-title">service.js</h1>
+    
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/**
+ * Copyright 2018 Ambrosus Inc.
+ * Email: tech@ambrosus.com
+ */
+import utils from './utils/index';
+import { rejectResponse } from './responseHandler';
+import Web3 from 'web3';
+const DEFAULT_GAS = 4700000;
+
+/**
+ * Class with web3 related methods.
+ *
+ * @class
+ */
+class Service {
+    /**
+     *
+     * @param {ExtendedSettings} ExtendedSettings - Setting object which includes headers and privateKey
+     * @param {Web3} web3 - A Web3 Object
+     */
+    constructor(settings, web3) {
+        this._settings = settings;
+        this.web3 = web3;
+    }
+
+    /**
+     * Calculate the hash for the respective data
+     *
+     * @param {Object} data - Object which is to be hashed
+     * @returns {string} Hash Message
+     */
+    calculateHash(data) {
+        return this.web3.eth.accounts.hashMessage(utils.serializeForHashing(data));
+    }
+
+    hashMessage(data) {
+        return this.web3.eth.accounts.hashMessage(data);
+    }
+
+    /**
+     * Setting the secret key
+     *
+     * @param {string} secret - Private Key which is used to perform the signing of token
+     * @param {number} timestamp - Validity of the token
+     * @returns {Object} Rejected Response or encoded Data
+     */
+    getToken(secret = null, timestamp) {
+        if (!secret &amp;&amp; !this._settings.secret) {
+            return rejectResponse('Secret key is required generate the token');
+        }
+
+        const secretKey = secret || this._settings.secret;
+        /* istanbul ignore next */
+        const idData = {
+            createdBy: this.getAddress(secretKey),
+            validUntil: timestamp || Math.floor(Date.now() / 1000) + 300
+        };
+
+        /* istanbul ignore next */
+        return utils.base64url(utils.serializeForHashing({
+            signature: this.sign(idData, secretKey),
+            idData
+        }));
+    }
+
+    /**
+     * Get the account with respect to secret key.
+     *
+     * @param {string} secret - Private Key which is used to create account.
+     * @returns {Object} Account
+     */
+    getAccount(secret = null) {
+        if (!secret &amp;&amp; !this._settings.secret) {
+            return rejectResponse('Secret key is required generate the address');
+        }
+
+        const secretKey = secret || this._settings.secret;
+        /* istanbul ignore next */
+        return this.web3.eth.accounts.privateKeyToAccount(secretKey);
+    }
+
+    /**
+     * Returns the address
+     *
+     * @param {string | null} secret - Private Key which is used to extract the address.
+     * @returns {Object | string} Rejected Response or address
+     */
+    getAddress(secret = null) {
+        if (!secret &amp;&amp; !this._settings.secret) {
+            return rejectResponse('Secret key is required generate the address');
+        }
+        const secretKey = secret || this._settings.secret;
+        /* istanbul ignore next */
+        return this.web3.eth.accounts.privateKeyToAccount(secretKey).address;
+    }
+
+    /**
+     * Retruns the signed value of the Object provided.
+     *
+     * @param {Object} data - Object which is to be signed.
+     * @param {string} secret - Private key to sign the object.
+     * @returns {Object | string} Rejected Response or Signed data
+     */
+    sign(data = {}, secret = null) {
+        if (!secret &amp;&amp; !this._settings.secret) {
+            return rejectResponse('Secret key is required generate a signature');
+        }
+
+        const secretKey = secret || this._settings.secret;
+
+        /* istanbul ignore next */
+        return this.web3.eth.accounts.sign(utils.serializeForHashing(data), secretKey).signature;
+    }
+
+    /**
+     * Returns object consisting of address &amp; privateKey
+     *
+     * @returns {{address, privateKey}}
+     */
+    getPkPair() {
+        return this.web3.eth.accounts.create(this.web3.utils.randomHex(32));
+    }
+
+    /**
+     * Returns the balance of the account on the Network
+     *
+     * @returns {Promise} balance
+     */
+    getBalance() {
+        if (!this._settings.secret &amp;&amp; !this._settings.rpcURL) {
+            return rejectResponse('Secret key is required generate a signature');
+        }
+        return (this.web3.eth.getBalance(this._settings.address));
+    }
+
+    /**
+     * Sends the signed Transaction to the provided address on the network.
+     *
+     * @param {Object} rawTransaction
+     * @returns {Promise} transactionResponse
+     */
+    sendSignedTransaction(rawTransaction) {
+        if (!this._settings.secret &amp;&amp; !this._settings.rpcURL) {
+            return this.web3.web3.eth.sendSignedTransaction(rawTransaction);
+        }
+    }
+
+    /**
+     * Decrypt the encrypted privateKey
+     *
+     * @param {string} token
+     * @param {string} password
+     * @returns {Object}
+     */
+    decryptPrivateKey(token, password) {
+        try {
+            const { address, privateKey } = this.web3Serivce.web3.eth.accounts.decrypt(token, password);
+            return [address, privateKey];
+        } catch (e) {
+            return [null];
+        }
+    }
+
+    /**
+     * Checks if the provided RPC URL is valid
+     * @param {string} url
+     * @returns {boolean}
+     */
+    isRPCValid(url) {
+        const web3 = new Web3(url);
+        return web3.eth.net.isListening().then(() => {
+            return true;
+        }).catch(() => {
+            return false;
+        });
+    }
+
+    /**
+     * Encrypt the data with the provided privateKey
+     *
+     * @param {string} secret
+     * @param {any} data
+     * @returns {string} encryptedData
+     */
+    encryptData(secret = null, data) {
+        if (!secret &amp;&amp; !this._settings.secret) {
+            return rejectResponse('Secret key is required generate a signature');
+        }
+
+        const secretKey = secret || this._settings.secret;
+        return this.web3.eth.accounts.encrypt(secretKey, data);
+    }
+
+    /**
+     * Get the version of the web3 instance.
+     */
+    getVersion() {
+        return this.web3.version;
+    }
+
+    /**
+     * Loads a contract from the network.
+     *
+     * @param {Object} abi
+     * @param {string} address
+     * @returns {Object} contract.
+     */
+    loadContract(abi, address) {
+        if (!this._settings.rpcURL) {
+            return rejectResponse('RPC URL is required');
+        }
+        return this.web3.eth.Contract(abi, address, {
+            gas: DEFAULT_GAS,
+            gasPrice: this.web3.utils.toWei('5', 'gwei')
+        });
+    }
+}
+
+export default Service;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<br class="clear">
+
+<footer>
+    Generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.5.5</a> on Wed Mar 13 2019 20:51:03 GMT+0530 (IST) using the Minami theme.
+</footer>
+
+<script>prettyPrint();</script>
+<script src="scripts/linenumber.js"></script>
+</body>
+</html>

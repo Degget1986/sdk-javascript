@@ -3,88 +3,164 @@
  * Email: tech@ambrosus.com
  */
 
-import Request from './request';
-import {
-  serializeParams
-} from './../utils';
+import { getRequest, postRequest } from './request';
+import utils from '../utils/index';
+import { rejectResponse, successResponse } from '../responseHandler';
+import EventHandler from '../eventHandler';
 
-/** Class for events */
-export default class Events {
+/**
+ * Events Class
+ *
+ * @class
+ * @classdesc Every Events related methods
+ */
+class Events {
+    /**
+     * Initializing the Events class
+     *
+     * @param {ClassProperties} - Properties to initialize the class object
+     */
+    constructor(settings, service) {
+        this._settings = settings;
+        this.service = service;
+        this.eventHandler = new EventHandler();
+    }
 
-  /**
-   * Initialize the events class
-   * @param {RequestSettings} settings
-   */
-  constructor(settings) {
-    this._settings = settings;
-    this._request = new Request(this._settings);
-  }
+    /**
+     * Find Event by Id
+     *
+     * {@link https://ambrosus.docs.apiary.io/#reference/events/eventseventid/fetch-event Find Event by Id}
+     * @param {string} eventId - Id of the event
+     * @returns {Object} event
+     */
+    getEventById(eventId) {
+        return new Promise((resolve, reject) => {
+            if (!eventId) {
+                return reject(rejectResponse('Event ID is missing.'));
+            }
 
-  /**
-   * Find event by id
-   *
-   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventseventid/fetch-event Find Event by Id}
-   * @function getEventById
-   * @param {string} eventId
-   * @returns {Promise<Object>} Promise - Event.
-   */
-  getEventById(eventId) {
-    return new Promise((resolve, reject) => {
-      this._request.getRequest(`events/${encodeURIComponent(eventId)}`)
-        .then(response => resolve(response))
-        .catch(error => reject(error));
-    });
-  }
+            getRequest(`${this._settings.apiEndpoint}/events/${encodeURIComponent(eventId)}`, this._settings.headers)
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        });
+    }
 
-  /**
-   * Get all events with the matching params.
-   *
-   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventsassetidfromtimestamptotimestampperpagepagecreatedbydata/find-events Find Events}
-   * @function getEvents
-   * @param {Object} params
-   * @returns {Promise<Object>} Promise - Events
-   */
-  getEvents(params) {
-    return new Promise((resolve, reject) => {
-      this._request.getRequest(`events?${serializeParams(params)}`)
-        .then(response => resolve(response))
-        .catch(error => reject(error));
-    });
-  }
+    /**
+     * Get all Events with the matching params
+     *
+     * {@link https://ambrosus.docs.apiary.io/#reference/events/eventsassetidfromtimestamptotimestampperpagepagecreatedbydata/find-events Find Events}
+     * @param {Object} params - Properties of the events
+     * @returns {Object} events
+     */
+    getEvents(params) {
+        return new Promise((resolve, reject) => {
+            getRequest(`${this._settings.apiEndpoint}/events?${utils.serializeParams(params)}`, this._settings.headers)
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        });
+    }
 
-  /**
-   * Create a new event.
-   *
-   * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
-   * @function createEvent
-   * @param {string} assetId
-   * @param {Object} params
-   * @returns {Promise<Object>} Promise - Event created.
-   */
-  createEvent(assetId, params) {
-    /* istanbul ignore next */
-    return new Promise((resolve, reject) => {
-      this._request.postRequest(`assets/${assetId}/events`, params)
-        .then(response => resolve(response))
-        .catch(error => reject(error));
-    });
-  }
+    /**
+     * Create a new event.
+     *
+     * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
+     * @param {string} assetId - Corresponding asset Id to the event
+     * @param {Object} params - Properties of the event
+     * @returns {Promise<Object>} Promise
+     */
+    createSingleEvent(assetId, params) {
+        return new Promise((resolve, reject) => {
+            postRequest(`${this._settings.apiEndpoint}/assets/${assetId}/events`, this._settings.headers, params)
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        });
+    }
 
-  /**
-   * Find bundle by id.
-   *
-   * {@link https://ambrosus.docs.apiary.io/#reference/bundles/bundlebundleid/fetch-bundle Find Bundle by Id}
-   * @function getBundleById
-   * @param {string} bundleId
-   * @returns {Promise<Object>} Promise - Bundle.
-   */
-  getBundleById(bundleId) {
-    /* istanbul ignore next */
-    return new Promise((resolve, reject) => {
-      this._request.getRequest(`bundle/${encodeURIComponent(bundleId)}`)
-        .then(response => resolve(response))
-        .catch(error => reject(error));
-    });
-  }
+    /**
+     * Creates a new Event.
+     *
+     * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
+     * @param {string} assetId - Corresponding asset Id to the event
+     * @param {Object} event - Properties of the events
+     * @returns {Object} eventResponse
+     */
+    createEvent(assetId, event) {
+        return new Promise((resolve, reject) => {
+            if (typeof event !== 'object') {
+                return reject(rejectResponse('event should be a json object'));
+            } else if (!this._settings.secret) {
+                return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
+            }
 
+            if (!assetId) {
+                return reject(rejectResponse('Asset ID is missing.'));
+            }
+
+            if (!event) {
+                return reject(rejectResponse('Event data is missing.'));
+            }
+
+            let params = {};
+
+            if (event.content && event.content.data) {
+                const idData = {
+                    assetId: assetId,
+                    timestamp: utils.checkTimeStamp(event),
+                    accessLevel: utils.checkAccessLevel(event),
+                    createdBy: this._settings.address,
+                    dataHash: this.service.hashMessage(utils.serializeForHashing(event.content.data))
+                };
+
+                params = {
+                    content: {
+                        idData: idData,
+                        signature: this.service.sign(idData, this._settings.secret),
+                        data: event.content.data
+                    }
+                };
+            } else {
+                return reject(rejectResponse('Invalid data: No content found at content.data.'));
+            }
+
+            return this.createSingleEvent(assetId, params)
+                .then((response) => {
+                    this.eventHandler.emit('event:created');
+                    resolve(response);
+                }).catch(error => reject(error));
+        });
+    }
+
+    /**
+     * Returns this bundle with respect to id
+     *
+     * @param {string} bundleId - Id of the bundle
+     * @returns {Object} bundle
+     */
+    getBundleById(bundleId) {
+        return new Promise((resolve, reject) => {
+            if (!bundleId) {
+                return reject(rejectResponse('Bundle ID is missing.'));
+            }
+            getRequest(`${this._settings.apiEndpoint}/bundle/${encodeURIComponent(bundleId)}`, this._settings.headers)
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        });
+    }
+
+    /**
+     * Parse the provided events
+     *
+     * @param {Object} eventsArray - Array of events which is to be parsed
+     * @returns {Object} Reject Response or Success Response with parsed events
+     */
+    parseEvents(eventsArray) {
+        return new Promise((resolve, reject) => {
+            if (eventsArray && eventsArray.results) {
+                return resolve(successResponse(utils.parseEvents(eventsArray)));
+            }
+            return reject(rejectResponse('Results array is missing.'));
+        });
+    }
 }
+
+export default Events;

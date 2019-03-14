@@ -3,8 +3,7 @@ import ReactDOM from 'react-dom';
 import Form from './components/form';
 import AssetResponse from './components/asset-response';
 import EventResponse from './components/event-response';
-import AmbrosusSDK from 'ambrosus-javascript-sdk';
-
+// import AmbrosusSDK from 'ambrosus-javascript-sdk';
 class App extends Component {
   constructor(props) {
     super(props);
@@ -21,13 +20,13 @@ class App extends Component {
   }
 
   assetSearch(assetId) {
-    this.ambrosus.getAssetById(assetId)
+    this.ambrosus.assets.getAssetById(assetId)
       .then(response => { this.getEvents(assetId); this.setState({ assetResponse: response })})
       .catch(error => console.log(error));
   }
 
   getEvents(assetId) {
-    this.ambrosus.getEvents({assetId: assetId})
+    this.ambrosus.events.getEvents({assetId: assetId})
       .then(response => this.setState({ eventResponse: response }))
       .catch(error => console.log(error));
   }

@@ -3,77 +3,57 @@
  * Email: tech@ambrosus.com
  */
 
-import {
-  handleResponse
-} from './../responseHandler';
+import { handleResponse } from './../responseHandler';
+import utils from '../utils/index';
 
-/** Class for Request */
-export default class Request {
-
-  /**
-   * Initialize the request class
-   * @param {RequestSettings} settings
-   */
-  constructor(settings) {
-    this._settings = settings;
-  }
-
-  /**
-   * Create a GET request
-   *
-   * @param {string} path
-   */
-  getRequest(path, { headers, params, body, }) {
+/**
+ * Create a GET request
+ *
+ * @param {string} path
+ * @param {Object} headers
+ * @param {Object} params
+ */
+export function getRequest(path, headers, params) {
     return new Promise((resolve, reject) => {
-      let request = new XMLHttpRequest();
-
-      request.open('GET', path, true);
-      if (this._settings.headers) {
-        for (const key in this._settings.headers) {
-          request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
+        let request = new XMLHttpRequest();
+        request.open('GET', `${path}${utils.serializeParams(params)}`, true);
+        if (headers) {
+            for (const key in headers) {
+                request.setRequestHeader(`${key}`, `${headers[key]}`);
+            }
         }
-      }
-      request.addEventListener(
-        'load',
-        () => {
-          handleResponse(request)
-            .then(response => resolve(response))
-            .catch(error => reject(error));
-        },
-        false
-      );
-      request.send();
+        request.onload = () => {
+            handleResponse(request)
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        };
+        request.send();
     });
-  }
+}
 
-  /**
-   * Create a POST Request
-   *
-   * @param {string} path
-   * @param {Object} params
-   * @param {boolean} hasHeader
-   */
-  postRequest(path, params, hasHeader = false) {
+/**
+ * Create a POST Request
+ *
+ * @param {string} path
+ * @param {Object} headers
+ * @param {Object} params
+ */
+export function postRequest(path, headers, params) {
     /* istanbul ignore next */
     return new Promise((resolve, reject) => {
-      let request = new XMLHttpRequest();
-
-      request.open('POST', `${this._settings.apiEndpoint}/${path}`, true, this._settings);
-      request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
-
-      if (this._settings.headers && hasHeader === true) {
-        for (const key in this._settings.headers) {
-          request.setRequestHeader(`${key}`, `${this._settings.headers[key]}`);
+        let request = new XMLHttpRequest();
+        request.open('POST', path, true);
+        request.setRequestHeader('Content-type', 'application/json; charset=utf-8');
+        if (headers) {
+            for (const key in headers) {
+                request.setRequestHeader(`${key}`, `${headers[key]}`);
+            }
         }
-      }
-
-      request.onload = () => {
-        handleResponse(request)
-          .then(response => resolve(response))
-          .catch(error => reject(error));
-      };
-
-      request.send(JSON.stringify(params));
+        request.onload = () => {
+            handleResponse(request)
+                .then(response => resolve(response))
+                .catch(error => reject(error));
+        };
+        request.send(JSON.stringify(params));
     });
-  }
 }

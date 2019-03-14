@@ -1,22 +1,14 @@
 describe('Given an instance of my api library', () => {
-
-    describe('see if library is initialised: Pass apiEndpoint and web3 library', () => {
-        it('should return the apiEndpoint', () => {
-            expect(lib._settings.apiEndpoint).to.be.equal(apiEndpoint);
+    describe('see if library is initialised', () => {
+        it('Should have all properties', () => {
+            expect(Object.keys(lib)).to.have.members(['_settings', 'service', 'accounts', 'assets', 'events']);
         });
     });
 
-    describe('see if library is initialised: Pass only apiEndpoint', () => {
-        it('should return the apiEndpoint', () => {
-            expect(lib1._settings.apiEndpoint).to.be.equal(apiEndpoint);
-        });
-    });
-
-    describe('see if library initializes along with a random key value pair', () => {
-        it('should initalize with randomKey and randomString', () => {
-            const randomKey = 'randomString';
-            const aSDK = new AmbrosusSDK({ randomKey });
-            expect(aSDK._settings.randomKey).to.be.equal('randomString');
+    describe('see if library is initialised with private key', () => {
+        it('_settings object should contain token property', () => {
+            expect(Object.keys(lib2._settings)).to.have.members(['secret', 'address', 'apiEndpoint', 'token', 'headers']);
+            expect(lib2._settings.headers).to.have.property('Authorization');
         });
     });
 
@@ -34,25 +26,12 @@ describe('Given an instance of my api library', () => {
         });
     });
 
-    describe('initialize the sdk with no settings or parameters', () => {
-        it('should initialize the sdk', () => {
-            const aSDK = new AmbrosusSDK();
-            expect(aSDK._settings.apiEndpoint).to.be.equal(apiEndpoint);
-        });
-    });
-
-    describe('initialize the sdk with random secret and web3', () => {
-        it('see if address is auto generated inside settings', () => {
-            const aSDK = new AmbrosusSDK({ Web3, secret: randomSecret });
-            const address = aSDK.getAddress(randomSecret);
+    describe('initialize the sdk with random secret', () => {
+        it('see if address and token is auto generated inside settings', () => {
+            const aSDK = new AmbrosusSDK({ secret: randomSecret });
+            const address = aSDK.service.getAddress(randomSecret);
             expect(aSDK._settings.address).to.be.equal(address);
-        });
-    });
-
-    describe('initialize the sdk with random secret and web3', () => {
-        it('see if token is auto generated inside settings', () => {
-            const aSDK = new AmbrosusSDK({ Web3, secret: randomSecret });
-            const token = aSDK.getToken(randomSecret);
+            const token = aSDK.service.getToken(randomSecret);
             expect(aSDK._settings.token).to.be.equal(token);
         });
     });

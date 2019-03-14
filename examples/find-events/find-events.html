@@ -8,7 +8,7 @@
     <link rel="icon" type="image/png" sizes="32x32" href="https://amb.to/assets/favicons/favicon-32x32.png">
     <link rel="icon" type="image/png" sizes="16x16" href="https://amb.to/assets/favicons/favicon-16x16.png">
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-    <script src="./../../lib/ambrosus.min.js"></script>  
+    <script src="./../../lib/ambrosus.umd.min.js"></script>
 </head>
 <style>
     .container-pad {
@@ -27,31 +27,31 @@
             <div class="container-pad">
                 <div class="form-group">
                     <label for="usr">Asset ID:</label>
-                    <input type="text" id="assetId" name="assetId" placeholder="Asset the events are targeting" value="0x6904151c80b33a26925bf940b061c7d365dee013f468adc555d6c699dc0e3b79" class="form-control">                    
+                    <input type="text" id="assetId" name="assetId" placeholder="Asset the events are targeting" value="0x6904151c80b33a26925bf940b061c7d365dee013f468adc555d6c699dc0e3b79" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="usr">From Timestamp:</label>
-                    <input type="text" id="fromTimestamp" name="fromTimestamp" placeholder="From Time Stamp" value="" class="form-control">                    
+                    <input type="text" id="fromTimestamp" name="fromTimestamp" placeholder="From Time Stamp" value="" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="usr">From toTimestamp:</label>
-                    <input type="text" id="toTimestamp" name="toTimestamp" placeholder="To Time Stamp" value="" class="form-control">                    
+                    <input type="text" id="toTimestamp" name="toTimestamp" placeholder="To Time Stamp" value="" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="usr">Number of events to return per page:</label>
-                    <input type="text" id="perPage" name="perPage" placeholder="Per Page" value="" class="form-control">                    
+                    <input type="text" id="perPage" name="perPage" placeholder="Per Page" value="" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="usr">Number of page:</label>
-                    <input type="text" id="noOfPage" name="noOfPage" placeholder="Number of Pages" value="" class="form-control">                    
+                    <input type="text" id="noOfPage" name="noOfPage" placeholder="Number of Pages" value="" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="usr">Created By:</label>
-                    <input type="text" id="createdBy" name="createdBy" placeholder="Created By" value="0x5f01d1318d88868d46c77c090543f3a3224f7bf1" class="form-control">                    
+                    <input type="text" id="createdBy" name="createdBy" placeholder="Created By" value="0x5f01d1318d88868d46c77c090543f3a3224f7bf1" class="form-control">
                 </div>
                 <div class="form-group">
                     <label for="usr">Data type:</label>
-                    <input type="text" id="data" name="data" placeholder="Data" value="" class="form-control">                    
+                    <input type="text" id="data" name="data" placeholder="Data" value="" class="form-control">
                 </div>
                 <br>
                 <div>
@@ -96,11 +96,11 @@
                     }
                 }
 
-                console.log(finalOptions); 
+                console.log(finalOptions);
 
                 var assetResponse = document.getElementById('assetResponse');
 
-                ambrosus.getEvents(finalOptions)
+                ambrosus.events.getEvents(finalOptions)
                     .then(function(response) {
                         console.log(response);
                         assetResponse.innerHTML = JSON.stringify(response, null, "  ");
