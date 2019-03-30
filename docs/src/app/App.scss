@@ -1,0 +1,57 @@
+/**
+ * Copyright 2018 Ambrosus Inc.
+ * Email: tech@ambrosus.com
+ */
+@import "src/styles/utils";
+
+
+.app {
+  display: flex;
+  @include breakpoint(768) {
+    flex-direction: column;
+  }
+
+  .code {
+    max-width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .CodeMirror {
+    height: auto;
+  }
+
+  .main {
+    flex: 1;
+    margin: 20px;
+    padding-left: 30px;
+    overflow: hidden;
+
+    @include breakpoint(768) {
+      padding-left: 0;
+    }
+
+    .para {
+      padding: 20px 0;
+      font-size: 14px;
+      line-height: 1.5;
+      padding-left: 32px;
+
+      @include breakpoint(768) {
+        padding: 20px 0;
+      }
+      a {
+        color: $blue;
+        font-size: 14px;
+      }
+    }
+
+    .link {
+      svg {
+        cursor: pointer;
+        height: 20px;
+        width: 30px;
+        padding-right: 10px;
+      }
+    }
+  }
+}

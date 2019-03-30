@@ -10,35 +10,14 @@
 
 Library for simple interaction with Ambrosus API.
 
-## Contribution
-
-Please refer to project's code style guidelines and guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
-
- 1. **Fork** the repo on GitHub
- 2. **Clone** the project to your own machine
- 3. **Commit** changes to your own branch
- 4. **Push** your work back up to your fork
- 5. Submit a **Pull request** so that we can review your changes
-
-NOTE: Be sure to merge the latest from "upstream" before making a pull request!
-
-It is mandatory to follow our code of conduct described in [CONTRIBUTING.md](https://github.com/ambrosus/sdk-javascript/blob/master/CONTRIBUTING.md).
 
 ## Overview
 
 - [Prerequisite](#prerequisite)
-- [Setup](#setup)
+- [Installation](#installation)
 - [Usage](#usage)
-- [Response from Ambrosus SDK methods](#response-from-ambrosus-sdk-methods)
-- [SDK Events](#listen-to-sdk-events)
-- [Ambrosus SDK methods](https://github.com/ambrosus/sdk-javascript/wiki)
-  - [Get asset](https://github.com/ambrosus/sdk-javascript/wiki/Assets#get-asset)
-  - [Get assets](https://github.com/ambrosus/sdk-javascript/wiki/Assets#get-assets)
-  - [Create asset](https://github.com/ambrosus/sdk-javascript/wiki/Assets#create-asset)
-  - [Get event](https://github.com/ambrosus/sdk-javascript/wiki/Events#get-event)
-  - [Get events](https://github.com/ambrosus/sdk-javascript/wiki/Events#get-events)
-  - [Create event](https://github.com/ambrosus/sdk-javascript/wiki/Events#create-event)
 - [Examples](#examples)
+- [Contribution](#contribution)
 
 ## Prerequisite
 
@@ -54,92 +33,69 @@ We do not store your secret for security reasons, so please save it somewhere sa
 _To use Ambrosus SDK, you will need your **address** and **secret** key._\
 Now we can go to setup.
 
-## Setup
-
-### npm
-
+## Installation
 ```
 $ npm install ambrosus-javascript-sdk --save
 ```
 
-Import the SDK in your javascript file
-
-`const AmbrosusSDK = require('ambrosus-javascript-sdk');`
-
 ## Usage
+_Import the SDK in your javascript file_
+```
+// with the classic require...
+const AmbrosusSDK = require('ambrosus-javascript-sdk')
+// ... or with the new import directive.
+import AmbrosusSDK from 'ambrosus-javascript-sdk'
+```
+Initializing the Ambrosus library.
+_The following properties can be passed while initializing the library._
+The ideal way to pass the properties is using the environment variables.
 
-Initialize the Ambrosus library.\
+|Property    | Type | Defination | Example. |
+|---|---|---|---|
+|secret      | string | Secret key you received in email.| 0x6823520c03ad7b17....|
+|rpcURL      | string | RPC URL of the blockchain network. | https://network.ambrosus-dev.com |
+|apiEndpoint | string | API endpoint of the ambrosus network. | https://hermes.ambrosus-test.com |
 
-```js
-var ambrosus = new AmbrosusSDK({
-  // Provide env variables
-  secret: '0x6823520c03ad7b17bc1a7144fbbd2d24bfa2ce933d715ace209d658e03fdd388',
+Intializing SDK to request or querying data.
+```
+const ambrosus = new AmbrosusSDK({
+  apiEndpoint: 'https://hermes.ambrosus-test.com',
 });
 ```
-
-| Variable | Type   | Definition                        | Example                                                            |
-| -------- | ------ | --------------------------------- | ------------------------------------------------------------------ |
-| secret   | string | Secret key you received in email. | 0x6c06dD0215d4eef9E795C0b5BwED697a26287aFB                         |
-| address  | string | Address you received in email.    | 0x6823520c03ad7b17bc1a7144fbbd2d24bfa2ce933d715ace209d658e03fdd388 |
-
-___
-
-Each state-modifying call needs to have the secret and address values.
-If you wish to use the SDK only to request or query the data,
-You can initialise the SDK like -
-
-```js
-var ambrosus = new AmbrosusSDK({
-  apiEndpoint: 'https://gateway-test.ambrosus.com',
+Initializing SDK to create assets and events.
+```
+ambrosus = new AmbrosusSDK({
+  secret: '0x6823520c03ad7b17....',
+  apiEndpoint: 'https://hermes.ambrosus-test.com',
 });
 ```
-
-Variable | Type | Definition | Example
----------|------|------------|--------
-secret   | string | Secret key you received in email. | 0x6c06dD0215d4eef9E795C0b5BwED697a26287aFB
-address  | string | Address you received in email.    | 0x6823520c03ad7b17bc1a7144fbbd2d24bfa2ce933d715ace209d658e03fdd388
-
-
-## Response from Ambrosus SDK methods
-
-Every Ambrosus SDK method (examples below), will return the response with this structure:
-
-**Response type**: object
-
-```json
-{
-  "status": 404,
-  "data": null,
-  "message": "Entity not found: No event with id = null found",
-}
+Initializing SDK to work with the blockchain network.
 ```
-
-| Property | Type   | Definition                      | Example                                                |
-| -------- | ------ | ------------------------------- | ------------------------------------------------------ |
-| status   | number | Http response code              | 200, 404                                               |
-| data     | object | Data returned from the SDK      | JSON response data (examples below) or null (if error) |
-| message  | string | Message describing the response | Entity not found: No event with id = null found        |
-
-## Listen to SDK Events
-
-Library supports internal events.
-
-```javascript
-ambrosus.on('asset:created', function() {
-  // your method here
+ambrosus = new AmbrosusSDK({
+  rpcURL: 'https://network.ambrosus-dev.com',
+  secret: '0x6823520c03ad7b17....',
 });
-```
-
-## Public SDK Methods
-
-The SDK also exports utility methods which can be used without initializing the SDK.
-Example to access the public utility methods
-
-```javascript
-const parseEvents = AmbrosusSDK.utils.parseEvents(eventsArray);
-// Parse events object
 ```
 
 ## Examples
 
-See [examples/](examples/) for working examples of how the SDK can be used.
+See working [Examples](examples/) of how the SDK can be used.
+
+## Contribution
+
+Please refer to project's code style guidelines and guidelines for submitting patches and additions. In general, we follow the "fork-and-pull" Git workflow.
+
+ 1. **Fork** the repo on GitHub
+ 2. **Clone** the project to your own machine
+ 3. **Commit** changes to your own branch
+ 4. **Push** your work back up to your fork
+ 5. Submit a **Pull request** so that we can review your changes
+
+NOTE: Be sure to merge the latest from "upstream" before making a pull request!
+
+It is mandatory to follow our code of conduct described in [CONTRIBUTING.md](https://github.com/ambrosus/sdk-javascript/blob/master/CONTRIBUTING.md).
+
+
+## License
+
+This project is licensed under MIT.

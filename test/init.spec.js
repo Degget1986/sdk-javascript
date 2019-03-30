@@ -31,7 +31,7 @@ describe('Given an instance of my api library', () => {
             const aSDK = new AmbrosusSDK({ secret: randomSecret });
             const address = aSDK.service.getAddress(randomSecret);
             expect(aSDK._settings.address).to.be.equal(address);
-            const token = aSDK.service.getToken(randomSecret);
+            const token = aSDK.service.getApiToken(randomSecret);
             expect(aSDK._settings.token).to.be.equal(token);
         });
     });

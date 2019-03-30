@@ -29,7 +29,7 @@ program
 
 initializeSdk = jsonSettings => {
     global.ambrosus = new AmbrosusSDK({
-        apiEndpoint: 'https://gateway-test.ambrosus.com',
+        apiEndpoint: 'https://hermes.ambrosus-test.com',
         secret: '0xf426aa4dbc1f74997fc31bbcbbdbe6f66bd11f1bf5dbe637ef242740d74080ad'
     });
 

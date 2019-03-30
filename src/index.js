@@ -66,15 +66,15 @@ class AmbrosusSDK {
                 this._settings[key] = extendSettings[key];
             });
             if (this._settings.secret) {
-                this.service = new Service(this._settings, web3);
                 this._settings.address = this.service.getAddress(this._settings.secret);
-                const token = this.service.getToken(this._settings.secret);
+                const token = this.service.getApiToken(this._settings.secret);
                 if (token.status !== 400) {
                     this._settings.token = token;
                     this._settings['headers'] = Object.assign({
                         'Authorization': `AMB ${token}`
                     }, this._settings.headers);
                 }
+                this.service = new Service(this._settings, web3);
             }
 
             if (this._settings.rpcURL) {

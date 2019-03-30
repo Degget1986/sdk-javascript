@@ -24,27 +24,35 @@ class Service {
     }
 
     /**
-     * Calculate the hash for the respective data
+     * Calculate the hash value of the given data
      *
-     * @param {Object} data - Object which is to be hashed
-     * @returns {string} Hash Message
+     * @param {Object} data - Can be object, array or a string
+     * @returns {string} Hashed Message
      */
     calculateHash(data) {
-        return this.web3.eth.accounts.hashMessage(utils.serializeForHashing(data));
-    }
-
-    hashMessage(data) {
-        return this.web3.eth.accounts.hashMessage(data);
+        return this.hashMessage(utils.serializeForHashing(data));
     }
 
     /**
-     * Setting the secret key
+     * Hashes the given message passed
+     * The data will be UTF-8 HEX decoded and enveloped as follows:
+     * "\x19Ethereum Signed Message:\n" + message.length + message and hashed using keccak256.
+     *
+     * @param {String} data A message to hash, if its HEX it will be UTF8 decoded before.
+     * @returns {String} Hashed Message
+     */
+    hashMessage(message) {
+        return this.web3.eth.accounts.hashMessage(message);
+    }
+
+    /**
+     * Generate the token which is used in API request.
      *
      * @param {string} secret - Private Key which is used to perform the signing of token
      * @param {number} timestamp - Validity of the token
      * @returns {Object} Rejected Response or encoded Data
      */
-    getToken(secret = null, timestamp) {
+    getApiToken(secret = null, timestamp) {
         if (!secret && !this._settings.secret) {
             return rejectResponse('Secret key is required generate the token');
         }
@@ -64,7 +72,7 @@ class Service {
     }
 
     /**
-     * Get the account with respect to secret key.
+     * Creates an account object from a private key.
      *
      * @param {string} secret - Private Key which is used to create account.
      * @returns {Object} Account
@@ -105,9 +113,7 @@ class Service {
         if (!secret && !this._settings.secret) {
             return rejectResponse('Secret key is required generate a signature');
         }
-
         const secretKey = secret || this._settings.secret;
-
         /* istanbul ignore next */
         return this.web3.eth.accounts.sign(utils.serializeForHashing(data), secretKey).signature;
     }
@@ -126,23 +132,104 @@ class Service {
      *
      * @returns {Promise} balance
      */
-    getBalance() {
+    getBalance(address = null) {
         if (!this._settings.secret && !this._settings.rpcURL) {
             return rejectResponse('Secret key is required generate a signature');
         }
-        return (this.web3.eth.getBalance(this._settings.address));
+        const userAddress = address || this._settings.address;
+        return this.web3.eth.getBalance(userAddress);
     }
 
     /**
-     * Sends the signed Transaction to the provided address on the network.
+     * Returns a transaction matching the given transaction hash.
      *
-     * @param {Object} rawTransaction
+     * @param {string} transactionHash
+     * @returns {Promise<object> }- A transaction object
+     */
+    getTransaction(transactionHash) {
+        if (!this._settings.secret && !this._settings.rpcURL) {
+            return rejectResponse('Secret key is required generate a signature');
+        }
+        return this.web3.eth.getTransaction(transactionHash);
+    }
+
+    /**
+     * Returns the transaction recepit.
+     * The receipt is not available for pending transactions and returns null.
+     *
+     * @param {string} transactionHash
+     * @returns {Promise<object>} A transaction receipt object, or null when no receipt was found:
+     */
+    getTransactionRecepit(transactionHash) {
+        if (!this._settings.secret && !this._settings.rpcURL) {
+            return rejectResponse('Secret key is required generate a signature');
+        }
+        return this.web3.eth.getTransactionReceipt(transactionHash);
+    }
+
+    /**
+     * Get the numbers of transactions sent from this address.
+     *
+     * @param {string} address
+     * @returns {Promise<number>} - The number of transactions sent from the given address.
+     */
+    getTransactionCount(address = null) {
+        if (!this._settings.secret && !this._settings.rpcURL) {
+            return rejectResponse('Secret key is required generate a signature');
+        }
+        const userAddress = address || this._settings.address;
+        return this.web3.eth.getTransactionCount(userAddress);
+    }
+
+    /**
+     * Signs and sends the transaction to the network
+     *
+     * @param {string} address Address of the receiving person
+     * @param {number} value Total number of token to be sent
      * @returns {Promise} transactionResponse
      */
-    sendSignedTransaction(rawTransaction) {
-        if (!this._settings.secret && !this._settings.rpcURL) {
-            return this.web3.web3.eth.sendSignedTransaction(rawTransaction);
+    sendTransaction(address, value, data = null) {
+        const txObject = {
+            to: address,
+            from: this._settings.address,
+            value: this.web3.utils.toHex(this.web3.utils.toWei(value, 'ether')),
+            gas: this.web3.utils.toHex(21000),
+            gasPrice: this.web3.utils.toHex(this.web3Service.web3.utils.toWei('10', 'gwei'))
+        };
+        if (data) {
+            txObject.data = data;
         }
+        const account = this.getAccount(this._settings.secret);
+        const signedTx = account.signTransaction(txObject);
+        signedTx.then(value => this.web3.eth.sendSignedTransaction(value.rawTransaction))
+            .catch(() => rejectResponse('Secret key is required generate a signature'));
+    }
+
+    /**
+     * Returns a block matching the block number or block hash.
+     *
+     * @param {string | number} hashOrNumber
+     * @returns {Promise<object>} - The block object
+     */
+    getBlock(hashOrNumber) {
+        if (!this._settings.secret && !this._settings.rpcURL) {
+            return rejectResponse('Secret key is required generate a signature');
+        }
+        return this.web3.eth.getBlock(hashOrNumber);
+    }
+
+    /**
+     * Returns the latest block.
+     *
+     * @returns {Promise<Object>} - The latest block data.
+     */
+    getLatestBlock() {
+        if (!this._settings.secret && !this._settings.rpcURL) {
+            return rejectResponse('Secret key is required generate a signature');
+        }
+        this.web3.eth.getBlockNumber().then(number => {
+            return this.web3.eth.getBlock(number);
+        });
     }
 
     /**

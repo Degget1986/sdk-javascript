@@ -14,7 +14,7 @@ class App extends Component {
     };
 
     this.ambrosus = new AmbrosusSDK({
-      apiEndpoint: 'https://gateway-test.ambrosus.com'
+      apiEndpoint: 'https://hermes.ambrosus-test.com'
     });
 
   }
@@ -36,7 +36,7 @@ class App extends Component {
     const assetSearch = term => this.assetSearch(term);
 
     return (
-      <div className="container-pad">
+      <div className='container-pad'>
         <h1>
             Ambrosus Viewer 🔭
         </h1>

@@ -1,14 +1,14 @@
 describe('service.js', () => {
     describe('/GET token', () => {
         it('it should generate the token given that SDK is initilized with a secret', (done) => {
-            expect(lib2.service.getToken()).to.be.a('string');
+            expect(lib2.service.getApiToken()).to.be.a('string');
             done();
         });
     });
 
     describe('/GET token', () => {
         it('it should generate the token given that the secret is passed in the method call', (done) => {
-            expect(lib.service.getToken(randomSecret)).to.be.a('string');
+            expect(lib.service.getApiToken(randomSecret)).to.be.a('string');
             done();
         });
     });

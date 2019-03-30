@@ -1,0 +1,24 @@
+/**
+ * Copyright 2018 Ambrosus Inc.
+ * Email: tech@ambrosus.com
+ */
+@import "src/styles/utils";
+
+.aside {
+  display: flex;
+  flex-direction: column;
+  backface-visibility: hidden;
+  contain: strict;
+  height: 100vh;
+  position: sticky;
+  top: 0px;
+  box-shadow: 3px 0px 10px rgba(0, 0, 0, 0.05);
+  overflow: hidden;
+  background-color: rgb(243, 248, 251);
+  padding: 20px;
+  width: 275px;
+
+  @include breakpoint(768) {
+    display: none;
+  }
+}

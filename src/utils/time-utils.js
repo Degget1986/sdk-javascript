@@ -2,7 +2,7 @@
  * Get time since from the provided Date.
  *
  * @function timeSince
- * @param {Date} date
+ * @param {Date} date date object
  * @returns {string} formatted date
  */
 export const timeSince = date => {

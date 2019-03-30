@@ -1,0 +1,67 @@
+/**
+ * Copyright 2018 Ambrosus Inc.
+ * Email: tech@ambrosus.com
+ */
+@keyframes animateGradient {
+  0% {
+    background-position: 0 100%;
+  }
+
+  100% {
+    background-position: 0 0;
+  }
+}
+
+.ui-dark {
+  background: $blue;
+  background-size: 100% 200% !important;
+
+  &.page-loaded {
+    @include gradient-vertical-three-colors($purple,
+    $blue,
+    50%,
+    darken($blue, 10));
+    animation: animateGradient .9s 1;
+    background-position: 0 100%;
+    animation-fill-mode: forwards;
+  }
+
+  .logo {
+    img {
+      padding-left: 66px;
+      height: 120px;
+    }
+  }
+
+  p,
+  .lead {
+    color: #fafafa;
+  }
+
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    color: #fff;
+  }
+
+  .Footer {
+    .copyright {
+      > p {
+        color: rgba(#fff, .55);
+      }
+    }
+
+    .contact {
+      a {
+        color: rgba(#fff, .55);
+
+        &:hover {
+          color: #fff;
+        }
+      }
+    }
+  }
+}

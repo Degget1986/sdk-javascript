@@ -47,8 +47,10 @@ const getUrlName = (url) => {
 /**
  * Seralize object into query params
  *
+ * Creates a query params string by taking a params object.
+ *
  * @function serializeParams
- * @param {Object} params
+ * @param {Object} params properties to be passed as query params.
  * @returns {string} queryParams
  */
 const serializeParams = params => {
@@ -67,7 +69,7 @@ const serializeParams = params => {
  * Serialize Object
  *
  * @function serializeForHashing
- * @param {Object} object
+ * @param {Object | Array | string} object
  * @returns {string} serializedString
  */
 const serializeForHashing = (object) => {

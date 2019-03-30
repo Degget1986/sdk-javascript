@@ -71,9 +71,9 @@ export const getLocation = (event) => {
  * Sorts the Event by descending order based on the timestamp
  *
  * @function sortEventsByTimestamp
- * @param {Object} a
- * @param {Object} b
- * @returns {Object}
+ * @param {Object} objectA Object which contains timestamp property
+ * @param {Object} objectB Object which contains timestamp property
+ * @returns {Object} Object sorted by descending order based on timestamp
  */
 export const sortEventsByTimestamp = (a, b) => {
     if (a.timestamp > b.timestamp) {

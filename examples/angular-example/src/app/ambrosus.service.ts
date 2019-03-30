@@ -5,7 +5,7 @@ export class AmbrosusService {
   ambrosus: any;
 
   constructor() {
-    const apiEndpoint = 'https://gateway-test.ambrosus.com';
+    const apiEndpoint = 'https://hermes.ambrosus-test.com';
 
     this.ambrosus = new AmbrosusSDK({
       apiEndpoint: apiEndpoint
