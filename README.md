@@ -57,20 +57,20 @@ The ideal way to pass the properties is using the environment variables.
 |apiEndpoint | string | API endpoint of the ambrosus network. | https://hermes.ambrosus-test.com |
 
 Intializing SDK to request or querying data.
-```
+```javascript
 const ambrosus = new AmbrosusSDK({
   apiEndpoint: 'https://hermes.ambrosus-test.com',
 });
 ```
 Initializing SDK to create assets and events.
-```
+```javascript
 ambrosus = new AmbrosusSDK({
   secret: '0x6823520c03ad7b17....',
   apiEndpoint: 'https://hermes.ambrosus-test.com',
 });
 ```
 Initializing SDK to work with the blockchain network.
-```
+```javascript
 ambrosus = new AmbrosusSDK({
   rpcURL: 'https://network.ambrosus-dev.com',
   secret: '0x6823520c03ad7b17....',
