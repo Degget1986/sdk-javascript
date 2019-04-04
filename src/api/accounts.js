@@ -30,8 +30,8 @@ class Accounts {
       */
     addAccount (params) {
         return new Promise((resolve, reject) => {
-            if (!this._settings.secret) {
-                return reject(rejectResponse('Secret key is required to add an account.'));
+            if (!this._settings.headers['Authorization']) {
+                return reject(rejectResponse('Authorization header is required to create an account'));
             } else if (!params) {
                 return reject(rejectResponse('Create account params are required to create an account.'));
             }

@@ -1,6 +1,6 @@
 {
     "name": "ambrosus-javascript-sdk",
-    "version": "0.12.0",
+    "version": "2.0.0",
     "description": "Client SDK to simplify connecting to the Ambrosus API",
     "main": "lib/ambrosus.cjs.min.js",
     "module": "lib/ambrosus.umd.min.js",
@@ -9,7 +9,7 @@
         "test": "test"
     },
     "scripts": {
-        "build": "rollup --config rollup.config.prod.js && npm run test && npm run build:docs && npm run docs",
+        "build": "rollup --config rollup.config.prod.js && npm run test && npm run docs",
         "dev": "rollup --config rollup.config.dev.js --watch",
         "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
         "build:docs": "cd docs && npm run build",

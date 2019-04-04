@@ -7,6 +7,7 @@
     "ambrosus-javascript-sdk": "^0.4.3",
     "commander": "^2.9.0",
     "inquirer": "^3.0.6",
+    "web3": "^1.0.0-beta.35",
     "xhr2": "^0.1.4"
   },
   "scripts": {

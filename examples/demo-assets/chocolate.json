@@ -2,7 +2,6 @@
     {
         "content": {
             "idData": {
-                "assetId": "{{assetId}}",
                 "createdBy": "{{userAddress}}",
                 "accessLevel": 0,
                 "timestamp": 1496250888
@@ -21,10 +20,10 @@
                     "Product Information":{
                         "attributes":"No-GMOs, Vegan, Gluten Free, Kosher, Soy Free",
                         "ingredients":"Organic cocoa beans, organic sugar, organic cocoa butter",
-                        "Brand": "Madecasse"        
+                        "Brand": "Madecasse"
                     },
                     "Batch Information":{
-                        "Origin":"Madagascar"    
+                        "Origin":"Madagascar"
                     }
                 },
                 {
@@ -37,7 +36,7 @@
                         "batchId":["0x...."],
                         "Lot": ["6126L70313EJ184"]
                     }
-                }                                                      
+                }
             ]
         }
     },
@@ -75,7 +74,7 @@
                     "country":"MG",
                     "locationId":"809c578721b74cae1d56504594819285",
                     "GLN":9501101530003
-                }                                                       
+                }
             ]
         }
     },
@@ -97,13 +96,13 @@
                     "Harvest Information":{
                         "Total volume": "80 grams",
                         "Harvest Date": "03.01.2019",
-                        "Brand": "Codefa"    
+                        "Brand": "Codefa"
                     },
                     "group1":{
                         "cap type": "spray cap",
-                        "model": "Brumes de Saveurs"    
+                        "model": "Brumes de Saveurs"
                     }
-                }                                                     
+                }
             ]
         }
     },
@@ -142,7 +141,7 @@
                     "country":"MG",
                     "locationId":"809c578721b74cae1d56504594819285",
                     "GLN":9501101530003
-                }                                                     
+                }
             ]
         }
     },
@@ -181,7 +180,7 @@
                     "country":"MG",
                     "locationId":"809c578721b74cae1d56504594819285",
                     "GLN":9501101530003
-                }                                                      
+                }
             ]
         }
     },
@@ -215,7 +214,7 @@
                     "country":"UK",
                     "locationId":"809c578721b74cae1d56504594819285",
                     "GLN":9501101530003
-                }                                                             
+                }
             ]
         }
     },
@@ -249,7 +248,7 @@
                     "country":"UK",
                     "locationId":"809c578721b74cae1d56504594819285",
                     "GLN":9501101530003
-                }                                                     
+                }
             ]
         }
     },
@@ -268,7 +267,7 @@
                     "documents" : {
                         "default" : "https://image.ibb.co/mUrgvH/HO.jpg"
                     }
-                },                
+                },
                 {
                     "type": "ambrosus.event.location",
                     "location": {
@@ -283,7 +282,7 @@
                     "country":"UK",
                     "locationId":"809c578721b74cae1d56504594819285",
                     "GLN":9501101530003
-                }                                                             
+                }
             ]
         }
     },
@@ -304,7 +303,7 @@
                             "url":"http://...",
                             "id": "00394009304",
                             "customer-id":"900394"
-                        } 
+                        }
                     }
                 },
                 {
@@ -321,7 +320,7 @@
                     "country":"UK",
                     "locationId":"809c578721b74cae1d56504594819285",
                     "GLN":9501101530003
-                }                                                     
+                }
             ]
         }
     }

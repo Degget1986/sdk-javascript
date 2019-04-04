@@ -3,6 +3,10 @@
  * Email: tech@ambrosus.com
  */
 import Web3 from 'web3';
+import {
+    rejectResponse
+} from '../responseHandler';
+
 const web3 = new Web3();
 
 /**
@@ -97,4 +101,55 @@ export const randomHex = (bytes) => {
  */
 export const toHex = (value) => {
     return web3.utils.toHex(value);
+};
+
+/**
+ * Calculate the hash value of the given data
+ *
+ * @param {Object} data - Can be object, array or a string
+ * @returns {string} Hashed Message
+ */
+export const calculateHash = (data) => {
+    if (!data) {
+        return rejectResponse('Please provide some data');
+    }
+    return hashMessage(serializeForHashing(data));
+};
+
+/**
+ * Hashes the given message passed
+ * The data will be UTF-8 HEX decoded and enveloped as follows:
+ * "\x19Ethereum Signed Message:\n" + message.length + message and hashed using keccak256.
+ *
+ * @param {String} data A message to hash, if its HEX it will be UTF8 decoded before.
+ * @returns {String} Hashed Message
+ */
+export const hashMessage = (message) => {
+    return web3.eth.accounts.hashMessage(message);
+};
+
+/**
+ * Serialize Object
+ *
+ * @function serializeForHashing
+ * @param {Object | Array | string} object
+ * @returns {string} serializedString
+ */
+export const serializeForHashing = (object) => {
+    const isDict = (subject) => typeof subject === 'object' && !Array.isArray(subject);
+    const isString = (subject) => typeof subject === 'string';
+    const isArray = (subject) => Array.isArray(subject);
+
+    if (isDict(object)) {
+        const content = Object.keys(object).sort().map((key) => `"${key}":${serializeForHashing(object[key])}`).join(',');
+
+        return `{${content}}`;
+    } else if (isArray(object)) {
+        const content = object.map((item) => serializeForHashing(item)).join(',');
+
+        return `[${content}]`;
+    } else if (isString(object)) {
+        return `"${object}"`;
+    }
+    return object.toString();
 };

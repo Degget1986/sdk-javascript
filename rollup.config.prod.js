@@ -22,14 +22,20 @@ export default {
         file: pkg.main,
         format: 'cjs',
         banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
-        sourcemap: true
+        sourcemap: true,
+        globals: {
+            web3: 'web3'
+        }
     },
     {
         file: pkg.module,
         format: 'umd',
         banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
         name: 'AmbrosusSDK',
-        sourcemap: true
+        sourcemap: true,
+        globals: {
+            web3: 'web3'
+        }
     }],
     plugins: [
         del({

@@ -44,9 +44,11 @@ const Navigation = () => {
           </ul>
         </li>
         <li className={isActive(['example', 'assets', 'get-asset', 'get-assets', 'create-asset',
-          'events', 'get-event', 'get-events', 'create-event', 'transaction', 'get-transaction',
-          'get-transaction-receipt', 'get-transaction-count', 'send-transaction',
-          'blockchain', 'pk-pair', 'balance', 'block', 'latest-block', 'block-account'])}>
+          'events', 'get-event', 'get-events', 'create-event', 'parse-event',
+          'transaction', 'get-transaction', 'get-transaction-receipt', 'get-transaction-count', 'send-transaction',
+          'blocks', 'pk-pair', 'balance', 'block', 'latest-block', 'block-account',
+          'bundles', 'get-bundle',
+          'service', 'block-account', 'pk-pair', 'encrypt-pk', 'decrypt-pk', 'sign-data', 'verify-event', 'rpc-valid'])}>
           <NavLink to='/#example' scroll={onScroll('example')}>Examples
             <SVG className='arrow-right' wrapper='span' src={rightArrow} />
           </NavLink>
@@ -67,7 +69,7 @@ const Navigation = () => {
                 </li>
               </ul>
             </li>
-            <li className={isActive(['events', 'get-event', 'get-events', 'create-event'])}>
+            <li className={isActive(['events', 'get-event', 'get-events', 'create-event', 'parse-event'])}>
               <NavLink scroll={onScroll('events')} to='/#events'>Events
                 <SVG className='arrow-right' wrapper='span' src={rightArrow} />
               </NavLink>
@@ -81,9 +83,22 @@ const Navigation = () => {
                 <li className={isActive(['create-event'])}>
                   <NavLink scroll={onScroll('create-event')} to='/#create-event'>Create Events</NavLink>
                 </li>
+                <li className={isActive(['parse-event'])}>
+                  <NavLink scroll={onScroll('parse-event')} to='/#parse-event'>Parse Events</NavLink>
+                </li>
               </ul>
             </li>
-            <li className={isActive(['transaction', 'get-transaction', 'get-transaction-receipt', 'get-transaction-count', 'send-transaction'])}>
+            <li className={isActive(['bundles', 'get-bundle'])}>
+              <NavLink scroll={onScroll('transaction')} to='/#bundles'>Bundles
+                <SVG className='arrow-right' wrapper='span' src={rightArrow} />
+              </NavLink>
+              <ul className='sub-data'>
+                <li className={isActive(['get-bundle'])}>
+                  <NavLink scroll={onScroll('get-bundle')} to='/#get-bundle'>Get Bundle</NavLink>
+                </li>
+              </ul>
+            </li>
+            <li className={isActive(['transaction', 'balance', 'get-transaction', 'get-transaction-receipt', 'get-transaction-count', 'send-transaction'])}>
               <NavLink scroll={onScroll('transaction')} to='/#transaction'>Transaction
                 <SVG className='arrow-right' wrapper='span' src={rightArrow} />
               </NavLink>
@@ -100,27 +115,49 @@ const Navigation = () => {
                 <li className={isActive(['send-transaction'])}>
                   <NavLink scroll={onScroll('send-transaction')} to='/#send-transaction'>Send Transaction</NavLink>
                 </li>
-              </ul>
-            </li>
-            <li className={isActive(['blockchain', 'pk-pair', 'balance', 'block', 'latest-block', 'block-account'])}>
-              <NavLink scroll={onScroll('blockchain')} to='/#transaction'>Blockchain
-                <SVG className='arrow-right' wrapper='span' src={rightArrow} />
-              </NavLink>
-              <ul className='sub-data'>
-                <li className={isActive(['pk-pair'])}>
-                  <NavLink scroll={onScroll('pk-pair')} to='/#pk-pair'>Private Key Pair</NavLink>
-                </li>
                 <li className={isActive(['balance'])}>
                   <NavLink scroll={onScroll('balance')} to='/#balance'>Get Balance</NavLink>
                 </li>
+              </ul>
+            </li>
+            <li className={isActive(['blocks', 'block', 'latest-block'])}>
+              <NavLink scroll={onScroll('blocks')} to='/#transaction'>Blocks
+                <SVG className='arrow-right' wrapper='span' src={rightArrow} />
+              </NavLink>
+              <ul className='sub-data'>
                 <li className={isActive(['block'])}>
                   <NavLink scroll={onScroll('block')} to='/#block'>Get Block</NavLink>
                 </li>
                 <li className={isActive(['latest-block'])}>
                   <NavLink scroll={onScroll('latest-block')} to='/#latest-block'>Latest Block</NavLink>
                 </li>
+              </ul>
+            </li>
+            <li className={isActive(['service', 'block-account', 'pk-pair', 'encrypt-pk', 'decrypt-pk', 'sign-data', 'verify-event', 'rpc-valid'])}>
+              <NavLink scroll={onScroll('service')} to='/#service'>Service
+                <SVG className='arrow-right' wrapper='span' src={rightArrow} />
+              </NavLink>
+              <ul className='sub-data'>
                 <li className={isActive(['block-account'])}>
                   <NavLink scroll={onScroll('block-account')} to='/#block-account'>Get Account</NavLink>
+                </li>
+                <li className={isActive(['pk-pair'])}>
+                  <NavLink scroll={onScroll('pk-pair')} to='/#pk-pair'>Private Key Pair</NavLink>
+                </li>
+                <li className={isActive(['encrypt-pk'])}>
+                  <NavLink scroll={onScroll('encrypt-pk')} to='/#encrypt-pk'>Encrypt PK</NavLink>
+                </li>
+                <li className={isActive(['decrypt-pk'])}>
+                  <NavLink scroll={onScroll('decrypt-pk')} to='/#decrypt-pk'>Decrypt PK</NavLink>
+                </li>
+                <li className={isActive(['sign-data'])}>
+                  <NavLink scroll={onScroll('sign-data')} to='/#sign-data'>Sign Data</NavLink>
+                </li>
+                <li className={isActive(['verify-event'])}>
+                  <NavLink scroll={onScroll('verify-event')} to='/#verify-event'>Verify Event</NavLink>
+                </li>
+                <li className={isActive(['rpc-valid'])}>
+                  <NavLink scroll={onScroll('rpc-valid')} to='/#rpc-valid'>RPC Validation</NavLink>
                 </li>
               </ul>
             </li>

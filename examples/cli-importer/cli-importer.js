@@ -3,7 +3,9 @@ global.XMLHttpRequest = require('xhr2');
 const fs = require('fs');
 const program = require('commander');
 const { prompt } = require('inquirer');
-const AmbrosusSDK = require('../../lib/ambrosus.cjs.min.js');
+// eslint-disable-next-line no-unused-vars
+const Web3 = require('web3');
+const AmbrosusSDK = require('../../lib/ambrosus.cjs.js');
 
 program
     .version('0.0.1')
@@ -41,6 +43,7 @@ initializeSdk = jsonSettings => {
             if (err) console.log('Incorrect File');
             var assetInfo = JSON.parse(data);
             createAsset(assetInfo);
+            verifyEvents('0x52933fb3cc270a214ae304285582ad472413bd0b145110de53bd76a9c1193f66');
         });
     }
 };
@@ -82,6 +85,12 @@ readExtension = fileName => {
         console.log('Please upload a json file');
         return false;
     }
+};
+
+verifyEvents = (eventId) => {
+    ambrosus.service.verifyEvents(eventId).then(verified => {
+        console.log(verified);
+    });
 };
 
 program.parse(process.argv);

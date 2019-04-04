@@ -19,7 +19,10 @@ import {
     parseEvents
 } from './events-utils';
 
-import { timeSince, validTimestamp } from './time-utils';
+import {
+    timeSince,
+    validTimestamp
+} from './time-utils';
 
 /**
  * Check if the passed parameter is a valid object
@@ -63,32 +66,6 @@ const serializeParams = params => {
         serializeParams += key + '=' + encodeURIComponent(params[key]);
     }
     return serializeParams;
-};
-
-/**
- * Serialize Object
- *
- * @function serializeForHashing
- * @param {Object | Array | string} object
- * @returns {string} serializedString
- */
-const serializeForHashing = (object) => {
-    const isDict = (subject) => typeof subject === 'object' && !Array.isArray(subject);
-    const isString = (subject) => typeof subject === 'string';
-    const isArray = (subject) => Array.isArray(subject);
-
-    if (isDict(object)) {
-        const content = Object.keys(object).sort().map((key) => `"${key}":${serializeForHashing(object[key])}`).join(',');
-
-        return `{${content}}`;
-    } else if (isArray(object)) {
-        const content = object.map((item) => serializeForHashing(item)).join(',');
-
-        return `[${content}]`;
-    } else if (isString(object)) {
-        return `"${object}"`;
-    }
-    return object.toString();
 };
 
 /**
@@ -163,7 +140,6 @@ export default {
     checkTimeStamp,
     parseEvents,
     serializeParams,
-    serializeForHashing,
     utf8Encode,
     base64url,
     checkAccessLevel,
@@ -182,5 +158,8 @@ export default {
     fromWei: tokenUtils.fromWei,
     toWei: tokenUtils.toWei,
     toHex: tokenUtils.toHex,
-    randomHex: tokenUtils.randomHex
+    randomHex: tokenUtils.randomHex,
+    hashMessage: tokenUtils.hashMessage,
+    calculateHash: tokenUtils.calculateHash,
+    serializeForHashing: tokenUtils.serializeForHashing
 };

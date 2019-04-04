@@ -95,6 +95,43 @@ NOTE: Be sure to merge the latest from "upstream" before making a pull request!
 
 It is mandatory to follow our code of conduct described in [CONTRIBUTING.md](https://github.com/ambrosus/sdk-javascript/blob/master/CONTRIBUTING.md).
 
+## API Coverage
+
+* Assets
+  - [x] Get by ID.
+  - [x] Get by Object.
+  - [ ] Get by identifiers.
+  - [x] Get multiple Assets.
+  - [x] Create Asset.
+* Events
+  - [x] Get by ID.
+  - [x] Get by Object.
+  - [ ] Get by identifiers.
+  - [x] Get multiple Events.
+  - [x] Create Event
+  - [x] Parse Events.
+* Bundles
+  - [x] Get Bundle by ID.
+  - [x] Get Bundle by object
+* Accounts
+  - [x] Add Account.
+* Transaction
+  - [x] Send Transaction.
+  - [x] Get Transaction.
+  - [x] Get Transaction Receipt.
+  - [x] Get Transaction Count.
+* Blocks
+  - [x] Get Blocks.
+  - [x] Get Latest Block.
+* Service
+  - [x] Get Private Key Pair.
+  - [x] Get Account.
+  - [x] Get Address.
+  - [x] Sign
+  - [x] Encrypt Private key.
+  - [x] Decrypt Private key.
+  - [x] Verify Events.
+  - [x] RPC Validation.
 
 ## License
 

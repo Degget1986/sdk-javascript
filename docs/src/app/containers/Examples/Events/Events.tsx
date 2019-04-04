@@ -10,6 +10,7 @@ export default function () {
     const getEvent = useRef<HTMLDivElement>(null);
     const getEvents = useRef<HTMLDivElement>(null);
     const createEvent = useRef<HTMLDivElement>(null);
+    const parseEvent = useRef<HTMLDivElement>(null);
     const { setHash } = useContext(AppContext);
 
     useEffect(() => {
@@ -29,6 +30,8 @@ export default function () {
             setHash('get-events');
         } else if (Math.abs(window.scrollY - createEvent.current!.offsetTop) <= 30) {
             setHash('create-event');
+        } else if (Math.abs(window.scrollY - parseEvent.current!.offsetTop) <= 30) {
+            setHash('parse-event');
         }
     };
 
@@ -71,13 +74,19 @@ export default function () {
 const ambrosus = new AmbrosusSDK({
     apiEndpoint: 'https://hermes.ambrosus-test.com',
 });
-ambrosus.events.getEventById(eventId).then(function(response) {
+ambrosus.events.getEvent(eventId).then(function(response) {
     // Response if successful
     console.log(response);
   }).catch(function(error) {
     // Error if error
     console.log(error);
   );
+// OR you can pass an object
+ambrosus.events.getEvent({ eventId: '...' }).then((response) => {
+    console.log(response);
+}).catch(err => {
+    console.log(err);
+});
 `}
                         </code>
                     </pre>
@@ -138,6 +147,7 @@ ambrosus.events.getEventById(eventId).then(function(response) {
                             ['toTimestamp', 'optional', 'number', 'Latest timestamp (date in seconds)', '1503424923'],
                             ['data', 'optional', 'string', 'Filter events by object properties in event.content.data array', 'data[type]=ambrosus.event.info'],
                             ['perPage', 'optional', 'number', 'Number of events to return per page', '20'],
+                            ['createdBy', 'optional', 'string', 'Address of the user', '0x9687a70513047dc6Ee966D69bD0C07FFb1102098'],
                         ]}
                     />
                     <pre>
@@ -297,6 +307,84 @@ ambrosus.events.createEvent(assetId, eventData).then(function(response) {
     "status": 400 or 403,
     "data": null,
     "message": "Invalid input" or "The createdBy user is not registered or has no "create_entity" permission"
+}`}
+                        </code>
+                    </pre>
+                </div>
+            </div>
+            <div ref={parseEvent} id='parse-event' className='para'>
+                <h4>
+                    <CopyToClipboard text={`${window.location.origin}/#parse-event`}>
+                        <SVG className='link' src={link} wrapper='span' />
+                    </CopyToClipboard>
+                    Parse Events</h4>
+                <div style={{ paddingBottom: '0' }} className='para'>
+                    <p>Parses array of events to create an array which can be used to display data</p>
+                    <pre>
+                        <code className='language-javascript line-numbers'>
+                            {`import AmbrosusSDK from 'ambrosus-javascript-sdk';
+const ambrosus = new AmbrosusSDK({
+    apiEndpoint: 'https://hermes.ambrosus-test.com',
+});
+ambrosus.events.parseEvents(eventArray)
+.then(console.log);`}
+                        </code>
+                    </pre>
+                    <p>Response Example</p>
+                    <pre>
+                        <code className='language-javascript line-numbers'>
+                            {`{
+	"status": 200,
+	"data": {
+        "events": [{
+			"type": "customs",
+			"name": "Arrived at Customs",
+			"documents": {
+				"import-document": {
+					"url": "https://image.ibb.co/mUrgvH/HO.jpg"
+				},
+				"bill-of-lading": {
+					"url": "https://image.ibb.co/mUrgvH/HO.jpg"
+				}
+			},
+			"timestamp": 1496250888,
+			"author": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+			"action": "customs",
+			"eventId": "0xe221db6923e9c56440d8c374f8b11077431b4ae9a8c40fa4da5472857e2a4253",
+			"location": {
+				"type": "location",
+				"location": {
+					"type": "Feature",
+					"geometry": {
+						"type": "Point",
+						"coordinates": [50.909704, -1.4357131]
+					}
+				},
+				"name": "Port of Southampton",
+				"city": "Southampton",
+				"country": "MG",
+				"locationId": "809c578721b74cae1d56504594819285",
+				"GLN": 9501101530003,
+				"timestamp": 1496250888,
+				"author": "0x9687a70513047dc6Ee966D69bD0C07FFb1102098",
+				"action": "location",
+				"eventId": "0xe221db6923e9c56440d8c374f8b11077431b4ae9a8c40fa4da5472857e2a4253"
+			}
+		},...
+		}
+	},
+	"message": "success"
+}`}
+                        </code>
+                    </pre>
+                    <p>Error Response if array is not provided</p>
+                    <pre>
+                        <code className='language-javascript line-numbers'>
+                            {`
+{
+	status: 400,
+	data: null,
+	message: 'Results array is missing.'
 }`}
                         </code>
                     </pre>

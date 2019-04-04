@@ -150,4 +150,30 @@ describe('Utils.js', () => {
             expect(utils.getName({})).to.equal('No title');
         });
     });
+
+    describe('Time Utils', () => {
+        it('It should return date from the provided date', () => {
+            const date = new Date();
+            date.setDate(date.getHours() - 2);
+            expect(utils.timeSince(date)).to.be.ok;
+        });
+
+        it('It should return true for valid date', () => {
+            expect(utils.validTimestamp(new Date())).to.be.ok;
+        });
+    });
+
+    describe('Calculate the hash', () => {
+        it('it should calculate the hash for the data', (done) => {
+            const hash = utils.calculateHash('test data');
+            expect(hash).to.be.a('string');
+            done();
+        });
+
+        it('it should throw error if no data provided', (done) => {
+            const hash = utils.calculateHash();
+            expect(hash.status).to.be.equal(400);
+            done();
+        });
+    });
 });

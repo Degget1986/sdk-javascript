@@ -35,10 +35,13 @@ class Assets {
      * @param {string} assetId - Id of the asset to be searched.
      * @returns {Object} asset
      */
-    getAssetById(assetId) {
+    getAsset(assetId) {
         return new Promise((resolve, reject) => {
             if (!assetId) {
                 return reject(rejectResponse('Asset ID is missing.'));
+            }
+            if (assetId.assetId) {
+                assetId = assetId.assetId;
             }
             getRequest(`${this._settings.apiEndpoint}/assets/${encodeURIComponent(assetId)}`,
                 this._settings.headers)
@@ -74,8 +77,8 @@ class Assets {
         return new Promise((resolve, reject) => {
             if (typeof asset !== 'object') {
                 return reject(rejectResponse('asset should be a json object or empty'));
-            } else if (!this._settings.secret) {
-                return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
+            } else if (!this._settings.headers['Authorization']) {
+                return reject(rejectResponse('Authorization header is required to create an asset'));
             }
 
             const idData = {
@@ -85,7 +88,7 @@ class Assets {
             };
 
             if (asset && asset.content && asset.content.data) {
-                idData['dataHash'] = this.service.hashMessage(serializeForHashing(asset.content.data));
+                idData['dataHash'] = utils.calculateHash(asset.content.data);
             }
 
             const params = {

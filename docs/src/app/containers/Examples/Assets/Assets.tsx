@@ -70,13 +70,19 @@ Importantly, an Asset functions as a handle of Events and possesses an <i>idData
 const ambrosus = new AmbrosusSDK({
     apiEndpoint: 'https://hermes.ambrosus-test.com',
 });
-ambrosus.assets.getAssetById(assetId).then(function(response) {
+ambrosus.assets.getAsset(assetId).then(function(response) {
     // Successful request
     console.log(response);
 }).catch(function(error) {
     // Catching the error
     console.log(error);
 );
+// OR you can pass an object
+ambrosus.assets.getAsset({assetId: '...'}).then((response) => {
+    console.log(response);
+}).catch((error) => {
+    console.log(error);
+});
 `}
                         </code>
                     </pre>
@@ -134,6 +140,9 @@ ambrosus.assets.getAssetById(assetId).then(function(response) {
                         body={[
                             ['perPage', 'optional', 'number', 'Number of assets to return per page', '20'],
                             ['createdBy', 'optional', 'string', 'Address of the user', '0x9687a70513047dc6Ee966D69bD0C07FFb1102098'],
+                            ['page', 'optional', 'number', 'Optional number of page (more search results than specified in perPage parameter concludes more than one page)', '1'],
+                            ['fromTimestamp', 'optional', 'number', 'earliest timestamp for the asset', 1554367966122],
+                            ['toTimestamp', 'optional', 'number', 'latest timestamp for the asset', 1554367966122],
                         ]} />
                     <pre>
                         <code className='language-javascript line-numbers'>

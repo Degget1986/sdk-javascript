@@ -7,7 +7,9 @@ import link from '../../../assets/svg/link.svg';
 import Assets from './Assets';
 import Events from './Events';
 import Transactions from './Transactions';
-import Blockchain from './Blockchain';
+import Blocks from './Blocks';
+import Service from './Service';
+import Bundles from './Bundles';
 
 const Examples = () => {
     const {setHash} = useContext(AppContext);
@@ -37,8 +39,10 @@ const Examples = () => {
         <hr />
         <Assets />
         <Events />
+        <Bundles />
         <Transactions />
-        <Blockchain />
+        <Blocks />
+        <Service />
     </div>);
 };
 

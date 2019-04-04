@@ -117,7 +117,14 @@ import AmbrosusSDK from 'ambrosus-javascript-sdk'`}
 {`const ambrosus = new AmbrosusSDK({
   secret: '0x6823520c03ad7b17....',
   apiEndpoint: 'https://hermes.ambrosus-test.com',
-});`}
+});
+// OR you can just provide the headers with Auth token in it if you dont want to provide secret key
+const ambrosus = new AmbrosusSDK({
+  headers: {
+    Authorization: 'AMB ....',
+  },
+  apiEndpoint: 'https://hermes.ambrosus-test.com',
+})`}
               </code>
             </pre>
             Initializing SDK to work with the blockchain network.

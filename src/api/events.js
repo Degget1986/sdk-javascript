@@ -33,10 +33,13 @@ class Events {
      * @param {string} eventId - Id of the event
      * @returns {Object} event
      */
-    getEventById(eventId) {
+    getEvent(eventId) {
         return new Promise((resolve, reject) => {
             if (!eventId) {
                 return reject(rejectResponse('Event ID is missing.'));
+            }
+            if (eventId.eventId) {
+                eventId = eventId.eventId;
             }
 
             getRequest(`${this._settings.apiEndpoint}/events/${encodeURIComponent(eventId)}`, this._settings.headers)
@@ -88,8 +91,8 @@ class Events {
         return new Promise((resolve, reject) => {
             if (typeof event !== 'object') {
                 return reject(rejectResponse('event should be a json object'));
-            } else if (!this._settings.secret) {
-                return reject(rejectResponse('Secret missing: Please initialize the SDK with your secret key'));
+            } else if (!this._settings.headers['Authorization']) {
+                return reject(rejectResponse('Authorization header is required to create an event'));
             }
 
             if (!assetId) {
@@ -108,7 +111,7 @@ class Events {
                     timestamp: utils.checkTimeStamp(event),
                     accessLevel: utils.checkAccessLevel(event),
                     createdBy: this._settings.address,
-                    dataHash: this.service.hashMessage(utils.serializeForHashing(event.content.data))
+                    dataHash: utils.calculateHash(event.content.data)
                 };
 
                 params = {
@@ -127,23 +130,6 @@ class Events {
                     this.eventHandler.emit('event:created');
                     resolve(response);
                 }).catch(error => reject(error));
-        });
-    }
-
-    /**
-     * Returns this bundle with respect to id
-     *
-     * @param {string} bundleId - Id of the bundle
-     * @returns {Object} bundle
-     */
-    getBundleById(bundleId) {
-        return new Promise((resolve, reject) => {
-            if (!bundleId) {
-                return reject(rejectResponse('Bundle ID is missing.'));
-            }
-            getRequest(`${this._settings.apiEndpoint}/bundle/${encodeURIComponent(bundleId)}`, this._settings.headers)
-                .then(response => resolve(response))
-                .catch(error => reject(error));
         });
     }
 

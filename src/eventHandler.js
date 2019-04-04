@@ -36,7 +36,9 @@ class EventHandler {
     off(type, func) {
         /* istanbul ignore next */
         type || (this.events = {});
+        /* istanbul ignore next */
         let list = this.events[type] || this.empty;
+        /* istanbul ignore next */
         let i = (list.length = func ? list.length : 0);
 
         /* istanbul ignore next */
@@ -55,6 +57,7 @@ class EventHandler {
     emit(type) {
         /* istanbul ignore next */
         let e = this.events[type] || this.empty;
+        /* istanbul ignore next */
         let list = e.length > 0 ? e.slice(0, e.length) : e;
         let i = 0;
         let j;
