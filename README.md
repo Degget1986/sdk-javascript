@@ -34,7 +34,7 @@ _To use Ambrosus SDK, you will need your **address** and **secret** key._\
 Now we can go to setup.
 
 ## Installation
-```bash
+```console
 $ npm install ambrosus-javascript-sdk --save
 ```
 
