@@ -11,9 +11,10 @@
     "scripts": {
         "build": "rollup --config rollup.config.prod.js && npm run test && npm run docs",
         "dev": "rollup --config rollup.config.dev.js --watch",
-        "docs": "node_modules/.bin/jsdoc --configure .jsdoc.json --verbose",
-        "build:docs": "cd docs && npm run build",
-        "test": "BABEL_ENV=test nyc --reporter=html --reporter=text mocha --require babel-core/register"
+        "test": "BABEL_ENV=test nyc --reporter=html --reporter=text mocha --require babel-core/register",
+        "release-patch": "npm version patch -m 'chore(*): patch version'",
+        "release-minor": "npm version minor -m 'chore(*): minor version'",
+        "release-major": "npm version major -m 'chore(*): major version'"
     },
     "repository": {
         "type": "git",
