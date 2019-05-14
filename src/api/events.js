@@ -16,10 +16,10 @@ import EventHandler from '../eventHandler';
  */
 class Events {
     /**
-     * Initializing the Events class
-     *
-     * @param {ClassProperties} - Properties to initialize the class object
-     */
+   * Initializing the Events class
+   *
+   * @param {ClassProperties} - Properties to initialize the class object
+   */
     constructor(settings, service) {
         this._settings = settings;
         this.service = service;
@@ -27,12 +27,12 @@ class Events {
     }
 
     /**
-     * Find Event by Id
-     *
-     * {@link https://ambrosus.docs.apiary.io/#reference/events/eventseventid/fetch-event Find Event by Id}
-     * @param {string} eventId - Id of the event
-     * @returns {Object} event
-     */
+   * Find Event by Id
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventseventid/fetch-event Find Event by Id}
+   * @param {string} eventId - Id of the event
+   * @returns {Object} event
+   */
     getEvent(eventId) {
         return new Promise((resolve, reject) => {
             if (!eventId) {
@@ -42,57 +42,69 @@ class Events {
                 eventId = eventId.eventId;
             }
 
-            getRequest(`${this._settings.apiEndpoint}/events/${encodeURIComponent(eventId)}`, this._settings.headers)
+            getRequest(
+                `${this._settings.apiEndpoint}/events/${encodeURIComponent(eventId)}`,
+                this._settings.headers
+            )
                 .then(response => resolve(response))
                 .catch(error => reject(error));
         });
     }
 
     /**
-     * Get all Events with the matching params
-     *
-     * {@link https://ambrosus.docs.apiary.io/#reference/events/eventsassetidfromtimestamptotimestampperpagepagecreatedbydata/find-events Find Events}
-     * @param {Object} params - Properties of the events
-     * @returns {Object} events
-     */
+   * Get all Events with the matching params
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/eventsassetidfromtimestamptotimestampperpagepagecreatedbydata/find-events Find Events}
+   * @param {Object} params - Properties of the events
+   * @returns {Object} events
+   */
     getEvents(params) {
         return new Promise((resolve, reject) => {
-            getRequest(`${this._settings.apiEndpoint}/events?${utils.serializeParams(params)}`, this._settings.headers)
+            getRequest(
+                `${this._settings.apiEndpoint}/events?${utils.serializeParams(params)}`,
+                this._settings.headers
+            )
                 .then(response => resolve(response))
                 .catch(error => reject(error));
         });
     }
 
     /**
-     * Create a new event.
-     *
-     * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
-     * @param {string} assetId - Corresponding asset Id to the event
-     * @param {Object} params - Properties of the event
-     * @returns {Promise<Object>} Promise
-     */
+   * Create a new event.
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
+   * @param {string} assetId - Corresponding asset Id to the event
+   * @param {Object} params - Properties of the event
+   * @returns {Promise<Object>} Promise
+   */
     createSingleEvent(assetId, params) {
         return new Promise((resolve, reject) => {
-            postRequest(`${this._settings.apiEndpoint}/assets/${assetId}/events`, this._settings.headers, params)
+            postRequest(
+                `${this._settings.apiEndpoint}/assets/${assetId}/events`,
+                this._settings.headers,
+                params
+            )
                 .then(response => resolve(response))
                 .catch(error => reject(error));
         });
     }
 
     /**
-     * Creates a new Event.
-     *
-     * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
-     * @param {string} assetId - Corresponding asset Id to the event
-     * @param {Object} event - Properties of the events
-     * @returns {Object} eventResponse
-     */
+   * Creates a new Event.
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/events/assetsassetidevents/create-an-event Create a new Event}
+   * @param {string} assetId - Corresponding asset Id to the event
+   * @param {Object} event - Properties of the events
+   * @returns {Object} eventResponse
+   */
     createEvent(assetId, event) {
         return new Promise((resolve, reject) => {
             if (typeof event !== 'object') {
                 return reject(rejectResponse('event should be a json object'));
             } else if (!this._settings.headers['Authorization']) {
-                return reject(rejectResponse('Authorization header is required to create an event'));
+                return reject(
+                    rejectResponse('Authorization header is required to create an event')
+                );
             }
 
             if (!assetId) {
@@ -122,23 +134,26 @@ class Events {
                     }
                 };
             } else {
-                return reject(rejectResponse('Invalid data: No content found at content.data.'));
+                return reject(
+                    rejectResponse('Invalid data: No content found at content.data.')
+                );
             }
 
             return this.createSingleEvent(assetId, params)
-                .then((response) => {
+                .then(response => {
                     this.eventHandler.emit('event:created');
                     resolve(response);
-                }).catch(error => reject(error));
+                })
+                .catch(error => reject(error));
         });
     }
 
     /**
-     * Parse the provided events
-     *
-     * @param {Object} eventsArray - Array of events which is to be parsed
-     * @returns {Object} Reject Response or Success Response with parsed events
-     */
+   * Parse the provided events
+   *
+   * @param {Object} eventsArray - Array of events which is to be parsed
+   * @returns {Object} Reject Response or Success Response with parsed events
+   */
     parseEvents(eventsArray) {
         return new Promise((resolve, reject) => {
             if (eventsArray && eventsArray.results) {
