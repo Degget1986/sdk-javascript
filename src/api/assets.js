@@ -75,6 +75,7 @@ class Assets {
    *
    * {@link https://ambrosus.docs.apiary.io/#reference/asset/assets/create-an-asset Create a new Asset}
    * @param {Object} asset - Parameters to create a new asset.
+   * @params {Array} events - Events array
    * @returns {Object} assetResponse
    */
     createAsset(asset = {}, events = []) {
