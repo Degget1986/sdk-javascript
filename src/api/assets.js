@@ -83,10 +83,6 @@ class Assets {
         return new Promise((resolve, reject) => {
             if (typeof asset !== 'object') {
                 return reject(rejectResponse('asset should be a json object or empty'));
-            } else if (!this._settings.headers['Authorization']) {
-                return reject(
-                    rejectResponse('Authorization header is required to create an asset')
-                );
             }
 
             const idData = {
@@ -108,12 +104,12 @@ class Assets {
                 this._settings.headers,
                 params
             )
-                .then(async assetRes => {
+                .then(assetRes => {
                     if (events.length) {
                         const req = events.map(event => {
                             return this.events.createEvent(assetRes.data.assetId, event);
                         });
-                        await Promise.all(req);
+                        Promise.all(req).then();
                         this.eventHandler.emit('asset:created');
                         resolve(assetRes);
                     } else {

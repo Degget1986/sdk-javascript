@@ -9,32 +9,40 @@ const pkg = require('./package.json');
 export default {
     input: 'src/index.js',
     external: ['web3'],
-    output: [{
-        file: 'lib/ambrosus.cjs.js',
-        format: 'cjs',
-        banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
-        sourcemap: true,
-        globals: {
-            web3: 'web3'
+    output: [
+        {
+            file: 'lib/ambrosus.cjs.js',
+            format: 'cjs',
+            banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
+            sourcemap: true,
+            globals: {
+                web3: 'web3'
+            }
+        },
+        {
+            file: 'lib/ambrosus.js',
+            format: 'iife',
+            name: 'AmbrosusSDK',
+            banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
+            sourcemap: true,
+            globals: {
+                web3: 'web3'
+            }
         }
-    },
-    {
-        file: 'lib/ambrosus.js',
-        format: 'iife',
-        name: 'AmbrosusSDK',
-        banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
-        sourcemap: true,
-        globals: {
-            web3: 'web3'
-        }
-    }],
+    ],
     watch: {
         chokidar: true,
         exclude: ['node_modules/**']
     },
-    plugins: [eslint({
-        fix: true
-    }), json(), resolve({
-        modulesOnly: true
-    }), buble({ include: [/node_modules/] }), sourceMaps()]
+    plugins: [
+        eslint({
+            fix: true
+        }),
+        json(),
+        resolve({
+            modulesOnly: true
+        }),
+        buble({ transform: { generator: false }, include: [/node_modules/] }),
+        sourceMaps()
+    ]
 };

@@ -101,10 +101,6 @@ class Events {
         return new Promise((resolve, reject) => {
             if (typeof event !== 'object') {
                 return reject(rejectResponse('event should be a json object'));
-            } else if (!this._settings.headers['Authorization']) {
-                return reject(
-                    rejectResponse('Authorization header is required to create an event')
-                );
             }
 
             if (!assetId) {

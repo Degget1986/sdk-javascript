@@ -9,7 +9,7 @@
         "test": "test"
     },
     "scripts": {
-        "build": "rollup --config rollup.config.prod.js && npm run test && npm run docs",
+        "build": "rollup --config rollup.config.prod.js && npm run test",
         "dev": "rollup --config rollup.config.dev.js --watch",
         "test": "BABEL_ENV=test nyc --reporter=html --reporter=text mocha --require babel-core/register",
         "release-patch": "npm version patch -m 'chore(*): patch version'",
@@ -54,6 +54,7 @@
         "nyc": "^12.0.2",
         "request": "2.87.0",
         "rollup": "^1.4.1",
+        "rollup-plugin-async": "^1.2.0",
         "rollup-plugin-babel": "^3.0.4",
         "rollup-plugin-babel-minify": "^5.0.0",
         "rollup-plugin-buble": "^0.19.6",

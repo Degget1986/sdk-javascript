@@ -17,25 +17,31 @@ class Accounts {
    *
    * @param {ClassProperties} - Properties to initialize the class object
    */
-    constructor (settings) {
+    constructor(settings) {
         this._settings = settings;
     }
 
     /**
-      * Adds a new account
-      *
-      * {@link https://ambrosus.docs.apiary.io/#reference/account/accounts/add-account Add a new account}
-      * @param {Object} params Parameters to create a new Account
-      * @returns {Object} accountResponse
-      */
-    addAccount (params) {
+   * Adds a new account
+   *
+   * {@link https://ambrosus.docs.apiary.io/#reference/account/accounts/add-account Add a new account}
+   * @param {Object} params Parameters to create a new Account
+   * @returns {Object} accountResponse
+   */
+    addAccount(params) {
         return new Promise((resolve, reject) => {
-            if (!this._settings.headers['Authorization']) {
-                return reject(rejectResponse('Authorization header is required to create an account'));
-            } else if (!params) {
-                return reject(rejectResponse('Create account params are required to create an account.'));
+            if (!params) {
+                return reject(
+                    rejectResponse(
+                        'Create account params are required to create an account.'
+                    )
+                );
             }
-            postRequest(`${this._settings.apiEndpoint}/accounts`, this._settings.headers, params)
+            postRequest(
+                `${this._settings.apiEndpoint}/accounts`,
+                this._settings.headers,
+                params
+            )
                 .then(response => resolve(response))
                 .catch(error => reject(error));
         });

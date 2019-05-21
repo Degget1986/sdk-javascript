@@ -1,14 +1,18 @@
 describe('Given an instance of my api library', () => {
     describe('see if library is initialised', () => {
         it('Should have all properties', () => {
-            expect(Object.keys(lib)).to.have.members(['web3', '_settings', 'assets', 'events', 'accounts', 'bundles', 'transactions', 'blocks', 'service', 'contracts']);
-        });
-    });
-
-    describe('see if library is initialised with private key', () => {
-        it('_settings object should contain token property', () => {
-            expect(Object.keys(lib2._settings)).to.have.members(['secret', 'address', 'apiEndpoint', 'token', 'headers']);
-            expect(lib2._settings.headers).to.have.property('Authorization');
+            expect(Object.keys(lib)).to.have.members([
+                'web3',
+                '_settings',
+                'assets',
+                'events',
+                'accounts',
+                'bundles',
+                'transactions',
+                'blocks',
+                'service',
+                'contracts'
+            ]);
         });
     });
 
@@ -27,7 +31,7 @@ describe('Given an instance of my api library', () => {
     });
 
     describe('/GET token', () => {
-        it('it should generate the token given that SDK is initilized with a secret', (done) => {
+        it('it should generate the token given that SDK is initilized with a secret', done => {
             expect(lib2.getApiToken()).to.be.a('string');
             done();
         });

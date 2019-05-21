@@ -18,25 +18,27 @@ const pkg = require('./package.json');
 export default {
     input: 'src/index.js',
     external: ['web3'],
-    output: [{
-        file: pkg.main,
-        format: 'cjs',
-        banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
-        sourcemap: true,
-        globals: {
-            web3: 'web3'
+    output: [
+        {
+            file: pkg.main,
+            format: 'cjs',
+            banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
+            sourcemap: true,
+            globals: {
+                web3: 'web3'
+            }
+        },
+        {
+            file: pkg.module,
+            format: 'umd',
+            banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
+            name: 'AmbrosusSDK',
+            sourcemap: true,
+            globals: {
+                web3: 'web3'
+            }
         }
-    },
-    {
-        file: pkg.module,
-        format: 'umd',
-        banner: '/* Ambrosus Javascript SDK v' + pkg.version + ' */',
-        name: 'AmbrosusSDK',
-        sourcemap: true,
-        globals: {
-            web3: 'web3'
-        }
-    }],
+    ],
     plugins: [
         del({
             targets: 'lib/*'
@@ -45,7 +47,12 @@ export default {
         resolve({
             modulesOnly: true
         }),
-        buble(),
+        buble({
+            include: [/node_modules/],
+            transforms: {
+                generator: false
+            }
+        }),
         minify({
             comments: false
         }),
